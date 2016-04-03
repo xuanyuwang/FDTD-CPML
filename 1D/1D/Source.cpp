@@ -18,10 +18,10 @@ void src::checkout()
 
 void src::cmp(int current_timestep, float* src_p)
 {
-	float T, T0, vt, val_src, time;
+	float T0, vt, val_src, time;
 
 	time = current_timestep * dt;
-	T = 5e-10;
+	
 	T0 = 3 * T;
 	vt = (time - T0) / T;
 

@@ -28,7 +28,7 @@ def animate(i):
     line.set_data(x,y)
     return line,
 
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=300, interval=100, blit=True)
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=300, interval=50, blit=True)
 
 #anim.save('ba.mp4', fps = 30, extra_args=['-vcodec', 'libx264'])
 

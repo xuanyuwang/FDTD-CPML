@@ -26,3 +26,6 @@
 *.exe
 *.out
 *.app
+
+#ipython notebook checkpoints
+.ipynb_checkpoints/
