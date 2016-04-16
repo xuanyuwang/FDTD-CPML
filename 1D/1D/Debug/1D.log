@@ -1,16 +1,19 @@
-﻿Build started 4/3/2016 10:56:18 AM.
-     1>Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\1D\1D\1D.vcxproj" on node 2 (ClCompile target(s)).
+﻿Build started 4/16/2016 11:18:42 AM.
+     1>Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\1D\1D\1D.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cvl.cpp
-         cvl.cpp
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\1d\1d\cvl.cpp(28): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\1d\1d\cvl.cpp(33): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\1d\1d\cvl.cpp(53): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\1d\1d\cvl.cpp(65): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\1d\1d\cvl.cpp(77): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\1d\1d\cvl.cpp(89): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Done Building Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\1D\1D\1D.vcxproj" (ClCompile target(s)).
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\1d\1d\cvl.h(14): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\1d\1d\h.h(18): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\1D\Debug\1D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\1D\Debug\1D.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\1D\Debug\1D.lib" /MACHINE:X86 Debug\cvl.obj
+         Debug\E.obj
+         Debug\H.obj
+         Debug\main.obj
+         Debug\Source.obj
+         1D.vcxproj -> C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\1D\Debug\1D.exe
+     1>Done Building Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\1D\1D\1D.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.42
+Time Elapsed 00:00:00.68

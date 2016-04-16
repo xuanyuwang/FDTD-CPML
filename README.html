@@ -1683,7 +1683,7 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="fdtd-cpml">FDTD-CPML</h1>
 <p>FDTD with CPML (Coordinate stretched Perfectly Matched Layer)</p>
-<h2 id="1d-fdtd-ex-hy-">1D FDTD, Ex &amp; Hy.</h2>
+<h2 id="d-fdtd-ex-hy.">1D FDTD, Ex &amp; Hy.</h2>
 <h3 id="equations">Equations</h3>
 </div>
 </div>
@@ -1702,9 +1702,9 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\psi_{E_{wv}}(n) = 
+<p><span class="math display">\[\psi_{E_{wv}}(n) = 
 c_{w} \frac{\partial H_{v}(n)}{\partial w}+
-\exp(-\alpha \Delta t)\psi_{E_{wv}}(n-1)$$</p>
+\exp(-\alpha \Delta t)\psi_{E_{wv}}(n-1)\]</span></p>
 </div>
 </div>
 </div>
@@ -1713,7 +1713,7 @@ c_{w} \frac{\partial H_{v}(n)}{\partial w}+
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\psi_{H_{wv}}(n) = c_w \frac{\partial E_v(n)}{\partial w} + \exp(-\alpha\Delta t)\psi_{H_{wv}}(n-1)$$</p>
+<p><span class="math display">\[\psi_{H_{wv}}(n) = c_w \frac{\partial E_v(n)}{\partial w} + \exp(-\alpha\Delta t)\psi_{H_{wv}}(n-1)\]</span></p>
 </div>
 </div>
 </div>
@@ -1722,7 +1722,7 @@ c_{w} \frac{\partial H_{v}(n)}{\partial w}+
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\alpha = \frac{\sigma_w}{\epsilon_0 \kappa_w} + \frac{a_w}{\epsilon_0}$$</p>
+<p><span class="math display">\[\alpha = \frac{\sigma_w}{\epsilon_0 \kappa_w} + \frac{a_w}{\epsilon_0}\]</span></p>
 </div>
 </div>
 </div>
@@ -1731,13 +1731,13 @@ c_{w} \frac{\partial H_{v}(n)}{\partial w}+
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$c_{w}=\frac{\sigma_w}{\sigma_w\kappa_w+\kappa_w^2 a_w}\left\{
+<p><span class="math display">\[c_{w}=\frac{\sigma_w}{\sigma_w\kappa_w+\kappa_w^2 a_w}\left\{
     exp\left[
         -\left(
             \frac{\sigma_w}{\epsilon_0 \kappa_w}+\frac{a_w}{\epsilon_0}
             \right)\Delta t
         \right]-1
-    \right\}$$</p>
+    \right\}\]</span></p>
 </div>
 </div>
 </div>
@@ -1746,11 +1746,11 @@ c_{w} \frac{\partial H_{v}(n)}{\partial w}+
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$CA(m) = \frac{
+<p><span class="math display">\[CA(m) = \frac{
     1-\frac{\sigma(m)\Delta t}{2\epsilon(m)}
 }{
 1+\frac{\sigma(m)\Delta t}{2\epsilon(m)}    
-}$$</p>
+}\]</span></p>
 </div>
 </div>
 </div>
@@ -1759,11 +1759,11 @@ c_{w} \frac{\partial H_{v}(n)}{\partial w}+
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$CB(m)=\frac{
+<p><span class="math display">\[CB(m)=\frac{
     \frac{\Delta t}{\epsilon(m)}
 }{
  1+\frac{\sigma(m)\Delta t}{2\epsilon(m)}   
-}$$</p>
+}\]</span></p>
 </div>
 </div>
 </div>
@@ -1772,11 +1772,11 @@ c_{w} \frac{\partial H_{v}(n)}{\partial w}+
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$CP(m) = \frac{
+<p><span class="math display">\[CP(m) = \frac{
     1-\frac{\sigma_m(m)\Delta t}{2\mu(m)}
 }{
   1+\frac{\sigma_m(m)\Delta t}{2\mu(m)}  
-}$$</p>
+}\]</span></p>
 </div>
 </div>
 </div>
@@ -1785,11 +1785,11 @@ c_{w} \frac{\partial H_{v}(n)}{\partial w}+
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$CQ(m) = \frac{
+<p><span class="math display">\[CQ(m) = \frac{
     \frac{\Delta t}{\mu(m)}
 }{
     1+\frac{\sigma_m(m)\Delta t}{2\mu(m)}
-}$$</p>
+}\]</span></p>
 </div>
 </div>
 </div>
@@ -1798,7 +1798,7 @@ c_{w} \frac{\partial H_{v}(n)}{\partial w}+
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\kappa = \sqrt{\omega^2 \mu\epsilon}$$</p>
+<p><span class="math display">\[\kappa = \sqrt{\omega^2 \mu\epsilon}\]</span></p>
 </div>
 </div>
 </div>
@@ -1807,7 +1807,7 @@ c_{w} \frac{\partial H_{v}(n)}{\partial w}+
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="3d-equations">3D equations</h4>
+<h4 id="d-equations">3D equations</h4>
 </div>
 </div>
 </div>
@@ -1816,7 +1816,7 @@ c_{w} \frac{\partial H_{v}(n)}{\partial w}+
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$E_{x}^{n+1}\left( i + \frac{1}{2}, j, k \right) = CA(m)E_{x}^{n}\left( i + \frac{1}{2}, j, k \right)
+<p><span class="math display">\[E_{x}^{n+1}\left( i + \frac{1}{2}, j, k \right) = CA(m)E_{x}^{n}\left( i + \frac{1}{2}, j, k \right)
 +CB(m)\left[ 
 \frac{ H_z^{n+\frac{1}{2}}\left(i+\frac{1}{2},j+\frac{1}{2},k\right)-H_z^{n+\frac{1}{2}}\left(i+\frac{1}{2},j-\frac{1}{2},k\right) }{\kappa_y(m)\Delta y}
 -
@@ -1824,7 +1824,7 @@ c_{w} \frac{\partial H_{v}(n)}{\partial w}+
 \right]
 +CB(m)\left[
 \psi_{E_{yz}}^{n+\frac{1}{2}}\left(i+\frac{1}{2},j,k\right)-\psi_{E_{zy}}^{n+\frac{1}{2}}\left(i+\frac{1}{2},j,k\right)
-\right]$$</p>
+\right]\]</span></p>
 </div>
 </div>
 </div>
@@ -1842,14 +1842,14 @@ c_{w} \frac{\partial H_{v}(n)}{\partial w}+
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$H_y^{n+\frac{1}{2}}\left( i+\frac{1}{2},j,k+\frac{1}{2} \right) = CP(m)H_y^{n-\frac{1}{2}}\left( i+\frac{1}{2},j,k+\frac{1}{2} \right)\\
+<p><span class="math display">\[H_y^{n+\frac{1}{2}}\left( i+\frac{1}{2},j,k+\frac{1}{2} \right) = CP(m)H_y^{n-\frac{1}{2}}\left( i+\frac{1}{2},j,k+\frac{1}{2} \right)\\
 -CQ(m)\left[
 \frac{E_x^n\left(i+\frac{1}{2}, j, k+1\right) - E_z^n\left(i+\frac{1}{2},j,k\right)}{\kappa_y(m) \Delta z}
 -
 \frac{E_z^n\left(i+1,j,k+\frac{1}{2}\right) - E_z^n\left(i,j,k+\frac{1}{2}\right)}{\kappa_z(m) \Delta x}\right]\\
 -CQ(m)\left[
 \psi_{H_{zx}}^n\left(i+\frac{1}{2},j,k+\frac{1}{2}\right)-\psi^n_{H_{xz}}\left(i+\frac{1}{2},j,k+\frac{1}{2}\right)
-\right]$$</p>
+\right]\]</span></p>
 </div>
 </div>
 </div>
@@ -1867,12 +1867,12 @@ c_{w} \frac{\partial H_{v}(n)}{\partial w}+
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\psi_{E_{yz}}^{n+\frac{1}{2}}\left( i+\frac{1}{2},j,k \right)=\exp(-\alpha \Delta t)\psi_{E_{yz}}^{n-\frac{1}{2}}\left( i+\frac{1}{2},j,k \right)
+<p><span class="math display">\[\psi_{E_{yz}}^{n+\frac{1}{2}}\left( i+\frac{1}{2},j,k \right)=\exp(-\alpha \Delta t)\psi_{E_{yz}}^{n-\frac{1}{2}}\left( i+\frac{1}{2},j,k \right)
 +c_y(m)\frac{
 H_z^{n+1/2}(i+1/2,j,k+1/2)-H_z^{n+1/2}(i+1/2,j,k-1/2)
 }{
 \Delta y
-}$$</p>
+}\]</span></p>
 </div>
 </div>
 </div>
@@ -1890,7 +1890,7 @@ H_z^{n+1/2}(i+1/2,j,k+1/2)-H_z^{n+1/2}(i+1/2,j,k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="1d-equations-tem-mode">1D equations, TEM mode</h4>
+<h4 id="d-equations-tem-mode">1D equations, TEM mode</h4>
 </div>
 </div>
 </div>
@@ -1899,12 +1899,12 @@ H_z^{n+1/2}(i+1/2,j,k+1/2)-H_z^{n+1/2}(i+1/2,j,k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$E_{x}^{n+1}\left( k \right) = CA(m)E_{x}^{n}\left( k \right)\\
+<p><span class="math display">\[E_{x}^{n+1}\left( k \right) = CA(m)E_{x}^{n}\left( k \right)\\
 +CB(m)\left[ -\frac{H_y^{n+\frac{1}{2}}\left(k+\frac{1}{2}\right)-H_y^{n+\frac{1}{2}}\left(k-\frac{1}{2}\right)}{\kappa_z(m)\Delta z}
 \right]
 +CB(m)\left[
 \psi_{E_{yz}}^{n+\frac{1}{2}}\left(k\right)-\psi_{E_{zy}}^{n+\frac{1}{2}}\left(k\right)
-\right]$$</p>
+\right]\]</span></p>
 </div>
 </div>
 </div>
@@ -1922,12 +1922,12 @@ H_z^{n+1/2}(i+1/2,j,k+1/2)-H_z^{n+1/2}(i+1/2,j,k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$H_y^{n+\frac{1}{2}}\left(k+\frac{1}{2} \right) = CP(m)H_y^{n-\frac{1}{2}}\left( k+\frac{1}{2} \right)\\
+<p><span class="math display">\[H_y^{n+\frac{1}{2}}\left(k+\frac{1}{2} \right) = CP(m)H_y^{n-\frac{1}{2}}\left( k+\frac{1}{2} \right)\\
 -CQ(m)\left[
 \frac{E_x^n\left(k+1\right) - E_x^n\left(k\right)}{\kappa_z \Delta z}\right]
 -CQ(m)\left[
 \psi_{H_{zx}}^n\left(k+\frac{1}{2}\right)-\psi^n_{H_{xz}}\left(k+\frac{1}{2}\right)
-\right]$$</p>
+\right]\]</span></p>
 </div>
 </div>
 </div>
@@ -1945,12 +1945,12 @@ H_z^{n+1/2}(i+1/2,j,k+1/2)-H_z^{n+1/2}(i+1/2,j,k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\psi_{E_{yz}}^{n+\frac{1}{2}}\left( k \right)=\exp(-\alpha \Delta t)\psi_{E_{yz}}^{n-\frac{1}{2}}\left( k \right)
+<p><span class="math display">\[\psi_{E_{yz}}^{n+\frac{1}{2}}\left( k \right)=\exp(-\alpha \Delta t)\psi_{E_{yz}}^{n-\frac{1}{2}}\left( k \right)
 +c_y(m)\frac{
 H_z^{n+1/2}(k+1/2)-H_z^{n+1/2}(k-1/2)
 }{
 \Delta y
-}$$</p>
+}\]</span></p>
 </div>
 </div>
 </div>
@@ -1968,12 +1968,12 @@ H_z^{n+1/2}(k+1/2)-H_z^{n+1/2}(k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\psi_{E_{zy}}^{n+\frac{1}{2}}\left( k \right)=\exp(-\alpha \Delta t)\psi_{E_{zy}}^{n-\frac{1}{2}}\left( k \right)
+<p><span class="math display">\[\psi_{E_{zy}}^{n+\frac{1}{2}}\left( k \right)=\exp(-\alpha \Delta t)\psi_{E_{zy}}^{n-\frac{1}{2}}\left( k \right)
 +c_z(m)\frac{
 H_y^{n+1/2}(k+1/2)-H_y^{n+1/2}(k-1/2)
 }{
 \Delta z
-}$$</p>
+}\]</span></p>
 </div>
 </div>
 </div>
@@ -1991,7 +1991,7 @@ H_y^{n+1/2}(k+1/2)-H_y^{n+1/2}(k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>if $$\sigma=\sigma_m=0, CA(m)=1, CB(m)=\frac{\Delta t}{\epsilon}, CP(m)=1, CQ(m)=\frac{\Delta t}{\mu}$$</p>
+<p>if <span class="math display">\[\sigma=\sigma_m=0, CA(m)=1, CB(m)=\frac{\Delta t}{\epsilon}, CP(m)=1, CQ(m)=\frac{\Delta t}{\mu}\]</span></p>
 <p>so,</p>
 </div>
 </div>
@@ -2001,12 +2001,12 @@ H_y^{n+1/2}(k+1/2)-H_y^{n+1/2}(k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$E_{x}^{n+1}\left( k \right) = E_{x}^{n}\left( k \right)\\
+<p><span class="math display">\[E_{x}^{n+1}\left( k \right) = E_{x}^{n}\left( k \right)\\
 +\frac{\Delta t}{\epsilon}\left[ -\frac{H_y^{n+\frac{1}{2}}\left(k+\frac{1}{2}\right)-H_y^{n+\frac{1}{2}}\left(k-\frac{1}{2}\right)}{\kappa_z(m)\Delta z}
 \right]
 +\frac{\Delta t}{\epsilon}\left[
 \psi_{E_{yz}}^{n+\frac{1}{2}}\left(k\right)-\psi_{E_{zy}}^{n+\frac{1}{2}}\left(k\right)
-\right]$$</p>
+\right]\]</span></p>
 </div>
 </div>
 </div>
@@ -2015,12 +2015,12 @@ H_y^{n+1/2}(k+1/2)-H_y^{n+1/2}(k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$H_y^{n+\frac{1}{2}}\left(k+\frac{1}{2} \right) = H_y^{n-\frac{1}{2}}\left( k+\frac{1}{2} \right)\\
+<p><span class="math display">\[H_y^{n+\frac{1}{2}}\left(k+\frac{1}{2} \right) = H_y^{n-\frac{1}{2}}\left( k+\frac{1}{2} \right)\\
 -\frac{\Delta t}{\mu}\left[
 \frac{E_x^n\left(k+1\right) - E_x^n\left(k\right)}{\kappa_z \Delta z}\right]
 -\frac{\Delta t}{\mu}\left[
 \psi_{H_{zx}}^n\left(k+\frac{1}{2}\right)-\psi^n_{H_{xz}}\left(k+\frac{1}{2}\right)
-\right]$$</p>
+\right]\]</span></p>
 </div>
 </div>
 </div>
@@ -2038,7 +2038,7 @@ H_y^{n+1/2}(k+1/2)-H_y^{n+1/2}(k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="cpml-with-a-0">CPML, With a=0</h3>
+<h3 id="cpml-with-a0">CPML, With a=0</h3>
 </div>
 </div>
 </div>
@@ -2056,7 +2056,7 @@ H_y^{n+1/2}(k+1/2)-H_y^{n+1/2}(k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="convolution-">Convolution:</h4>
+<h4 id="convolution">Convolution:</h4>
 </div>
 </div>
 </div>
@@ -2065,7 +2065,7 @@ H_y^{n+1/2}(k+1/2)-H_y^{n+1/2}(k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\psi_{E_{yz}}^{n+\frac{1}{2}}\left( k \right)=\exp(-\alpha \Delta t)\psi_{E_{yz}}^{n-\frac{1}{2}}\left( k \right)$$</p>
+<p><span class="math display">\[\psi_{E_{yz}}^{n+\frac{1}{2}}\left( k \right)=\exp(-\alpha \Delta t)\psi_{E_{yz}}^{n-\frac{1}{2}}\left( k \right)\]</span></p>
 </div>
 </div>
 </div>
@@ -2074,12 +2074,12 @@ H_y^{n+1/2}(k+1/2)-H_y^{n+1/2}(k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\psi_{E_{zy}}^{n+\frac{1}{2}}\left( k \right)=\exp(-\alpha \Delta t)\psi_{E_{zy}}^{n-\frac{1}{2}}\left( k \right)
+<p><span class="math display">\[\psi_{E_{zy}}^{n+\frac{1}{2}}\left( k \right)=\exp(-\alpha \Delta t)\psi_{E_{zy}}^{n-\frac{1}{2}}\left( k \right)
 +c_z(m)\frac{
 H_y^{n+1/2}(k+1/2)-H_y^{n+1/2}(k-1/2)
 }{
 \Delta z
-}$$</p>
+}\]</span></p>
 </div>
 </div>
 </div>
@@ -2088,7 +2088,7 @@ H_y^{n+1/2}(k+1/2)-H_y^{n+1/2}(k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\psi_{H_{wv}}(n) = c_w \frac{\partial E_v(n)}{\partial w} + \exp(-\alpha\Delta t)\psi_{H_{wv}}(n-1)$$</p>
+<p><span class="math display">\[\psi_{H_{wv}}(n) = c_w \frac{\partial E_v(n)}{\partial w} + \exp(-\alpha\Delta t)\psi_{H_{wv}}(n-1)\]</span></p>
 </div>
 </div>
 </div>
@@ -2097,13 +2097,13 @@ H_y^{n+1/2}(k+1/2)-H_y^{n+1/2}(k-1/2)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\psi_{H_{zx}}^n\left(k+\frac{1}{2}\right) = \exp(-\alpha\Delta t)\psi_{H_{zx}}^{n-1}\left( k+\frac{1}{2} \right)
+<p><span class="math display">\[\psi_{H_{zx}}^n\left(k+\frac{1}{2}\right) = \exp(-\alpha\Delta t)\psi_{H_{zx}}^{n-1}\left( k+\frac{1}{2} \right)
 +c_z(m)\frac{
 E_{x}^{n}(k+1)-E_{x}^{n}(k)
 }{
 \Delta z
 }
-$$</p>
+\]</span></p>
 </div>
 </div>
 </div>
@@ -2112,7 +2112,7 @@ $$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\psi_{H_{xz}}^n\left(k+\frac{1}{2}\right) = \exp(-\alpha\Delta t)\psi_{H_{xz}}^{n-1}\left( k+\frac{1}{2} \right)$$</p>
+<p><span class="math display">\[\psi_{H_{xz}}^n\left(k+\frac{1}{2}\right) = \exp(-\alpha\Delta t)\psi_{H_{xz}}^{n-1}\left( k+\frac{1}{2} \right)\]</span></p>
 </div>
 </div>
 </div>
@@ -2122,14 +2122,13 @@ $$</p>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>set $a_w=0$, so 
-$$\alpha = \frac{\sigma_w}{\epsilon_0 \kappa_w}$$</li>
+<li>set <span class="math inline">\(a_w=0\)</span>, so <span class="math display">\[\alpha = \frac{\sigma_w}{\epsilon_0 \kappa_w}\]</span></li>
 </ul>
-<p>$$c_w=\frac{1}{\kappa_w}\left\{ 
+<p><span class="math display">\[c_w=\frac{1}{\kappa_w}\left\{ 
 \exp\left[
 -\frac{\sigma_w}{\epsilon_0 \kappa_w}\Delta t
 \right]-1
-\right\}$$</p>
+\right\}\]</span></p>
 </div>
 </div>
 </div>
@@ -2138,7 +2137,7 @@ $$\alpha = \frac{\sigma_w}{\epsilon_0 \kappa_w}$$</li>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\sigma_z(z) = \frac{\sigma_{max}|z-z_0|^m}{d^m}$$</p>
+<p><span class="math display">\[\sigma_z(z) = \frac{\sigma_{max}|z-z_0|^m}{d^m}\]</span></p>
 </div>
 </div>
 </div>
@@ -2147,7 +2146,7 @@ $$\alpha = \frac{\sigma_w}{\epsilon_0 \kappa_w}$$</li>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$\sigma_{max}=\frac{m+1}{\sqrt{\epsilon_r}150\pi\delta}$$</p>
+<p><span class="math display">\[\sigma_{max}=\frac{m+1}{\sqrt{\epsilon_r}150\pi\delta}\]</span></p>
 </div>
 </div>
 </div>
@@ -2156,7 +2155,7 @@ $$\alpha = \frac{\sigma_w}{\epsilon_0 \kappa_w}$$</li>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="electronic-field-">Electronic field:</h4>
+<h4 id="electronic-field">Electronic field:</h4>
 </div>
 </div>
 </div>
@@ -2165,11 +2164,11 @@ $$\alpha = \frac{\sigma_w}{\epsilon_0 \kappa_w}$$</li>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$E_{x}^{n+1}\left( k \right) = E_{x}^{n}\left( k \right)+\frac{\Delta t}{\epsilon}\left[ -\frac{H_y^{n+\frac{1}{2}}\left(k+\frac{1}{2}\right)-H_y^{n+\frac{1}{2}}\left(k-\frac{1}{2}\right)}{\kappa_z(z)\Delta z}
+<p><span class="math display">\[E_{x}^{n+1}\left( k \right) = E_{x}^{n}\left( k \right)+\frac{\Delta t}{\epsilon}\left[ -\frac{H_y^{n+\frac{1}{2}}\left(k+\frac{1}{2}\right)-H_y^{n+\frac{1}{2}}\left(k-\frac{1}{2}\right)}{\kappa_z(z)\Delta z}
 \right]
 +\frac{\Delta t}{\epsilon}\left[
 \psi_{E_{yz}}^{n+\frac{1}{2}}\left(k\right)-\psi_{E_{zy}}^{n+\frac{1}{2}}\left(k\right)
-\right]$$</p>
+\right]\]</span></p>
 </div>
 </div>
 </div>
@@ -2179,7 +2178,7 @@ $$\alpha = \frac{\sigma_w}{\epsilon_0 \kappa_w}$$</li>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>$$\kappa_z(z) = 1 + (\kappa_{max} - 1)\frac{|z-z_0|^m}{d^m}$$</li>
+<li><span class="math display">\[\kappa_z(z) = 1 + (\kappa_{max} - 1)\frac{|z-z_0|^m}{d^m}\]</span></li>
 </ul>
 </div>
 </div>
@@ -2190,7 +2189,7 @@ $$\alpha = \frac{\sigma_w}{\epsilon_0 \kappa_w}$$</li>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>$k_{max}=5 -- 11$, There is 8. $d$ is the width of the PML layer. $m$ is a integer, we set $m=4$.</li>
+<li><span class="math inline">\(k_{max}=5 ~--~ 11\)</span>, There is 8. <span class="math inline">\(d\)</span> is the width of the PML layer. <span class="math inline">\(m\)</span> is a integer, we set <span class="math inline">\(m=4\)</span>.</li>
 </ul>
 </div>
 </div>
@@ -2209,7 +2208,7 @@ $$\alpha = \frac{\sigma_w}{\epsilon_0 \kappa_w}$$</li>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="magnetic-field-">Magnetic field:</h4>
+<h4 id="magnetic-field">Magnetic field:</h4>
 </div>
 </div>
 </div>
@@ -2218,12 +2217,53 @@ $$\alpha = \frac{\sigma_w}{\epsilon_0 \kappa_w}$$</li>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$$H_y^{n+\frac{1}{2}}\left(k+\frac{1}{2} \right) = H_y^{n-\frac{1}{2}}\left( k+\frac{1}{2} \right)
+<p><span class="math display">\[H_y^{n+\frac{1}{2}}\left(k+\frac{1}{2} \right) = H_y^{n-\frac{1}{2}}\left( k+\frac{1}{2} \right)
 -\frac{\Delta t}{\mu}\left[
 \frac{E_x^n\left(k+1\right) - E_x^n\left(k\right)}{\kappa_z \Delta z}\right]
 -\frac{\Delta t}{\mu}\left[
 \psi_{H_{zx}}^n\left(k+\frac{1}{2}\right)-\psi^n_{H_{xz}}\left(k+\frac{1}{2}\right)
-\right]$$</p>
+\right]\]</span></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><br></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><br></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="computation-steps">Computation steps</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(E\rightarrow H_{zx} ~\&amp; ~ H_{xz}\)</span></li>
+<li><span class="math inline">\(E, H_{zx}, H_{xz} \rightarrow H\)</span></li>
+<li><span class="math inline">\(H\rightarrow E_{yz}, E_{zy}\)</span></li>
+<li><span class="math inline">\(H, E_{zy}, E{yz} \rightarrow E\)</span></li>
+</ol>
 </div>
 </div>
 </div>

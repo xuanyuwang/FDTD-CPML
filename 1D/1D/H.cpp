@@ -1,14 +1,15 @@
 #include "H.h"
 
-H::H(src source)
+H::H(src s)
 {
 	int i;
-	size_Hy = source.size_space;
+	size_Hy = s.size_space;
 
 	Hy = (float *)malloc(size_Hy * sizeof(float));
 	memset(Hy, 0, size_Hy * sizeof(float));
 
-	coe_H = source.dt / (mu * source.dz);
+	coe_H = s.dt / (mu * s.dz);
+	coe_H_cvl = s.dt / mu;
 
 	fstream myfile;
 	myfile.open("Hy.txt", ios::out);

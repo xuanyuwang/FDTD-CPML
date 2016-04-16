@@ -10,6 +10,7 @@ using namespace std;
 class src{
 public:
 	int size_space, size_time;
+	int src_pos;
 	float dt, dz;
 
 	const float PI = 3.141592653589793f;

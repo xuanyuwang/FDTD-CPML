@@ -6,6 +6,7 @@ src::src(int space, int time)
 	dt = dz / (2 * C);
 	size_space = space;
 	size_time = time;
+	src_pos = (int)(size_space / 2);
 }
 
 void src::checkout()
