@@ -10,6 +10,7 @@
 
 using namespace std;
 class E;
+class cvl;
 class H{
 public:
 	float *Hy, coe_H, coe_H_cvl;
@@ -18,10 +19,10 @@ public:
 	const float mu = (4.0 * PI) * 1e-7f;
 
 public:
-	H(src source);
+	H(src, cvl);
 	void checkout();
 	void save2file();
-	void cmp(E Ex);
+	void cmp(E, cvl, src, int);
 };
 
 #endif

@@ -4,6 +4,7 @@
 
 #include "source.h"
 #include "H.h"
+#include "cvl.h"
 #include <iostream>
 #include <fstream>
 
@@ -14,16 +15,13 @@ class cvl;
 class E{
 public:
 	float *Ex, coe_E, coe_E_cvl, coe_mur;
-	float Ex_nbdr, Ex_nbdl, Ex_bdr, Ex_bdl;
 	int size_Ex;
 	const float epsilon = 8.85e-12f;
-	const float C = 3e8;
+	//const float C = 3e8;
 public:
-	E(src source);
-	void cmp(H Hy);
-	void cmp(H Hy, cvl cvln);
+	E(src, cvl);
+	void cmp(H Hy, cvl c, src s, int);
 	void checkout();
-	void boundary();
 	void save2file();
 };
 

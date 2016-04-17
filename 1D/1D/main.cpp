@@ -13,33 +13,29 @@ using namespace std;
 
 void main()
 {
-	src source(30, 100);
-	H hy(source);
-	E ex(source);
-	cvl cvln(10, source);
+	src s(30, 300);
+	cvl cvln(10, s);
+	H hy(s, cvln);
+	E ex(s, cvln);
 
-	//source.checkout();
+	//s.checkout();
 	//hy.checkout();
 	//ex.checkout();
 	//cvln.checkout();
 
-	for (int i = 0; i < source.size_time; i++)
+	for (int i = 0; i < s.size_time; i++)
 	{
 #ifdef CPML
-		hy.cmp(ex);
-		ex.cmp(hy,cvln);
-		cvln.cmp_H_l(source, ex.Ex[0]);
-		cvln.cmp_H_r(source, ex.Ex[ex.size_Ex-1]);
-		cvln.cmp_Hy(source, ex.Ex[0], ex.Ex[ex.size_Ex-1]);
-		cvln.cmp_E_l(source);
-		cvln.cmp_E_r(source);
-		cvln.cmp_Ex(source);
+		cvln.cmp_cvlh(s, ex, hy, i);
+		hy.cmp(ex, cvln, s, i);
+		cvln.cmp_cvle(s, ex, hy, i);
+		ex.cmp(hy, cvln, s, i);
 #else 
 		hy.cmp(ex);
 		ex.cmp(hy);
 		ex.boundary();
 #endif
-		source.cmp(i, &ex.Ex[ex.size_Ex / 2]);
+		s.cmp(i, &ex.Ex[ex.size_Ex / 2]);
 		hy.save2file();
 		ex.save2file();
 
@@ -47,5 +43,5 @@ void main()
 		cvln.save2file();
 #endif
 	}
-	cvln.save2file_coe();
+	//cvln.save2file_coe();
 }

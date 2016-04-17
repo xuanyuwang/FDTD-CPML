@@ -6,6 +6,11 @@
 #include <fstream>
 #include <cmath>
 #include "source.h"
+#include "E.h"
+#include "H.h"
+
+class E;
+class H;
 
 class cvl
 {
@@ -21,8 +26,8 @@ public:
 	int num_layer;
 	float d;
 
-	float *Hzxl, *Ezyl, *Exl, *Hyl;
-	float *Hzxr, *Ezyr, *Exr, *Hyr;
+	float *Hzxl, *Ezyl;
+	float *Hzxr, *Ezyr;
 	float *distance_E, *distance_H;
 	float *sigma_E, *sigma_H;
 	float *alpha_E, *alpha_H;
@@ -33,7 +38,6 @@ public:
 	cvl(int , src);
 	~cvl();
 
-	void set_HE(float*);
 	void set_distance(src);
 	void set_sigma(src);
 	void set_kappa(src);
@@ -45,13 +49,8 @@ public:
 	void save2file();
 	void save2file_coe();
 
-	void cmp_H_l(src source, float bd_E);
-	void cmp_H_r(src source, float bd_E);
-	void cmp_Hy(src s, float E_lbd, float E_rbd);
-
-	void cmp_E_l(src);
-	void cmp_E_r(src);
-	void cmp_Ex(src s);
+	void cmp_cvlh(src, E, H, int);
+	void cmp_cvle(src, E, H, int);
 };
 
 #endif

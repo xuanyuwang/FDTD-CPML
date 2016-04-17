@@ -1,5 +1,5 @@
 #include "cvl.h"
-
+#define debug
 
 cvl::cvl(int number, src source)
 {
@@ -16,16 +16,6 @@ cvl::cvl(int number, src source)
 	memset(Ezyl, 0, num_layer * sizeof(float));
 	Ezyr = (float*)malloc(num_layer * sizeof(float));
 	memset(Ezyr, 0, num_layer * sizeof(float));
-	
-	Exl = (float*)malloc(num_layer * sizeof(float));
-	memset(Exl, 0, num_layer * sizeof(float));
-	Exr = (float*)malloc(num_layer * sizeof(float));
-	memset(Exr, 0, num_layer * sizeof(float));
-
-	Hyl = (float*)malloc(num_layer * sizeof(float));
-	memset(Hyl, 0, num_layer * sizeof(float));
-	Hyr = (float*)malloc(num_layer * sizeof(float));
-	memset(Hyr, 0, num_layer * sizeof(float));
 
 	set_distance(source);
 	set_kappa(source);
@@ -37,16 +27,10 @@ cvl::cvl(int number, src source)
 
 	int i;
 	fstream myfile;
-	myfile.open("Hzxl.txt", ios::out);
+	myfile.open("Hzx.txt", ios::out);
 	myfile.close();
 
-	myfile.open("Ezyl.txt", ios::out);
-	myfile.close();
-
-	myfile.open("Exl.txt", ios::out);
-	myfile.close();
-
-	myfile.open("Hyl.txt", ios::out);
+	myfile.open("Ezy.txt", ios::out);
 	myfile.close();
 
 	myfile.open("coe.txt", ios::out);
@@ -54,28 +38,28 @@ cvl::cvl(int number, src source)
 	/*myfile.open("Hzx.txt", ios::out);
 	for (i = 0; i < source.size_space; i++)
 	{
-		myfile << "coefficient " << i <<":\t"<< cvl_H_coe[i] <<"\t\t" << distance_H[i]<< endl;
+	myfile << "coefficient " << i <<":\t"<< cvl_H_coe[i] <<"\t\t" << distance_H[i]<< endl;
 	}
 	myfile.close();
 
 	myfile.open("Hxz.txt", ios::out);
 	for (i = 0; i < source.size_space; i++)
 	{
-		myfile << "coefficient " << i <<":\t"<< cvl_H_coe[i] <<"\t\t" << distance_H[i]<< endl;
+	myfile << "coefficient " << i <<":\t"<< cvl_H_coe[i] <<"\t\t" << distance_H[i]<< endl;
 	}
 	myfile.close();
 
 	myfile.open("Eyz.txt", ios::out);
 	for (i = 0; i < source.size_space + 1; i++)
 	{
-		myfile << "coefficient " << i <<":\t"<< cvl_E_coe[i] <<"\t\t" << distance_E[i] << endl;
+	myfile << "coefficient " << i <<":\t"<< cvl_E_coe[i] <<"\t\t" << distance_E[i] << endl;
 	}
 	myfile.close();
 
 	myfile.open("Ezy.txt", ios::out);
 	for (i = 0; i < source.size_space + 1; i++)
 	{
-		myfile << "coefficient " << i <<":\t"<< cvl_E_coe[i] <<"\t\t" << distance_E[i] << endl;
+	myfile << "coefficient " << i <<":\t"<< cvl_E_coe[i] <<"\t\t" << distance_E[i] << endl;
 	}
 	myfile.close();*/
 }
@@ -109,12 +93,6 @@ cvl::~cvl()
 	free(cvl_E_coe);*/
 }
 
-void cvl::set_HE(float* p)
-{
-	p = (float*)malloc(num_layer * sizeof(float));
-	memset(p, 0, num_layer * sizeof(float));
-}
-
 //the distance of every field points of H and E in CPML layer.
 //the "i_min" is the nearest distance, the "I_max" is the furthest distance.
 void cvl::set_distance(src source)
@@ -127,7 +105,7 @@ void cvl::set_distance(src source)
 		distance_E[i] = (i + 1) * source.dz;
 	}
 	//for distance_H
-	for (i = 0; i < num_layer;i++){
+	for (i = 0; i < num_layer; i++){
 		distance_H[i] = (i + 0.5) * source.dz;
 	}
 }
@@ -142,7 +120,7 @@ void cvl::set_sigma(src source)
 	{
 		sigma_E[i] = sigma_max * powf((distance_E[i] / d), m);
 	}
-	
+
 	//sigma_H
 	for (i = 0; i < num_layer; i++)
 	{
@@ -156,7 +134,7 @@ void cvl::set_kappa(src source)
 	kappa_H = (float *)malloc(num_layer * sizeof(float));
 	int i;
 	//for kappa_E
-	for (i = 0; i <= num_layer;i++)
+	for (i = 0; i <= num_layer; i++)
 	{
 		kappa_E[i] = 1 + (kappa_max - 1) * powf((distance_E[i] / d), m);
 	}
@@ -223,84 +201,44 @@ void cvl::set_E_coe(src source)
 	}
 }
 
-void cvl::cmp_H_l(src source, float bd_E)
+void cvl::cmp_cvlh(src s, E Ex, H Hy, int time)
 {
 	int i;
 	int pmlbd = num_layer - 1;
-	for (i = 0; i < pmlbd; i++)
+	int offset_e = Ex.size_Ex - num_layer;//51-10=41
+	//Hzxl
+	for (i = 0; i < num_layer; i++)
 	{
-		Hzxl[i] = cvl_H_coe[pmlbd - i] * Hzxl[i] + c_H[pmlbd - i] * (Exl[i + 1] - Exl[i]) / source.dz;
-		//cout << Hzxl[i] << "\t" << Exl[i + 1] - Exl[i] << endl;
+		Hzxl[i] = cvl_H_coe[pmlbd - i] * Hzxl[i] + c_H[pmlbd - i] * (Ex.Ex[i + 1] - Ex.Ex[i]) / s.dz;
 	}
-	//cout << Hzxl[pmlbd] << "\t" << bd_E << "\t" << Exl[pmlbd] << endl;
-	Hzxl[pmlbd] = cvl_H_coe[pmlbd] * Hzxl[pmlbd] + c_H[pmlbd] * (bd_E - Exl[pmlbd]) / source.dz;
-	
-}
-
-void cvl::cmp_H_r(src source, float bd_E)
-{
-	int i;
-
-	Hzxr[0] = cvl_H_coe[0] * Hzxr[0] + c_H[0] * (Exr[0] - bd_E) / source.dz;
-	for (i = 1; i < num_layer; i++)
+	//Hzxr
+	for (i = 0; i < num_layer; i++)
 	{
-		Hzxr[i] = cvl_H_coe[i] * Hzxr[i] + c_H[i] * (Exr[i] - Exr[i - 1]) / source.dz;
+		Hzxr[i] = cvl_H_coe[i] * Hzxr[i] + c_H[i] * (Ex.Ex[i + offset_e] - Ex.Ex[i - 1 + offset_e]) / s.dz;
 	}
 }
 
-void cvl::cmp_Hy(src s, float E_lbd, float E_rbd)
+void cvl::cmp_cvle(src s, E ex, H hy, int time)
 {
 	int i;
 	int pmlbd = num_layer - 1;
-	for (i = 0; i < pmlbd; i++)
-	{
-		Hyl[i] += -(s.dt / (mu * kappa_H[pmlbd - i] * s.dz))*(Exl[i + 1] - Exl[i]) - (s.dt / mu)*(Hzxl[i]);
-	}
-	Hyl[pmlbd] += -(s.dt / (mu * kappa_H[0] * s.dz))*(E_lbd - Exl[pmlbd]) - (s.dt / mu)*(Hzxl[pmlbd]);
-
+	int offset_h = hy.size_Hy - num_layer;//40
+	//Ezyl
+	Ezyl[0] = Ezyl[1];
 	for (i = 1; i < num_layer; i++)
 	{
-		Hyr[i] += -(s.dt / (mu * kappa_H[i] * s.dz))*(Exr[i] - Exr[i - 1]) - (s.dt / mu)*(Hzxr[i]);
+		Ezyl[i] = cvl_E_coe[pmlbd - i] * Ezyl[i] + c_E[pmlbd - i] * (hy.Hy[i] - hy.Hy[i - 1]) / s.dz;
 	}
-	Hyr[0] += -(s.dt / (mu * kappa_H[0] * s.dz)) * (Exr[0] - E_rbd) - (s.dt / mu)*(Hzxr[0]);
-}
-
-void cvl::cmp_E_l(src source)
-{
-	int i;
-	int pmlbd = num_layer - 1;
-	for (i = 1; i < num_layer; i++)
-	{
-		Ezyl[i] = cvl_E_coe[pmlbd - i] * Ezyl[i] + c_E[pmlbd - i] * (Hyl[i] - Hyl[i - 1]) / source.dz;
-	}
-	Ezyl[0] = 0.f;
-}
-
-void cvl::cmp_E_r(src source)
-{
-	int i;
+	//Ezyr
+	Ezyr[num_layer - 1] = Ezyr[num_layer - 2];
 	for (i = 0; i < num_layer - 1; i++)
 	{
-		Ezyr[i] = cvl_E_coe[i] * Ezyr[i] + c_E[i] * (Hyr[i + 1] - Hyr[i]) / source.dz;
+		Ezyr[i] = cvl_E_coe[i] * Ezyr[i] + c_E[i] * (hy.Hy[i + 1 + offset_h] - hy.Hy[i + offset_h]) / s.dz;
+		if (time == 15)
+		{
+			cout << i << "\t" << i + offset_h << endl;
+		}
 	}
-	Ezyr[num_layer - 1] = 0.f;
-}
-
-void cvl::cmp_Ex(src s)
-{
-	int i;
-	int pmlbd = num_layer - 1;
-	for (i = 1; i < num_layer; i++)
-	{
-		Exl[i] += (s.dt / (epsilon * kappa_E[pmlbd - i] * s.dz))*(Hyl[i] - Hyl[i - 1]) + (s.dt / epsilon)*(- Ezyl[i]);
-	}
-	for (i = 0; i < pmlbd; i++)
-	{
-		Exr[i] += (s.dt / (epsilon*kappa_E[i] * s.dz))*(Hyr[i + 1] - Hyr[i]) + (s.dt / epsilon)*(- Ezyr[i]);
-	}
-	//PEC, on PML boundary
-	Exl[0] = 0.f;
-	Exr[pmlbd] = 0.f;
 }
 
 void cvl::checkout()
@@ -312,7 +250,7 @@ void cvl::checkout()
 	cout << "sigma_max = " << sigma_max << endl;
 	cout << "kappa_max = " << kappa_max << endl;
 	cout << "d = " << d << endl;
-	
+
 	//for variables
 }
 
@@ -321,34 +259,26 @@ void cvl::save2file()
 	fstream myfile;
 	int i;
 
-	myfile.open("Hzxl.txt", ios::app);
-	for (i = 0; i <num_layer; i++)
+	myfile.open("Hzx.txt", ios::app);
+	for (i = 0; i < num_layer; i++)
 	{
 		myfile << Hzxl[i] << "\t";
+	}
+	for (i = 0; i < num_layer; i++)
+	{
+		myfile << Hzxr[i] << "\t";
 	}
 	myfile << endl;
 	myfile.close();
 
-	myfile.open("Ezyl.txt", ios::app);
+	myfile.open("Ezy.txt", ios::app);
 	for (i = 0; i < num_layer; i++)
 	{
 		myfile << Ezyl[i] << "\t";
 	}
-	myfile << endl;
-	myfile.close();
-
-	myfile.open("Exl.txt", ios::app);
 	for (i = 0; i < num_layer; i++)
 	{
-		myfile << Exl[i] << "\t";
-	}
-	myfile << endl;
-	myfile.close();
-
-	myfile.open("Hyl.txt", ios::app);
-	for (i = 0; i < num_layer; i++)
-	{
-		myfile << Hyl[i] << "\t";
+		myfile << Ezyr[i] << "\t";
 	}
 	myfile << endl;
 	myfile.close();

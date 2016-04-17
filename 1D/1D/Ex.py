@@ -1,17 +1,12 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sat Feb 27 21:08:46 2016
-
-@author: obser
-"""
 
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import animation
 
 dz = 0.015
-space = 30
-#time = 3
+space = 30 
+time = 300 
 data = np.loadtxt('Ex.txt')
 
 fig = plt.figure()
@@ -28,7 +23,7 @@ def animate(i):
     line.set_data(x,y)
     return line,
 
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=100, interval=50, blit=True)
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=time, interval=50, blit=True)
 
 #anim.save('ba.mp4', fps = 30, extra_args=['-vcodec', 'libx264'])
 
