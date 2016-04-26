@@ -1,0 +1,19 @@
+﻿Build started 4/25/2016 10:39:09 AM.
+     1>Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\2D\2D.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(20): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(20): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.lib" /MACHINE:X86 Debug\cvl.obj
+         Debug\E.obj
+         Debug\H.obj
+         Debug\main.obj
+         Debug\Source.obj
+         2D.vcxproj -> C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.exe
+     1>Done Building Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\2D\2D.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.37
