@@ -81,8 +81,10 @@ void E::cmp(H h, cvl c, src s, int time)
 		}
 	}
 
+	//mid
 	for (i = ysec2o; i <= ysec2c; i++)
 	{
+		//mid left CPML
 		for (j = xsec1o; j <= xsec1c; j++)
 		{
 			if (j == 0)
@@ -97,6 +99,7 @@ void E::cmp(H h, cvl c, src s, int time)
 				+ coe_E_cvl*(c.Exyl[i*c.side_sx + j] - c.Eyxl[i*size_x + j]);
 		}
 
+		//mid center FDTD area
 		for (j = xsec2o; j <= xsec2c; j++)
 		{
 			Ez[i*size_x + j] += coe_E*(
@@ -105,6 +108,7 @@ void E::cmp(H h, cvl c, src s, int time)
 				);
 		}
 
+		//mid right CPML
 		for (j = xsec3o; j <= xsec3c; j++)
 		{
 			if (j == xsec3c)
@@ -180,10 +184,10 @@ void E::save2file()
 	int i, j;
 	fstream myfile;
 	myfile.open("Ez.txt", ios::app);
-	
-	for (i = 0; i < size_y; i++)
+
+	for (i = size_y - 1; i >= 0; i--)
 	{
-		for (j = 0; j < size_x;j++)
+		for (j = 0; j < size_x; j++)
 		{
 			myfile << Ez[i*size_x + j] << "\t";
 		}

@@ -8,28 +8,28 @@ cvl::cvl(int number, src s)
 	sigma_max = (m + 1) / (sqrt(eps_r) * 150 * PI * s.dz);
 	side_sx = num_layer;
 	side_sy = s.size_y + 2 * num_layer;
-	ud_sx = s.size_x;
-	ud_sy = num_layer;
+	ud_sx = s.size_x;//10
+	ud_sy = num_layer;//3
 
-	alloc(Hxzl, side_sx, side_sy);
-	alloc(Hyzl, side_sx, side_sy);
-	alloc(Exyl, side_sx, side_sy + 1);
-	alloc(Eyxl, side_sx, side_sy + 1);
+	alloc(Hxzl, side_sx, side_sy);//for Hy
+	alloc(Hyzl, side_sx, side_sy + 1);//3, 17, for Hx
+	alloc(Exyl, side_sx, side_sy + 1);//3, 17
+	alloc(Eyxl, side_sx, side_sy + 1);//3, 17
 
 	alloc(Hxzr, side_sx, side_sy);
-	alloc(Hyzr, side_sx, side_sy);
+	alloc(Hyzr, side_sx, side_sy + 1);
 	alloc(Exyr, side_sx, side_sy + 1);
 	alloc(Eyxr, side_sx, side_sy + 1);
 
-	alloc(Hxzu, ud_sx, num_layer);
-	alloc(Hyzu, ud_sx, num_layer);
-	alloc(Exyu, ud_sx + 1, num_layer);
-	alloc(Eyxu, ud_sx + 1, num_layer);
+	alloc(Hxzu, ud_sx + 1, ud_sy);//11, 3
+	alloc(Hyzu, ud_sx, ud_sy);
+	alloc(Exyu, ud_sx + 1, ud_sy);
+	alloc(Eyxu, ud_sx + 1, ud_sy);
 
-	alloc(Hxzd, ud_sx, num_layer);
-	alloc(Hyzd, ud_sx, num_layer);
-	alloc(Exyd, ud_sx + 1, num_layer);
-	alloc(Eyxd, ud_sx + 1, num_layer);
+	alloc(Hxzd, ud_sx + 1, ud_sy);
+	alloc(Hyzd, ud_sx, ud_sy);
+	alloc(Exyd, ud_sx + 1, ud_sy);
+	alloc(Eyxd, ud_sx + 1, ud_sy);
 
 	set_distance(s);
 	set_kappa(s);
@@ -44,10 +44,19 @@ cvl::cvl(int number, src s)
 	//myfile.open("Hzx.txt", ios::out);
 	//myfile.close();
 
-	myfile.open("Exy.txt", ios::out);
+	myfile.open("Exyl.txt", ios::out);
 	myfile.close();
 
-	myfile.open("Eyx.txt", ios::out);
+	myfile.open("Eyxl.txt", ios::out);
+	myfile.close();
+
+	myfile.open("Hxzl.txt", ios::out);
+	myfile.close();
+
+	myfile.open("Hyzl.txt", ios::out);
+	myfile.close();
+
+	myfile.open("Hyzu.txt", ios::out);
 	myfile.close();
 
 	myfile.open("coe.txt", ios::out);
@@ -239,24 +248,30 @@ void cvl::cmp_cvlh(src s, E Ez, H Hy, int time)
 	//bottom & upper CPML
 	for (i = iopen_ud; i <= iclose_ud; i++)
 	{
-		//bottom
 		for (j = jopen_ud; j < jclose_ud; j++)
 		{
-			offset_e = num_layer;//51-10=41
+			//bottom
+			offset_e = num_layer;
 			//Hxzd
-			Hxzd[i*ud_sx + j] = cvl_half_coe[pmlbd - i] * Hxzd[i*ud_sx + j]
+			Hxzd[i*(ud_sx + 1) + j] = cvl_half_coe[pmlbd - i] * Hxzd[i*(ud_sx + 1) + j]
 				+ c_half[pmlbd - i] * (Ez.Ez[(i + 1)*Ez.size_x + j + offset_e] - Ez.Ez[i*Ez.size_x + j + offset_e]) / s.dz;
 			//Hyzd
 			Hyzd[i*ud_sx + j] = cvl_full_coe[pmlbd - i] * Hyzd[i*ud_sx + j]
 				+ c_full[pmlbd - i] * (Ez.Ez[i*Ez.size_x + j + 1 + offset_e] - Ez.Ez[i*Ez.size_x + j + offset_e]) / s.dz;
 
-			offset_e = num_layer + Ez.size_y;
+			//upper
+			offset_e = num_layer + s.size_y+1;
 			//Hxzu
-			Hxzu[i*ud_sx + j] = cvl_half_coe[i] * Hxzu[i*ud_sx + j]
+			Hxzu[i*(ud_sx + 1) + j] = cvl_half_coe[i] * Hxzu[i*(ud_sx + 1) + j]
 				+ c_half[i] * (Ez.Ez[(i + 1 + offset_e)*Ez.size_x + j + num_layer] - Ez.Ez[(i + 1 + offset_e)*Ez.size_x + j + num_layer]) / s.dz;
 			//Hyzu
 			Hyzu[i*ud_sx + j] = cvl_full_coe[i] * Hyzu[i*ud_sx + j]
 				+ c_full[i] * (Ez.Ez[(i + offset_e)*Ez.size_x + j + 1 + num_layer] - Ez.Ez[(i + offset_e)*Ez.size_x + j + num_layer]) / s.dz;
+//			if (time == 0 && i == 0)
+//			{
+//				cout << "Hyzu\t(" << i << ", " << j << "):\t" << Hyzu[i*ud_sx + j] <<
+//					"\tdebug:\t" << c_full[i] * (Ez.Ez[(i + offset_e)*Ez.size_x + j + 1 + num_layer] - Ez.Ez[(i + offset_e)*Ez.size_x + j + num_layer]) << endl;
+//			}
 		}
 	}
 }
@@ -334,49 +349,107 @@ void cvl::cmp_cvle(src s, E Ez, H h, int time)
 void cvl::checkout()
 {
 	//for coefficient
-	cout << "m = " << m << endl;
-	cout << "eps_r = " << eps_r << endl;
-	cout << "eps0 = " << eps0 << endl;
-	cout << "sigma_max = " << sigma_max << endl;
-	cout << "kappa_max = " << kappa_max << endl;
-	cout << "d = " << d << endl;
+	cout << "convolution class checkout:" << endl;
+	cout << "\tm = " << m << endl;
+	cout << "\teps_r = " << eps_r << endl;
+	cout << "\teps0 = " << eps0 << endl;
+	cout << "\tsigma_max = " << sigma_max << endl;
+	cout << "\tkappa_max = " << kappa_max << endl;
+	cout << "\td = " << d << endl;
+	cout << endl;
 
+	cout << "\tside grid number x:\t" << side_sx << endl;
+	cout << "\tside grid number y:\t" << side_sy << endl;
+	cout << "\tup & down grid number x:\t" << ud_sx << endl;
+	cout << "\tup & down grid number y:\t" << ud_sy << endl;
+	cout << endl;
 	//for variables
+	int i;
+	cout << "c_full" << endl;
+	for (i = 0; i < num_layer; i++)
+	{
+		cout << c_full[i] << endl;
+	}
 }
 
 void cvl::save2file()
 {
+	save2file_e();
+}
+
+void cvl::save2file_e()
+{
 	fstream myfile;
 	int i, j;
 
-	myfile.open("Exy.txt", ios::app);
-	for (i = 0; i < side_sx; i++)
+	myfile.open("Exyl.txt", ios::app);
+	for (i = side_sy; i >= 0; i--)
 	{
-		for (j = 0; j < side_sy + 1;j++)
+		for (j = 0; j < side_sx; j++)
 		{
-			myfile<<
+			myfile << Exyl[i*side_sx + j] << "\t";
 		}
+		myfile << endl;
 	}
-	//myfile.open("Hzx.txt", ios::app);
-	//for (i = 0; i < num_layer; i++)
-	//{
-	//	myfile << Hzxl[i] << "\t";
-	//}
-	//for (i = 0; i < num_layer; i++)
-	//{
-	//	myfile << Hzxr[i] << "\t";
-	//}
-	//myfile << endl;
-	//myfile.close();
+	myfile << endl;
+	myfile.close();
 
-	//myfile.open("Ezy.txt", ios::app);
-	//for (i = 0; i < num_layer; i++)
+	myfile.open("Eyxl.txt", ios::app);
+	for (i = side_sy; i >= 0; i--)
+	{
+		for (j = 0; j < side_sx; j++)
+		{
+			myfile << Eyxl[i*side_sx + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+
+	myfile.open("Hxzl.txt", ios::app);
+	for (i = side_sy - 1; i >= 0; i--)
+	{
+		for (j = 0; j < side_sx; j++)
+		{
+			myfile << Hxzl[i*side_sx + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+
+	myfile.open("Hyzl.txt", ios::app);
+	for (i = side_sy; i >= 0; i--)
+	{
+		for (j = 0; j < side_sx; j++)
+		{
+			myfile << Hyzl[i*side_sx + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+
+	myfile.open("Hyzu.txt", ios::app);
+	for (i = ud_sy - 1; i >= 0; i--)
+	{
+		for (j = 0; j < ud_sx; j++)
+		{
+			myfile << Hyzu[i*ud_sx + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+
+	//myfile.open("Hyzr.txt", ios::app);
+	//for (i = side_sy; i >= 0; i--)
 	//{
-	//	myfile << Ezyl[i] << "\t";
-	//}
-	//for (i = 0; i < num_layer; i++)
-	//{
-	//	myfile << Ezyr[i] << "\t";
+	//	for (j = 0; j < side_sx; j++)
+	//	{
+	//		myfile << Hyzr[i*side_sx + j] << "\t";
+	//	}
+	//	myfile << endl;
 	//}
 	//myfile << endl;
 	//myfile.close();

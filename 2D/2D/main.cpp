@@ -16,10 +16,10 @@ void main()
 	H hy(s, cvln);
 	E Ez(s, cvln);
 
-	s.checkout();
+	//s.checkout();
 	//hy.checkout();
 	//Ez.checkout();
-	//cvln.checkout();
+	cvln.checkout();
 
 	for (int i = 0; i < s.size_time; i++)
 	{
