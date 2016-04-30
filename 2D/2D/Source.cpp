@@ -1,5 +1,13 @@
 #include "source.h"
 
+/************************************************************************/
+/* 
+Name: src::src
+arguments: int space_x, int space_y, int time
+return: NULL
+Description: Set the essential coefficients of the simulation area.
+*/
+/************************************************************************/
 src::src(int space_x, int space_y, int time)
 {
 	dz = 0.015;
@@ -20,6 +28,14 @@ void src::checkout()
 	cout << "size of time = " << size_time << endl;
 }
 
+/************************************************************************/
+/* 
+Name: src::cmp
+arguments: int current_timestep, float* src_p
+return: void
+description: Calculate the value of source by given current time-step, and assign the value to *src_p
+*/
+/************************************************************************/
 void src::cmp(int current_timestep, float* src_p)
 {
 	float T0, vt, val_src, time;

@@ -1,6 +1,6 @@
 #pragma once
-#ifndef EX_H
-#define EX_H
+#ifndef Ez_H
+#define Ez_H
 
 #include "source.h"
 #include "H.h"
@@ -14,7 +14,7 @@ class H;
 class cvl;
 class E{
 public:
-	float *Ex, coe_E, coe_E_cvl, coe_mur;
+	float *Ez, coe_E, coe_E_cvl, coe_mur;
 	int size_x, size_y;
 	int num_grid;
 	const float epsilon = 8.85e-12f;

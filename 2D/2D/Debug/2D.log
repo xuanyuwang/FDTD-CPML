@@ -1,10 +1,31 @@
-﻿Build started 4/25/2016 10:39:09 AM.
-     1>Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\2D\2D.vcxproj" on node 2 (Build target(s)).
+﻿Build started 4/30/2016 11:06:13 AM.
+     1>Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\2D\2D.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D CODE_ANALYSIS /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze /analyze:plugin"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\\bin\localespc.dll" /errorReport:prompt   /analyze:quiet cvl.cpp E.cpp H.cpp main.cpp Source.cpp
+         Source.cpp
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\source.cpp(13): warning C4305: '=' : truncation from 'double' to 'float'
          main.cpp
      1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(20): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(20): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(21): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+         H.cpp
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(20): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(21): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.cpp(6): warning C4101: 'i' : unreferenced local variable
+         E.cpp
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(20): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(21): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+         cvl.cpp
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(21): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(20): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(42): warning C4101: 'i' : unreferenced local variable
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(110): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(122): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(128): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(140): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(145): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(347): warning C4101: 'i' : unreferenced local variable
+         Running Code Analysis for C/C++...
+         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.lib" /MACHINE:X86 Debug\cvl.obj
          Debug\E.obj
@@ -12,8 +33,23 @@
          Debug\main.obj
          Debug\Source.obj
          2D.vcxproj -> C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.exe
-     1>Done Building Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\2D\2D.vcxproj" (Build target(s)).
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(106): warning C6011: Dereferencing NULL pointer 'distance_full'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(110): warning C6011: Dereferencing NULL pointer 'distance_half'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(122): warning C6011: Dereferencing NULL pointer 'sigma_full'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(128): warning C6011: Dereferencing NULL pointer 'sigma_half'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(140): warning C6011: Dereferencing NULL pointer 'kappa_full'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(145): warning C6011: Dereferencing NULL pointer 'kappa_half'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(158): warning C6011: Dereferencing NULL pointer 'alpha_full'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(163): warning C6011: Dereferencing NULL pointer 'alpha_half'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(176): warning C6011: Dereferencing NULL pointer 'c_full'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(181): warning C6011: Dereferencing NULL pointer 'c_half'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(191): warning C6011: Dereferencing NULL pointer 'cvl_half_coe'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(201): warning C6011: Dereferencing NULL pointer 'cvl_full_coe'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\e.cpp(11): warning C6387: 'Ez' could be '0':  this does not adhere to the specification for the function 'memset'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.cpp(19): warning C6387: 'Hx' could be '0':  this does not adhere to the specification for the function 'memset'. 
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.cpp(17): warning C6387: 'Hy' could be '0':  this does not adhere to the specification for the function 'memset'. 
+     1>Done Building Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\2D\2D.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.37
+Time Elapsed 00:00:55.89

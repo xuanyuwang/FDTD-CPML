@@ -28,16 +28,18 @@ public:
 	float sigma_max;
 	int num_layer, side_sx, side_sy, ud_sx, ud_sy;
 	float d;
-	float *distance_E, *distance_H;
-	float *sigma_E, *sigma_H;
-	float *alpha_E, *alpha_H;
-	float *kappa_E, *kappa_H;
-	float *cvl_H_coe, *cvl_E_coe;
+	float *distance_full, *distance_half;
+	float *sigma_full, *sigma_half;
+	float *alpha_full, *alpha_half;
+	float *kappa_full, *kappa_half;
+	float *cvl_half_coe, *cvl_full_coe;
 
 	//variables would change after every computation
-	float *Hzxl, *Ezyl, *Hzxu, *Ezyu;
-	float *Hzxr, *Ezyr, *Hzxd, *Ezyd;
-	float *c_E, *c_H;
+	float *Hxzl, *Hxzr, *Hxzu, *Hxzd;
+	float *Hyzl, *Hyzr, *Hyzu, *Hyzd;
+	float *Exyl, *Exyr, *Exyu, *Exyd;
+	float *Eyxl, *Eyxr, *Eyxu, *Eyxd;
+	float *c_full, *c_half;
 public:
 	cvl(int , src);
 	~cvl();
@@ -48,10 +50,11 @@ public:
 	void set_kappa(src);
 	void set_alpha(src);
 	void set_c(src);
-	void set_H_coe(src);
-	void set_E_coe(src);
+	void set_half_coe(src);
+	void set_full_coe(src);
 	void checkout();
 	void save2file();
+	void save2file_e();
 	void save2file_coe();
 
 	void cmp_cvlh(src, E, H, int);

@@ -4,12 +4,19 @@
 H::H(src s, cvl c)
 {
 	int i;
-	size_x = s.size_x + 2 * c.num_layer;
-	size_y = s.size_y + 2 * c.num_layer;
-	num_grid = size_y * size_x;
 
-	Hy = (float *)malloc(num_grid * sizeof(float));
-	memset(Hy, 0, num_grid * sizeof(float));
+	size_Hx_x = s.size_x + 2 * c.num_layer;
+	size_Hx_y = s.size_y + 2 * c.num_layer + 1;
+	num_grid_Hx = size_Hx_y * size_Hx_x;
+
+	size_Hy_x = s.size_x + 2 * c.num_layer + 1;
+	size_Hy_y = s.size_y + 2 * c.num_layer;
+	num_grid_Hy = size_Hy_y * size_Hy_x;
+
+	Hy = (float *)malloc(num_grid_Hy * sizeof(float));
+	memset(Hy, 0, num_grid_Hy * sizeof(float));
+	Hx = (float *)malloc(num_grid_Hx * sizeof(float));
+	memset(Hx, 0, num_grid_Hx * sizeof(float));
 
 	coe_H = s.dt / (mu * s.dz);
 	coe_H_cvl = s.dt / mu;
@@ -19,44 +26,170 @@ H::H(src s, cvl c)
 	myfile.close();
 }
 
-void H::cmp(E Ex, cvl c, src s, int time)
+void H::cmp_Hx(E Ez, cvl c, src s, int time)
 {
-//	int i;
-//	int pmlbd = c.num_layer - 1;
-//	int sec1l = 0, sec1r = pmlbd;//[0, 9]
-//	int sec2l = pmlbd + 1, sec2r = pmlbd + s.size_space;//[10, 39]
-//	int sec3l = size_Hy - c.num_layer, sec3r = size_Hy - 1;//[40, 49]
-//	//left CPML. [0, pmlbd]
-//	for (i = sec1l; i <= sec1r; i++)
-//	{
-//		Hy[i] = Hy[i] - (s.dt / (mu*c.kappa_H[pmlbd - i] * s.dz))*(Ex.Ex[i + 1] - Ex.Ex[i])
-//			- (s.dt / mu)*(c.Hzxl[i]);
-//	}
-//	//FDTD area
-//	for (i = sec2l; i <= sec2r; i++)
-//	{
-//		Hy[i] = Hy[i] - coe_H*(Ex.Ex[i + 1] - Ex.Ex[i]);
-//	}
-//	//right CPML
-//	for (i = sec3l; i <= sec3r; i++)
-//	{
-//		Hy[i] = Hy[i] - (s.dt / (mu*c.kappa_H[i - sec3l] * s.dz))*(Ex.Ex[i + 1] - Ex.Ex[i])
-//			- (s.dt / mu)*(c.Hzxr[i - sec3l]);
-//	}
-//#ifdef debug
-//	if (time > 12 && time < 16)
-//	{
-//		cout << time << ": ";
-//		cout << Hy[sec3l - 2] << "\t" << Hy[sec3l - 1] << endl;
-//	}
-//	if (time == 15)
-//	{
-//		cout << sec1l << "\t" << sec1r << endl;
-//		cout << sec2l << "\t" << sec2r << endl;
-//		cout << sec3l << "\t" << sec3r << endl;
-//		cout << (Hy[sec2r] - Hy[sec2r - 1]) << endl;
-//	}
-//#endif
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+
+	//X: [0, 49], Y: [0, 50]
+	int ysec1o = 0, ysec1c = pmlbd;//[0, 9]
+	int ysec2o = pmlbd + 1, ysec2c = pmlbd + s.size_y + 1;//[10, 40]
+	int ysec3o = size_Hx_y - c.num_layer, ysec3c = size_Hx_y - 1;//[41, 50]
+
+	int xsec1o = 0, xsec1c = pmlbd;//[0,9]
+	int xsec2o = pmlbd + 1, xsec2c = pmlbd + s.size_x;//[10, 39]
+	int xsec3o = size_Hx_x - c.num_layer, xsec3c = size_Hx_x - 1;//[40, 49]
+
+	//bottom area, include bottom-left CPML, bottom-mid CPML, and bottom-right CPML
+	for (i = ysec1o; i <= ysec1c; i++)
+	{
+		//bottom-left CPML corner
+		for (j = xsec1o; j <= xsec1c; j++)
+		{
+			Hx[i * size_Hx_x + j] += (-coe_H / c.kappa_half[pmlbd - j])*(Ez.Ez[i*Ez.size_x + j + 1] - Ez.Ez[i*Ez.size_x + j])
+				+ coe_H_cvl * (-c.Hyzl[i*c.side_sx + j]);
+		}
+		//bottom-mid CPML
+		for (j = xsec2o; j <= xsec2c; j++)
+		{
+			Hx[i * size_Hx_x + j] += (-coe_H / c.kappa_full[pmlbd - i])*(Ez.Ez[i * Ez.size_x + j + 1] - Ez.Ez[i * Ez.size_x + j])
+				+ coe_H_cvl*(-c.Hyzd[i *c.side_sx + j - xsec2o]);
+		}
+		//bottom-right CPML
+		for (j = xsec3o; j <= xsec3c; j++)
+		{
+			Hx[i * size_Hx_x + j] += (-coe_H / c.kappa_half[j - xsec3o])*(Ez.Ez[i * Ez.size_x + j + 1] - Ez.Ez[i * Ez.size_x + j])
+				+ coe_H_cvl*(-c.Hyzr[i*c.side_sx + j - xsec3o]);
+		}
+	}
+
+	//mid area, include mid-left CPML, mid-right CPML, and simulation area
+	for (i = ysec2o; i <= ysec2c; i++)
+	{
+		//mid-left CPML
+		for (j = xsec1o; j <= xsec1c; j++)
+		{
+			Hx[i * size_Hx_x + j] += (-coe_H / c.kappa_half[pmlbd - j])*(Ez.Ez[i*Ez.size_x + j + 1] - Ez.Ez[i*Ez.size_x + j])
+				+ coe_H_cvl * (-c.Hyzl[i*c.side_sx + j]);
+		}
+		//simulation area
+		for (j = xsec2o; j <= xsec2c; j++)
+		{
+			Hx[i * size_Hx_x + j] += -coe_H * (Ez.Ez[i*Ez.size_x + j + 1] - Ez.Ez[i*Ez.size_x + j]);
+		}
+		//mid-right CPML
+		for (j = xsec3o; j <= xsec3c; j++)
+		{
+			Hx[i * size_Hx_x + j] += (-coe_H / c.kappa_half[j - xsec3o])*(Ez.Ez[i * Ez.size_x + j + 1] - Ez.Ez[i * Ez.size_x + j])
+				+ coe_H_cvl*(-c.Hyzr[i*c.side_sx + j - xsec3o]);
+		}
+	}
+
+	//upper CPML.
+	for (i = ysec3o; i <= ysec3c; i++)
+	{
+		//upper-left corner area
+		for (j = xsec1o; j <= xsec1c; j++)
+		{
+			Hx[i * size_Hx_x + j] += (-coe_H / c.kappa_half[pmlbd - j])*(Ez.Ez[i*Ez.size_x + j + 1] - Ez.Ez[i*Ez.size_x + j])
+				+ coe_H_cvl * (-c.Hyzl[i*c.side_sx + j]);
+		}
+		//upper-center area
+		for (j = xsec2o; j <= xsec2c; j++)
+		{
+			Hx[i * size_Hx_x + j] += (-coe_H / c.kappa_full[i - ysec3o])*(Ez.Ez[i * Ez.size_x + j + 1] - Ez.Ez[i * Ez.size_x + j])
+				+ coe_H_cvl*(-c.Hyzu[(i - ysec3o) *c.side_sx + j - xsec2o]);
+		}
+		//upper-right corner area
+		for (j = xsec3o; j <= xsec3c; j++)
+		{
+			Hx[i * size_Hx_x + j] += (-coe_H / c.kappa_half[j - xsec3o])*(Ez.Ez[i * Ez.size_x + j + 1] - Ez.Ez[i * Ez.size_x + j])
+				+ coe_H_cvl*(-c.Hyzr[i*c.side_sx + j - xsec3o]);
+		}
+	}
+}
+
+void H::cmp_Hy(E Ez, cvl c, src s, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+
+	//X: [0, 50], Y: [0, 49]
+	int ysec1o = 0, ysec1c = pmlbd;//[0, 9]
+	int ysec2o = pmlbd + 1, ysec2c = pmlbd + s.size_y;//[10, 39]
+	int ysec3o = size_Hy_y - c.num_layer, ysec3c = size_Hy_y - 1;//[40, 49]
+
+	int xsec1o = 0, xsec1c = pmlbd;//[0,9]
+	int xsec2o = pmlbd + 1, xsec2c = pmlbd + s.size_x + 1;//[10, 40]
+	int xsec3o = size_Hy_x - c.num_layer, xsec3c = size_Hy_x - 1;//[41, 50]
+
+	//bottom area, include bottom-left CPML, bottom-mid CPML, and bottom-right CPML
+	for (i = ysec1o; i <= ysec1c; i++)
+	{
+		//bottom-left CPML corner
+		for (j = xsec1o; j <= xsec1c; j++)
+		{
+			Hy[i * size_Hy_x + j] += (coe_H / c.kappa_full[pmlbd - j])*(Ez.Ez[(i + 1)*Ez.size_x + j] - Ez.Ez[i*Ez.size_x + j])
+				+ coe_H_cvl * c.Hxzl[i*c.side_sx + j];
+		}
+		//bottom-mid CPML
+		for (j = xsec2o; j <= xsec2c; j++)
+		{
+			Hy[i * size_Hy_x + j] += (coe_H / c.kappa_half[pmlbd - i])*(Ez.Ez[(i + 1) * Ez.size_x + j] - Ez.Ez[i * Ez.size_x + j])
+				+ coe_H_cvl*c.Hxzd[i *c.ud_sx + j - xsec2o];
+		}
+		//bottom-right CPML
+		for (j = xsec3o; j <= xsec3c; j++)
+		{
+			Hy[i * size_Hy_x + j] += (coe_H / c.kappa_full[j - xsec3o])*(Ez.Ez[(i + 1) * Ez.size_x + j] - Ez.Ez[i * Ez.size_x + j])
+				+ coe_H_cvl*c.Hxzr[i*c.side_sx + j - xsec3o];
+		}
+	}
+
+	//mid area, include mid-left CPML, mid-right CPML, and simulation area
+	for (i = ysec2o; i <= ysec2c; i++)
+	{
+		//mid-left CPML
+		for (j = xsec1o; j <= xsec1c; j++)
+		{
+			Hy[i * size_Hy_x + j] += (coe_H / c.kappa_full[pmlbd - j])*(Ez.Ez[(i + 1)*Ez.size_x + j] - Ez.Ez[i*Ez.size_x + j])
+				+ coe_H_cvl * c.Hxzl[i*c.side_sx + j];
+		}
+		//simulation area
+		for (j = xsec2o; j <= xsec2c; j++)
+		{
+			Hy[i * size_Hy_x + j] += coe_H * (Ez.Ez[(i + 1)*Ez.size_x + j] - Ez.Ez[i*Ez.size_x + j]);
+		}
+		//mid-right CPML
+		for (j = xsec3o; j <= xsec3c; j++)
+		{
+			Hy[i * size_Hy_x + j] += (coe_H / c.kappa_full[j - xsec3o])*(Ez.Ez[(i + 1) * Ez.size_x + j + 1] - Ez.Ez[i * Ez.size_x + j])
+				+ coe_H_cvl*c.Hxzr[i*c.side_sx + j - xsec3o];
+		}
+	}
+
+	//upper CPML.
+	for (i = ysec3o; i <= ysec3c; i++)
+	{
+		//upper-left corner area
+		for (j = xsec1o; j <= xsec1c; j++)
+		{
+			Hy[i * size_Hy_x + j] += (coe_H / c.kappa_full[j - xsec3o])*(Ez.Ez[(i + 1)*Ez.size_x + j] - Ez.Ez[i*Ez.size_x + j])
+				+ coe_H_cvl * c.Hxzl[i*c.side_sx + j];
+		}
+		//upper-center area
+		for (j = xsec2o; j <= xsec2c; j++)
+		{
+			Hy[i * size_Hy_x + j] += (coe_H / c.kappa_half[i - ysec3o])*(Ez.Ez[(i + 1) * Ez.size_x + j] - Ez.Ez[i * Ez.size_x + j])
+				+ coe_H_cvl*c.Hxzu[(i - ysec3o) *c.ud_sx + j - xsec2o];
+		}
+		//upper-right corner area
+		for (j = xsec3o; j <= xsec3c; j++)
+		{
+			Hy[i * size_Hy_x + j] += (coe_H / c.kappa_full[j - xsec3o])*(Ez.Ez[(i + 1)* Ez.size_x + j] - Ez.Ez[i * Ez.size_x + j])
+				+ coe_H_cvl*(-c.Hxzr[i*c.side_sx + j - xsec3o]);
+		}
+	}
 }
 
 void H::checkout()
@@ -70,18 +203,18 @@ void H::checkout()
 
 void H::save2file()
 {
-	int i, j;
-	fstream myfile;
-	myfile.open("Hy.txt", ios::app);
+	//int i, j;
+	//fstream myfile;
+	//myfile.open("Hy.txt", ios::app);
 
-	for (int i = size_x - 1; i >= 0; i++)
-	{
-		for (j = 0; j < size_y; i++)
-		{
-			myfile << Hy[i * size_y + j] << "\t";
-		}
-		myfile << endl;
-	}
-	myfile << endl;
-	myfile.close();
+	//for (int i = size_x - 1; i >= 0; i++)
+	//{
+	//	for (j = 0; j < size_y; i++)
+	//	{
+	//		myfile << Hy[i * size_y + j] << "\t";
+	//	}
+	//	myfile << endl;
+	//}
+	//myfile << endl;
+	//myfile.close();
 }
