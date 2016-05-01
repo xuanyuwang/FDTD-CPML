@@ -1,7 +1,0 @@
-0	distance= 0.0075	kappa= 1.0054	sigma= 0.000545799	alpha= 6.13409e+007	
-1	distance= 0.0225	kappa= 1.4375	sigma= 0.0442097	alpha= 3.47509e+009	
-2	distance= 0.0375	kappa= 4.37577	sigma= 0.341124	alpha= 8.80876e+009	
-
-0	distance= 0.015	kappa= 1.08642	sigma= 0.00873278	alpha= 9.08263e+008	
-1	distance= 0.03	kappa= 2.38272	sigma= 0.139725	alpha= 6.62609e+009	
-2	distance= 0.045	kappa= 8	sigma= 0.707355	alpha= 9.99089e+009	

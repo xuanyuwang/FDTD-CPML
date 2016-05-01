@@ -55,6 +55,7 @@ public:
 	void checkout();
 	void save2file();
 	void save2file_e();
+	void save2file_h();
 	void save2file_coe();
 
 	void cmp_cvlh(src, E, H, int);

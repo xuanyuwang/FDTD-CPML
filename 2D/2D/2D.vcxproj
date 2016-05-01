@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{1821ED0F-2CBD-405E-A191-8A0434DBAEFD}</ProjectGuid>
+    <ProjectGuid>{07404724-D4EB-4630-9969-F140F0601588}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My2D</RootNamespace>
   </PropertyGroup>

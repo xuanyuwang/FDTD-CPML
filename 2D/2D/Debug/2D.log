@@ -1,20 +1,17 @@
-﻿Build started 4/30/2016 5:48:21 PM.
+﻿Build started 5/1/2016 8:38:59 PM.
      1>Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\2D\2D.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cvl.cpp main.cpp
-         main.cpp
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(20): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(21): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cvl.cpp
          cvl.cpp
      1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(21): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
      1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(20): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
      1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(42): warning C4101: 'i' : unreferenced local variable
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(122): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(134): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(140): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(152): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(157): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-         Generating Code...
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(138): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(150): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(156): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(168): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(173): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(459): warning C4101: 'i' : unreferenced local variable
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.lib" /MACHINE:X86 Debug\cvl.obj
          Debug\E.obj
@@ -26,4 +23,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.02
+Time Elapsed 00:00:00.62

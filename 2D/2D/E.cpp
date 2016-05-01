@@ -96,7 +96,7 @@ void E::cmp(H h, cvl c, src s, int time)
 				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
 				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
 				)
-				+ coe_E_cvl*(c.Exyl[i*c.side_sx + j] - c.Eyxl[i*size_x + j]);
+				+ coe_E_cvl*(c.Exyl[i*c.side_sx + j] - c.Eyxl[i*c.side_sx + j]);
 		}
 
 		//mid center FDTD area
@@ -120,7 +120,17 @@ void E::cmp(H h, cvl c, src s, int time)
 				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
 				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
 				)
-				+ coe_E_cvl*(c.Exyr[i*c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3c]);
+				+ coe_E_cvl*(c.Exyr[i*c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3o]);
+			if (time == 5 && (i == 8) && j == 14)
+			{
+				cout << "Ez(" << i << ", " << j << "): " << Ez[i*size_x + j] << endl;
+				cout << "\tDebug\t"
+					<< coe_E_cvl*(c.Exyr[i*c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3o]) << "\t"
+					<< c.Exyr[i*c.side_sx + j - xsec3o] << "\t"
+					<< "Eyxr location: (" << i << ", " << j - xsec3o << ")\t"
+					<< c.Eyxr[i*c.side_sx + j - xsec3o]
+					<< endl;
+			}
 		}
 	}
 
