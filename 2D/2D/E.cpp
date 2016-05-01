@@ -51,9 +51,10 @@ void E::cmp(H h, cvl c, src s, int time)
 		}
 
 		//center bottom corner, CPML
+		int width = c.ud_sx + 1;
 		for (j = xsec2o; j <= xsec2c; j++)
 		{
-			if (i == 0 || j == 0)
+			if (i == 0)
 			{
 				Ez[i*size_x + j] = 0.f;
 				continue;
@@ -62,7 +63,21 @@ void E::cmp(H h, cvl c, src s, int time)
 				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
 				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
 				)
-				+ coe_E_cvl*(c.Exyd[i*c.ud_sx + j - xsec2o] - c.Eyxd[i*c.ud_sx + j - xsec2o]);
+				+ coe_E_cvl*(c.Exyd[i*width + j - xsec2o] - c.Eyxd[i*width + j - xsec2o]);
+			if (time == 6 && (i == ysec1c) && (j == 9))
+			{
+				cout << "Ez(" << i << ", " << j << "): " << Ez[i*size_x + j] << endl;
+				cout << "width: " << width << endl;
+				//cout << "xsec2o" << xsec2o << endl;
+				cout << "\tDebug\t"
+					<< "Ez number: " << i*size_x + j << "\t"
+					<< coe_E_cvl*(c.Exyd[i*width + j - xsec2o] - c.Eyxd[i*width + j - xsec2o]) << "\t"
+					<< c.Exyd[i*width + j - xsec2o] << "\t"
+					<< "Eyxd location: (" << i << ", " << j - xsec2o << ")\t"
+					<< "Exyd number: " << i*width + j - xsec2o << "\t"
+					<< c.Eyxd[i*width + j - xsec2o] << "\t"
+					<< endl;
+			}
 		}
 
 		//right bottom corner, CPML
@@ -77,7 +92,7 @@ void E::cmp(H h, cvl c, src s, int time)
 				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
 				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
 				)
-				+ coe_E_cvl*(c.Exyr[(i - xsec3o)*c.side_sx + j - xsec3o] - c.Eyxr[(i - xsec3o)*c.side_sx + j - xsec3o]);
+				+ coe_E_cvl*(c.Exyr[i *c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3o]);
 		}
 	}
 
@@ -121,16 +136,6 @@ void E::cmp(H h, cvl c, src s, int time)
 				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
 				)
 				+ coe_E_cvl*(c.Exyr[i*c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3o]);
-			if (time == 5 && (i == 8) && j == 14)
-			{
-				cout << "Ez(" << i << ", " << j << "): " << Ez[i*size_x + j] << endl;
-				cout << "\tDebug\t"
-					<< coe_E_cvl*(c.Exyr[i*c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3o]) << "\t"
-					<< c.Exyr[i*c.side_sx + j - xsec3o] << "\t"
-					<< "Eyxr location: (" << i << ", " << j - xsec3o << ")\t"
-					<< c.Eyxr[i*c.side_sx + j - xsec3o]
-					<< endl;
-			}
 		}
 	}
 

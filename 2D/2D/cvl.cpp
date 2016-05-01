@@ -346,27 +346,27 @@ void cvl::cmp_cvle(src s, E Ez, H h, int time)
 			//Eyxl
 			Eyxl[i*side_sx + j] = cvl_full_coe[pmlbd - j] * Eyxl[i*side_sx + j]
 				+ cvl_full_coe[pmlbd - j] * (h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1]) / s.dz;
-			if (time == 5 && (i == 8) && j == jclose_side)
-			{
-				cout << "Eyxl(" << i << ", " << j << "): " << Eyxl[i*side_sx + j] << endl;
-				cout << "\tDebug\t"
-					<< "(" << i << ", " << j << ")" << "\t"
-					<< h.Hx[i*h.size_Hx_x + j] << "\t"
-					<< "Hx location: (" << i << ", " << j - 1 << ")\t"
-					<< h.Hx[i*h.size_Hx_x + j - 1]
-					<< endl;
-			}
+			//			if (time == 5 && (i == 8) && j == jclose_side)
+			//			{
+			//				cout << "Eyxl(" << i << ", " << j << "): " << Eyxl[i*side_sx + j] << endl;
+			//				cout << "\tDebug\t"
+			//					<< "(" << i << ", " << j << ")" << "\t"
+			//					<< h.Hx[i*h.size_Hx_x + j] << "\t"
+			//					<< "Hx location: (" << i << ", " << j - 1 << ")\t"
+			//					<< h.Hx[i*h.size_Hx_x + j - 1]
+			//					<< endl;
+			//			}
 		}
 	}
 
 	//right side
-	offset_h = num_layer + s.size_x+1;
-		if (time == 0)
-		{
-			cout << "iopen_ud: " << iopen_ud << "\ticlose_ud: " << iclose_ud << endl;
-			cout << "jopen_ud: " << jopen_ud << "\tjclose_ud: " << jclose_ud << endl;
-			cout << "offset_h: " << offset_h << endl;
-		}
+	offset_h = num_layer + s.size_x + 1;
+	if (time == 0)
+	{
+		cout << "iopen_ud: " << iopen_ud << "\ticlose_ud: " << iclose_ud << endl;
+		cout << "jopen_ud: " << jopen_ud << "\tjclose_ud: " << jclose_ud << endl;
+		cout << "offset_h: " << offset_h << endl;
+	}
 	for (i = iopen_side; i <= iclose_side; i++)
 	{
 		for (j = jopen_side; j <= jclose_side; j++)
@@ -383,16 +383,6 @@ void cvl::cmp_cvle(src s, E Ez, H h, int time)
 			//Eyxr
 			Eyxr[i*side_sx + j] = cvl_full_coe[j] * Eyxr[i*side_sx + j]
 				+ cvl_full_coe[j] * (h.Hx[i*h.size_Hx_x + j + offset_h] - h.Hx[i*h.size_Hx_x + j - 1 + offset_h]) / s.dz;
-			if (time == 5 && (i == 8) && j == 0)
-			{
-				cout << "Eyxr(" << i << ", " << j << "): " << Eyxr[i*side_sx + j] << endl;
-				cout << "\tDebug\t"
-					<< "(" << i << ", " << j + offset_h << ")" << "\t"
-					<< h.Hx[i*h.size_Hx_x + j + offset_h] << "\t"
-					<< "Hx location: (" << i << ", " << j - 1 + offset_h << ")\t"
-					<< h.Hx[i*h.size_Hx_x + j - 1 + offset_h]
-					<< endl;
-			}
 		}
 	}
 
@@ -433,7 +423,18 @@ void cvl::cmp_cvle(src s, E Ez, H h, int time)
 				+ cvl_full_coe[pmlbd - i] * (h.Hy[i*h.size_Hy_x + j + num_layer] - h.Hy[(i - 1)*h.size_Hy_x + j + num_layer]) / s.dz;
 			//Eyxd
 			Eyxd[i*width + j] = cvl_full_coe[pmlbd - i] * Eyxd[i*width + j]
-				+ cvl_full_coe[pmlbd - i] * (h.Hy[i*h.size_Hx_x + j + num_layer] - h.Hy[i*h.size_Hx_x + j - 1 + num_layer]) / s.dz;
+				+ cvl_full_coe[pmlbd - i] * (h.Hy[i*h.size_Hy_x + j+ + num_layer] - h.Hy[i*h.size_Hy_x + j + num_layer]) / s.dz;
+			if (time == 6 && i == iclose_ud && (j == 6))
+			{
+				cout << "Eyxd(" << i << ", " << j << "): " << Eyxd[i*width + j] << endl;
+				cout << "\tDebug\t"
+					<< "width: " << width << "\t"
+					<< h.Hy[i*h.size_Hy_x + j+1 + num_layer] << "\t"
+					<< "Hy location: (" << i << ", " << j  + num_layer << ")\t"
+					<< "Hy number: " << i*h.size_Hy_x + j  + num_layer << "\t"
+					<< h.Hy[i*h.size_Hy_x + j + num_layer]
+					<< endl;
+			}
 		}
 	}
 }

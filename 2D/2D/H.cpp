@@ -78,16 +78,16 @@ void H::cmp_Hx(E Ez, cvl c, src s, int time)
 		for (j = xsec2o; j <= xsec2c; j++)
 		{
 			Hx[i * size_Hx_x + j] += -coe_H * (Ez.Ez[i*Ez.size_x + j + 1] - Ez.Ez[i*Ez.size_x + j]);
-			if (time == 5 && (i == 8) && j == 12)
-			{
-				cout << "Hx(" << i << ", " << j << "): " << Hx[i * size_Hx_x + j] << endl;
-				cout << "\tDebug\t"
-					<< "(" << i << ", " << j + 1 << ")\t"
-					<< Ez.Ez[i*Ez.size_x + j + 1]<<"\t"
-					<< "(" << i << ", " << j << ")\t"
-					<< Ez.Ez[i*Ez.size_x + j]
-					<< endl;
-			}
+//			if (time == 5 && (i == 8) && j == 12)
+//			{
+//				cout << "Hx(" << i << ", " << j << "): " << Hx[i * size_Hx_x + j] << endl;
+//				cout << "\tDebug\t"
+//					<< "(" << i << ", " << j + 1 << ")\t"
+//					<< Ez.Ez[i*Ez.size_x + j + 1]<<"\t"
+//					<< "(" << i << ", " << j << ")\t"
+//					<< Ez.Ez[i*Ez.size_x + j]
+//					<< endl;
+//			}
 		}
 		//mid-right CPML
 		for (j = xsec3o; j <= xsec3c; j++)
