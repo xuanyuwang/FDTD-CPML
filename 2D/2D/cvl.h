@@ -8,14 +8,15 @@
 #include "source.h"
 #include "E.h"
 #include "H.h"
+#include "TOOLS.h"
 
 class E;
 class H;
+class cvl;
 
-class cvl
+class COE
 {
 public:
-	//constants of equations
 	const int m = 4;
 	const float mu = (4.0 * PI) * 1e-7f;
 	const float epsilon = 8.85e-12f;
@@ -33,18 +34,9 @@ public:
 	float *alpha_full, *alpha_half;
 	float *kappa_full, *kappa_half;
 	float *cvl_half_coe, *cvl_full_coe;
-
-	//variables would change after every computation
-	float *Hxzl, *Hxzr, *Hxzu, *Hxzd;
-	float *Hyzl, *Hyzr, *Hyzu, *Hyzd;
-	float *Exyl, *Exyr, *Exyu, *Exyd;
-	float *Eyxl, *Eyxr, *Eyxu, *Eyxd;
 	float *c_full, *c_half;
-public:
-	cvl(int , src);
-	~cvl();
 
-	void alloc(float* &, int, int);
+public:
 	void set_distance(src);
 	void set_sigma(src);
 	void set_kappa(src);
@@ -52,14 +44,211 @@ public:
 	void set_c(src);
 	void set_half_coe(src);
 	void set_full_coe(src);
-	void checkout();
-	void save2file();
-	void save2file_e();
-	void save2file_h();
-	void save2file_coe();
 
-	void cmp_cvlh(src, E, H, int);
-	void cmp_cvle(src, E, H, int);
+public:
+	COE(int, src);
+	void checkout();
+	~COE();
+};
+
+class HXZL
+{
+public:
+	float *p;
+	int width, height;
+public:
+	HXZL(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~HXZL();
+};
+
+class HXZR
+{
+public:
+	float *p;
+	int width, height;
+public:
+	HXZR(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~HXZR();
+};
+
+class HXZU
+{
+public:
+	float *p;
+	int width, height;
+public:
+	HXZU(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~HXZU();
+};
+
+class HXZD
+{
+public:
+	float *p;
+	int width, height;
+public:
+	HXZD(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~HXZD();
+};
+
+class HYZL
+{
+public:
+	float *p;
+	int width, height;
+public:
+	HYZL(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~HYZL();
+};
+
+class HYZR
+{
+public:
+	float *p;
+	int width, height;
+public:
+	HYZR(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~HYZR();
+};
+
+class HYZU
+{
+public:
+	float *p;
+	int width, height;
+public:
+	HYZU(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~HYZU();
+};
+
+class HYZD
+{
+public:
+	float *p;
+	int width, height;
+public:
+	HYZD(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~HYZD();
+};
+
+class EXYL
+{
+public:
+	float *p;
+	int width, height;
+public:
+	EXYL(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~EXYL();
+};
+
+class EXYR
+{
+public:
+	float *p;
+	int width, height;
+public:
+	EXYR(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~EXYR();
+};
+
+class EXYU
+{
+public:
+	float *p;
+	int width, height;
+public:
+	EXYU(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~EXYU();
+};
+
+class EXYD
+{
+public:
+	float *p;
+	int width, height;
+public:
+	EXYD(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~EXYD();
+};
+
+class EYXL
+{
+public:
+	float *p;
+	int width, height;
+public:
+	EYXL(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~EYXL();
+};
+
+class EYXR
+{
+public:
+	float *p;
+	int width, height;
+public:
+	EYXR(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~EYXR();
+};
+
+class EYXU
+{
+public:
+	float *p;
+	int width, height;
+public:
+	EYXU(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~EYXU();
+};
+
+class EYXD
+{
+public:
+	float *p;
+	int width, height;
+public:
+	EYXD(COE, src s);
+	void cmp(COE, src, E, H, int);
+	void save2file();
+	~EYXD();
+};
+
+
+class cvl
+{
+public:
+	cvl(int, src);
+	~cvl();
 };
 
 #endif

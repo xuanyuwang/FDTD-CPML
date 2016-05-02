@@ -1,35 +1,16 @@
 #include "cvl.h"
 #define debug
 
-cvl::cvl(int number, src s)
+/*Class COE*/
+COE::COE(int number_layer, src s)
 {
-	num_layer = number;
-	d = num_layer * s.dz;
+	num_layer = number_layer;
+	d = number_layer*s.dz;
 	sigma_max = (m + 1) / (sqrt(eps_r) * 150 * PI * s.dz);
 	side_sx = num_layer;
 	side_sy = s.size_y + 2 * num_layer;
 	ud_sx = s.size_x;//10
 	ud_sy = num_layer;//3
-
-	alloc(Hxzl, side_sx, side_sy);//3, 16, for Hy
-	alloc(Hyzl, side_sx, side_sy + 1);//3, 17, for Hx
-	alloc(Exyl, side_sx, side_sy + 1);//3, 17
-	alloc(Eyxl, side_sx, side_sy + 1);//3, 17
-
-	alloc(Hxzr, side_sx, side_sy);
-	alloc(Hyzr, side_sx, side_sy + 1);
-	alloc(Exyr, side_sx, side_sy + 1);
-	alloc(Eyxr, side_sx, side_sy + 1);//3,17
-
-	alloc(Hxzu, ud_sx + 1, ud_sy);//11, 3
-	alloc(Hyzu, ud_sx, ud_sy);//10, 3
-	alloc(Exyu, ud_sx + 1, ud_sy);//11, 3
-	alloc(Eyxu, ud_sx + 1, ud_sy);
-
-	alloc(Hxzd, ud_sx + 1, ud_sy);
-	alloc(Hyzd, ud_sx, ud_sy);
-	alloc(Exyd, ud_sx + 1, ud_sy);
-	alloc(Eyxd, ud_sx + 1, ud_sy);
 
 	set_distance(s);
 	set_kappa(s);
@@ -39,92 +20,14 @@ cvl::cvl(int number, src s)
 	set_full_coe(s);
 	set_half_coe(s);
 
-	int i;
 	fstream myfile;
-	//myfile.open("Hzx.txt", ios::out);
-	//myfile.close();
-
-	myfile.open("Exyl.txt", ios::out);
-	myfile.close();
-
-	myfile.open("Exyr.txt", ios::out);
-	myfile.close();
-
-	myfile.open("Eyxl.txt", ios::out);
-	myfile.close();
-
-	myfile.open("Eyxr.txt", ios::out);
-	myfile.close();
-
-	myfile.open("Hxzl.txt", ios::out);
-	myfile.close();
-
-	myfile.open("Hxzu.txt", ios::out);
-	myfile.close();
-
-	myfile.open("Hyzl.txt", ios::out);
-	myfile.close();
-
-	myfile.open("Hyzu.txt", ios::out);
-	myfile.close();
-
-	myfile.open("Hyzr.txt", ios::out);
-	myfile.close();
-
 	myfile.open("coe.txt", ios::out);
 	myfile.close();
 }
 
-
-cvl::~cvl()
-{
-	//free(Hxzl);
-	//free(Hxzr);
-	//free(Hxzu);
-	//free(Hxzd);
-
-	//free(Hyzl);
-	//free(Hyzr);
-	//free(Hyzu);
-	//free(Hyzd);
-
-	//free(Ezyl);
-	//free(Ezyr);
-	//free(Ezyu);
-	//free(Ezyd);
-
-	//free(Eyxl);
-	//free(Eyxr);
-	//free(Eyxu);
-	//free(Eyxd);
-
-	//free(distance_full);
-	//free(distance_half);
-	//free(sigma_full);
-	//free(sigma_half);
-	//free(alpha_full);
-	//free(alpha_half);
-	////free(kappa_full);
-	//free(kappa_half);
-	//free(c_E);
-	//free(c_H);
-	//free(cvl_H_coe);
-	//free(cvl_E_coe);
-}
-
-void cvl::alloc(float* &p, int x, int y)
-{
-	p = (float*)malloc(x * y * sizeof(float));
-	for (int i = 0; i < x*y; i++)
-	{
-		p[i] = 0.f;
-	}
-	//memset(p, 0, x*y*sizeof(float));
-}
-
 //the distance of every field points of H and E in CPML layer.
 //the "i_min" is the nearest distance, the "I_max" is the furthest distance.
-void cvl::set_distance(src source)
+void COE::set_distance(src source)
 {
 	int i;
 	distance_full = (float *)malloc(num_layer*sizeof(float));
@@ -139,7 +42,7 @@ void cvl::set_distance(src source)
 	}
 }
 
-void cvl::set_sigma(src source)
+void COE::set_sigma(src source)
 {
 	int i;
 	sigma_full = (float *)malloc(num_layer * sizeof(float));
@@ -157,7 +60,7 @@ void cvl::set_sigma(src source)
 	}
 }
 
-void cvl::set_kappa(src source)
+void COE::set_kappa(src source)
 {
 	kappa_full = (float *)malloc(num_layer * sizeof(float));
 	kappa_half = (float *)malloc(num_layer * sizeof(float));
@@ -174,7 +77,7 @@ void cvl::set_kappa(src source)
 	}
 }
 
-void cvl::set_alpha(src source)
+void COE::set_alpha(src source)
 {
 	alpha_full = (float *)malloc(num_layer * sizeof(float));
 	alpha_half = (float *)malloc(num_layer * sizeof(float));
@@ -192,7 +95,7 @@ void cvl::set_alpha(src source)
 	}
 }
 
-void cvl::set_c(src source)
+void COE::set_c(src source)
 {
 	c_full = (float *)malloc(num_layer * sizeof(float));
 	c_half = (float *)malloc(num_layer * sizeof(float));
@@ -210,7 +113,7 @@ void cvl::set_c(src source)
 	}
 }
 
-void cvl::set_half_coe(src source)
+void COE::set_half_coe(src source)
 {
 	int i;
 	cvl_half_coe = (float *)malloc(sizeof(float) * num_layer);
@@ -220,7 +123,7 @@ void cvl::set_half_coe(src source)
 	}
 }
 
-void cvl::set_full_coe(src source)
+void COE::set_full_coe(src source)
 {
 	int i;
 	cvl_full_coe = (float *)malloc(sizeof(float) * num_layer);
@@ -230,220 +133,7 @@ void cvl::set_full_coe(src source)
 	}
 }
 
-void cvl::cmp_cvlh(src s, E Ez, H Hy, int time)
-{
-	int i, j;
-	int pmlbd = num_layer - 1;
-	int iopen_side, iclose_side, jopen_side, jclose_side;
-	int iopen_ud, iclose_ud, jopen_ud, jclose_ud;
-	int offset_e;
-	//left & right CPML
-	offset_e = num_layer + s.size_x + 1;//51-10=41
-	iopen_side = 0; iclose_side = side_sy;
-	jopen_side = 0; jclose_side = side_sx;
-	for (i = iopen_side; i < iclose_side; i++)
-	{
-		for (j = jopen_side; j < jclose_side; j++)
-		{
-			//Hxzl
-			Hxzl[i*side_sx + j] = cvl_full_coe[pmlbd - j] * Hxzl[i*side_sx + j]
-				+ c_full[pmlbd - j] * (Ez.Ez[(i + 1)*Ez.size_x + j] - Ez.Ez[i*Ez.size_x + j]) / s.dz;
-
-			//Hxzr
-			Hxzr[i*side_sx + j] = cvl_full_coe[j] * Hxzr[i*side_sx + j]
-				+ c_full[j] * (Ez.Ez[(i + 1)*Ez.size_x + j + offset_e] - Ez.Ez[i*Ez.size_x + j + offset_e]) / s.dz;
-		}
-	}
-
-	//3, 17
-	offset_e = num_layer + s.size_x;
-	iopen_side = 0; iclose_side = side_sy + 1;
-	jopen_side = 0; jclose_side = side_sx;
-	for (i = iopen_side; i < iclose_side; i++)
-	{
-		for (j = jopen_side; j < jclose_side; j++)
-		{
-			//Hyzl
-			Hyzl[i*side_sx + j] = cvl_half_coe[pmlbd - j] * Hyzl[i*side_sx + j]
-				+ c_half[pmlbd - j] * (Ez.Ez[i*Ez.size_x + j + 1] - Ez.Ez[i*Ez.size_x + j]) / s.dz;
-			//Hyzr
-			Hyzr[i*side_sx + j] = cvl_half_coe[j] * Hyzr[i*side_sx + j]
-				+ c_half[j] * (Ez.Ez[i*Ez.size_x + j + 1 + offset_e] - Ez.Ez[i*Ez.size_x + j + offset_e]) / s.dz;
-			//			if (time == 6 && ( i == 8))
-			//			{
-			//				cout << "Hyzr(" << i << ", " << j << "): " << Hyzr[i*side_sx + j] << endl;
-			//				cout << "\tDebug\t"
-			//					<<  Ez.Ez[i*Ez.size_x + j + 1 + offset_e]<<"\t"
-			//					<<Ez.Ez[i*Ez.size_x + j + offset_e]
-			//					<< endl;
-			//			}
-		}
-	}
-
-	//bottom & upper CPML, 11, 3
-	iopen_ud = 0; iclose_ud = ud_sy;
-	jopen_ud = 0; jclose_ud = ud_sx + 1;
-	for (i = iopen_ud; i < iclose_ud; i++)
-	{
-		for (j = jopen_ud; j < jclose_ud; j++)
-		{
-			//bottom
-			offset_e = num_layer;
-			//Hxzd
-			Hxzd[i*(ud_sx + 1) + j] = cvl_half_coe[pmlbd - i] * Hxzd[i*(ud_sx + 1) + j]
-				+ c_half[pmlbd - i] * (Ez.Ez[(i + 1)*Ez.size_x + j + offset_e] - Ez.Ez[i*Ez.size_x + j + offset_e]) / s.dz;
-
-			//upper
-			offset_e = num_layer + s.size_y;
-			//Hxzu
-			Hxzu[i*(ud_sx + 1) + j] = cvl_half_coe[i] * Hxzu[i*(ud_sx + 1) + j]
-				+ c_half[i] * (Ez.Ez[(i + 1 + offset_e)*Ez.size_x + j + num_layer] - Ez.Ez[(i + offset_e)*Ez.size_x + j + num_layer]) / s.dz;
-		}
-	}
-
-	//10, 3
-	iopen_ud = 0; iclose_ud = ud_sy;
-	jopen_ud = 0; jclose_ud = ud_sx;
-	offset_e = num_layer + s.size_y + 1;
-	for (i = iopen_ud; i < iclose_ud; i++)
-	{
-		for (j = jopen_ud; j < jclose_ud; j++)
-		{
-			//Hyzd
-			Hyzd[i*ud_sx + j] = cvl_full_coe[pmlbd - i] * Hyzd[i*ud_sx + j]
-				+ c_full[pmlbd - i] * (Ez.Ez[i*Ez.size_x + j + 1 + offset_e] - Ez.Ez[i*Ez.size_x + j + offset_e]) / s.dz;
-
-			//Hyzu
-			Hyzu[i*ud_sx + j] = cvl_full_coe[i] * Hyzu[i*ud_sx + j]
-				+ c_full[i] * (Ez.Ez[(i + offset_e)*Ez.size_x + j + 1 + num_layer] - Ez.Ez[(i + offset_e)*Ez.size_x + j + num_layer]) / s.dz;
-			if (time == 6 && i == iopen_ud&&j == 4)
-			{
-				cout << "Hyzu(" << i << ", " << j << "): " << Hyzu[i*ud_sx + j] << endl;
-				cout << "\tDebug\t"
-					//<< c_full[i] * (Ez.Ez[(i + offset_e)*Ez.size_x + j + 1 + num_layer] - Ez.Ez[(i + offset_e)*Ez.size_x + j + num_layer]) / s.dz << "\t"
-					<< "Ez location: (" << i + offset_e << ", " << j + 1 + num_layer << ")\t"
-					<< Ez.Ez[(i + offset_e)*Ez.size_x + j + 1 + num_layer] << "\t"
-					//<< Ez.Ez[(i + offset_e)*Ez.size_x + j + num_layer]
-					<< endl;
-			}
-		}
-	}
-}
-
-void cvl::cmp_cvle(src s, E Ez, H h, int time)
-{
-	int i, j;
-	int pmlbd = num_layer - 1;
-	int iopen_side = 0, iclose_side = side_sy;
-	int jopen_side = 0, jclose_side = side_sx - 1;
-	int iopen_ud = 0, iclose_ud = ud_sy - 1;
-	int jopen_ud = 0, jclose_ud = ud_sx;
-	int offset_h;
-
-	//left side
-	for (i = iopen_side; i <= iclose_side; i++)
-	{
-		for (j = jopen_side; j <= jclose_side; j++)
-		{
-			if (i == 0 || j == 0 || i == iclose_side)
-			{
-				Exyl[i*side_sx + j] = 0.f;
-				Eyxl[i*side_sx + j] = 0.f;
-				continue;
-			}
-			//Exyl
-			Exyl[i*side_sx + j] = cvl_full_coe[pmlbd - j] * Exyl[i*side_sx + j]
-				+ cvl_full_coe[pmlbd - j] * (h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) / s.dz;
-			//Eyxl
-			Eyxl[i*side_sx + j] = cvl_full_coe[pmlbd - j] * Eyxl[i*side_sx + j]
-				+ cvl_full_coe[pmlbd - j] * (h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1]) / s.dz;
-		}
-	}
-
-	//right side
-	offset_h = num_layer + s.size_x + 1;
-	if (time == 0)
-	{
-		cout << "iopen_ud: " << iopen_ud << "\ticlose_ud: " << iclose_ud << endl;
-		cout << "jopen_ud: " << jopen_ud << "\tjclose_ud: " << jclose_ud << endl;
-		cout << "offset_h: " << offset_h << endl;
-	}
-	for (i = iopen_side; i <= iclose_side; i++)
-	{
-		for (j = jopen_side; j <= jclose_side; j++)
-		{
-			if (i == 0 || i == iclose_side || j == jclose_side)
-			{
-				Exyr[i*side_sx + j] = 0.f;
-				Eyxr[i*side_sx + j] = 0.f;
-				continue;
-			}
-			//Exyr
-			Exyr[i*side_sx + j] = cvl_full_coe[j] * Exyr[i*side_sx + j]
-				+ cvl_full_coe[j] * (h.Hy[i*h.size_Hy_x + j + offset_h] - h.Hy[(i - 1)*h.size_Hy_x + j + offset_h]) / s.dz;
-			//Eyxr
-			Eyxr[i*side_sx + j] = cvl_full_coe[j] * Eyxr[i*side_sx + j]
-				+ cvl_full_coe[j] * (h.Hx[i*h.size_Hx_x + j + offset_h] - h.Hx[i*h.size_Hx_x + j - 1 + offset_h]) / s.dz;
-		}
-	}
-
-	//upper, (11, 3)
-	int width = ud_sx + 1;
-	offset_h = num_layer + s.size_y + 1;
-	for (i = iopen_ud; i <= iclose_ud; i++)
-	{
-		for (j = jopen_ud; j <= jclose_ud; j++)
-		{
-			if (i == iclose_ud)
-			{
-				Exyu[i*width + j] = 0.f;
-				Eyxu[i*width + j] = 0.f;
-				continue;
-			}
-			//Exyu
-			Exyu[i*width + j] = cvl_full_coe[i] * Exyu[i*width + j]
-				+ cvl_full_coe[i] * (h.Hy[(i + offset_h)*h.size_Hy_x + j + num_layer] - h.Hy[(i - 1 + offset_h)*h.size_Hy_x + j + num_layer]) / s.dz;
-			//Eyxu
-			Eyxu[i*width + j] = cvl_full_coe[i] * Eyxu[i*width + j]
-				+ cvl_full_coe[i] * (h.Hx[(i + offset_h)*h.size_Hx_x + j + num_layer] - h.Hx[(i + offset_h)*h.size_Hx_x + j - 1 + num_layer]) / s.dz;
-			if (time == 6 && i == iopen_ud && (j == 4))
-			{
-				cout << "Eyxu(" << i << ", " << j << "): " << Eyxu[i*width + j] << endl;
-				cout << "\tDebug\t"
-					//<< "width: " << width << "\t"
-					//<< cvl_full_coe[i] * (h.Hx[(i + offset_h)*h.size_Hx_x + j + num_layer] - h.Hx[(i + offset_h)*h.size_Hx_x + j - 1 + num_layer]) / s.dz << "\t"
-					/*error here*/
-					<< h.Hx[(i + offset_h)*h.size_Hx_x + j + num_layer] << "\t"
-					<< "Hx location: (" << i + offset_h << ", " << j + num_layer << ")\t"
-					<< "Hx number: " << (i + offset_h)*h.size_Hx_x + j + num_layer << "\t"
-					/*error end*/
-					//<< h.Hx[(i + offset_h)*h.size_Hx_x + j - 1 + num_layer]
-					<< endl;
-			}
-		}
-	}
-	//bottom, (11, 3)
-	for (i = iopen_ud; i <= iclose_ud; i++)
-	{
-		for (j = jopen_ud; j <= jclose_ud; j++)
-		{
-			if (i == 0)
-			{
-				Exyd[i*width + j] = 0.f;
-				Eyxd[i*width + j] = 0.f;
-				continue;
-			}
-			//Exyd
-			Exyd[i*width + j] = cvl_full_coe[pmlbd - i] * Exyd[i*width + j]
-				+ cvl_full_coe[pmlbd - i] * (h.Hy[i*h.size_Hy_x + j + num_layer] - h.Hy[(i - 1)*h.size_Hy_x + j + num_layer]) / s.dz;
-			//Eyxd
-			Eyxd[i*width + j] = cvl_full_coe[pmlbd - i] * Eyxd[i*width + j]
-				+ cvl_full_coe[pmlbd - i] * (h.Hy[i*h.size_Hy_x + j + +num_layer] - h.Hy[i*h.size_Hy_x + j + num_layer]) / s.dz;
-		}
-	}
-}
-
-void cvl::checkout()
+void COE::checkout()
 {
 	//for coefficient
 	cout << "convolution class checkout:" << endl;
@@ -469,157 +159,758 @@ void cvl::checkout()
 	//}
 }
 
-void cvl::save2file()
+/**************************** Hxz*******************************/
+/*Class HXZL*/
+HXZL::HXZL(COE c, src s)
 {
-	save2file_e();
-	save2file_h();
+	width = c.num_layer;
+	height = s.size_y + 2 * c.num_layer;
+
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Hxzl.txt", ios::out);
+	myfile.close();
 }
 
-void cvl::save2file_h()
+void HXZL::cmp(COE c, src s, E e, H h, int time)
 {
-	fstream myfile;
 	int i, j;
+	int pmlbd = c.num_layer - 1;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
+				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+		}
+	}
+}
+
+void HXZL::save2file()
+{
+	int i, j;
+	fstream myfile;
 
 	myfile.open("Hxzl.txt", ios::app);
-	for (i = side_sy - 1; i >= 0; i--)
+	for (i = height - 1; i >= 0; i--)
 	{
-		for (j = 0; j < side_sx; j++)
+		for (j = 0; j < width; j++)
 		{
-			myfile << Hxzl[i*side_sx + j] << "\t";
+			myfile << p[i*width + j] << "\t";
 		}
 		myfile << endl;
 	}
 	myfile << endl;
 	myfile.close();
+}
 
-	myfile.open("Hyzl.txt", ios::app);
-	for (i = side_sy; i >= 0; i--)
-	{
-		for (j = 0; j < side_sx; j++)
-		{
-			myfile << Hyzl[i*side_sx + j] << "\t";
-		}
-		myfile << endl;
-	}
-	myfile << endl;
-	myfile.close();
+/*Class HXZR*/
+HXZR::HXZR(COE c, src s)
+{
+	width = c.num_layer;
+	height = s.size_y + 2 * c.num_layer;
 
-	myfile.open("Hyzr.txt", ios::app);
-	for (i = side_sy; i >= 0; i--)
-	{
-		for (j = 0; j < side_sx; j++)
-		{
-			myfile << Hyzr[i*side_sx + j] << "\t";
-		}
-		myfile << endl;
-	}
-	myfile << endl;
-	myfile.close();
+	TOOLS::alloc(p, width, height);
 
-	myfile.open("Hyzu.txt", ios::app);
-	for (i = ud_sy - 1; i >= 0; i--)
+	fstream myfile;
+	myfile.open("Hxzr.txt", ios::out);
+	myfile.close();
+}
+
+void HXZR::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+	int offset_e = c.num_layer + s.size_x + 1;//
+
+	for (i = 0; i < height; i++)
 	{
-		for (j = 0; j < ud_sx; j++)
+		for (j = 0; j < width; j++)
 		{
-			myfile << Hyzu[i*ud_sx + j] << "\t";
+			p[i*width + j] = c.cvl_full_coe[j] * p[i*width + j]
+				+ c.c_full[j] * (e.Ez[(i + 1)*e.size_x + j + offset_e] - e.Ez[i*e.size_x + j + offset_e]) / s.dz;
+		}
+	}
+}
+
+void HXZR::save2file()
+{
+	int i, j;
+	fstream myfile;
+
+	myfile.open("Hxzr.txt", ios::app);
+	for (i = height - 1; i >= 0; i--)
+	{
+		for (j = 0; j < width; j++)
+		{
+			myfile << p[i*width + j] << "\t";
 		}
 		myfile << endl;
 	}
 	myfile << endl;
 	myfile.close();
+}
+
+/*Class HXZU*/
+HXZU::HXZU(COE c, src s)
+{
+	width = s.size_x + 1;
+	height = c.num_layer;
+
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Hxzu.txt", ios::out);
+	myfile.close();
+}
+
+void HXZU::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+	int offset_e = c.num_layer + s.size_y;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_half_coe[i] * p[i*width + j]
+				+ c.c_half[i] * (e.Ez[(i + 1 + offset_e)*e.size_x + j + c.num_layer]
+				- e.Ez[(i + offset_e)*e.size_x + j + c.num_layer]) / s.dz;
+		}
+	}
+}
+
+void HXZU::save2file()
+{
+	int i, j;
+	fstream myfile;
 
 	myfile.open("Hxzu.txt", ios::app);
-	for (i = ud_sy - 1; i >= 0; i--)
+	for (i = height - 1; i >= 0; i--)
 	{
-		for (j = 0; j < ud_sx + 1; j++)
+		for (j = 0; j < width; j++)
 		{
-			myfile << Hxzu[i*(ud_sx + 1) + j] << "\t";
+			myfile << p[i*width + j] << "\t";
 		}
 		myfile << endl;
 	}
 	myfile << endl;
 	myfile.close();
-
 }
-void cvl::save2file_e()
+
+/*Class HXZD*/
+HXZD::HXZD(COE c, src s)
 {
+	width = s.size_x + 1;
+	height = c.num_layer;
+
+	TOOLS::alloc(p, width, height);
+
 	fstream myfile;
+	myfile.open("Hxzd.txt", ios::out);
+	myfile.close();
+}
+
+void HXZD::cmp(COE c, src s, E e, H h, int time)
+{
 	int i, j;
+	int pmlbd = c.num_layer - 1;
+	int offset_e = c.num_layer;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_half_coe[pmlbd - i] * p[i*width + j]
+				+ c.c_half[pmlbd - i] * (e.Ez[(i + 1)*e.size_x + j + offset_e]
+				- e.Ez[i*e.size_x + j + offset_e]) / s.dz;
+		}
+	}
+}
+
+void HXZD::save2file()
+{
+	int i, j;
+	fstream myfile;
+
+	myfile.open("Hxzd.txt", ios::app);
+	for (i = height - 1; i >= 0; i--)
+	{
+		for (j = 0; j < width; j++)
+		{
+			myfile << p[i*width + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+}
+
+/*************************Hyz*******************************/
+/*Class HYZL*/
+HYZL::HYZL(COE c, src s)
+{
+	width = c.num_layer;
+	height = s.size_y + 2 * c.num_layer + 1;
+
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Hyzl.txt", ios::out);
+	myfile.close();
+}
+
+void HYZL::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_half_coe[pmlbd - j] * p[i*width + j]
+				+ c.c_half[pmlbd - j] * (e.Ez[i*e.size_x + j + 1]
+				- e.Ez[i*e.size_x + j]) / s.dz;
+		}
+	}
+}
+
+void HYZL::save2file()
+{
+	int i, j;
+	fstream myfile;
+
+	myfile.open("Hyzl.txt", ios::app);
+	for (i = height - 1; i >= 0; i--)
+	{
+		for (j = 0; j < width; j++)
+		{
+			myfile << p[i*width + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+}
+
+/*Class HYZR*/
+HYZR::HYZR(COE c, src s)
+{
+	width = c.num_layer;
+	height = s.size_y + 2 * c.num_layer + 1;
+
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Hyzr.txt", ios::out);
+	myfile.close();
+}
+
+void HYZR::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+	int offset_e = c.num_layer + s.size_x;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_half_coe[j] * p[i*width + j]
+				+ c.c_half[j] * (e.Ez[i*e.size_x + j + 1 + offset_e]
+				- e.Ez[i*e.size_x + j + offset_e]) / s.dz;
+		}
+	}
+}
+
+void HYZR::save2file()
+{
+	int i, j;
+	fstream myfile;
+
+	myfile.open("Hyzr.txt", ios::app);
+	for (i = height - 1; i >= 0; i--)
+	{
+		for (j = 0; j < width; j++)
+		{
+			myfile << p[i*width + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+}
+
+/*Class HYZU*/
+HYZU::HYZU(COE c, src s)
+{
+	width = s.size_x;
+	height = c.num_layer;
+
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Hyzu.txt", ios::out);
+	myfile.close();
+}
+
+void HYZU::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+	int offset_e = c.num_layer + s.size_y + 1;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_full_coe[i] * p[i*width + j]
+				+ c.c_full[i] * (e.Ez[(i + offset_e)*e.size_x + j + 1 + c.num_layer]
+				- e.Ez[(i + offset_e)*e.size_x + j + c.num_layer]) / s.dz;
+		}
+	}
+}
+
+void HYZU::save2file()
+{
+	int i, j;
+	fstream myfile;
+
+	myfile.open("Hyzu.txt", ios::app);
+	for (i = height - 1; i >= 0; i--)
+	{
+		for (j = 0; j < width; j++)
+		{
+			myfile << p[i*width + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+}
+
+/*Class HYZD*/
+HYZD::HYZD(COE c, src s)
+{
+	width = s.size_x + 1;
+	height = c.num_layer;
+
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Hyzd.txt", ios::out);
+	myfile.close();
+}
+
+void HYZD::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+	int offset_e = c.num_layer;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_full_coe[pmlbd - i] * p[i*width + j]
+				+ c.c_full[pmlbd - i] * (e.Ez[i*e.size_x + j + 1 + offset_e]
+				- e.Ez[i*e.size_x + j + offset_e]) / s.dz;
+		}
+	}
+}
+
+void HYZD::save2file()
+{
+	int i, j;
+	fstream myfile;
+
+	myfile.open("Hyzd.txt", ios::app);
+	for (i = height - 1; i >= 0; i--)
+	{
+		for (j = 0; j < width; j++)
+		{
+			myfile << p[i*width + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+}
+
+/*************************Exy*******************************/
+/*Class EXYL*/
+EXYL::EXYL(COE c, src s)
+{
+	width = c.num_layer;
+	height = s.size_y + 2 * c.num_layer + 1;
+
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Exyl.txt", ios::out);
+	myfile.close();
+}
+
+void EXYL::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
+				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+		}
+	}
+}
+
+void EXYL::save2file()
+{
+	int i, j;
+	fstream myfile;
 
 	myfile.open("Exyl.txt", ios::app);
-	for (i = side_sy; i >= 0; i--)
+	for (i = height - 1; i >= 0; i--)
 	{
-		for (j = 0; j < side_sx; j++)
+		for (j = 0; j < width; j++)
 		{
-			myfile << Exyl[i*side_sx + j] << "\t";
+			myfile << p[i*width + j] << "\t";
 		}
 		myfile << endl;
 	}
 	myfile << endl;
 	myfile.close();
-
-	myfile.open("Exyr.txt", ios::app);
-	for (i = side_sy; i >= 0; i--)
-	{
-		for (j = 0; j < side_sx; j++)
-		{
-			myfile << Exyr[i*side_sx + j] << "\t";
-		}
-		myfile << endl;
-	}
-	myfile << endl;
-	myfile.close();
-
-	myfile.open("Eyxl.txt", ios::app);
-	for (i = side_sy; i >= 0; i--)
-	{
-		for (j = 0; j < side_sx; j++)
-		{
-			myfile << Eyxl[i*side_sx + j] << "\t";
-		}
-		myfile << endl;
-	}
-	myfile << endl;
-	myfile.close();
-
-	myfile.open("Eyxr.txt", ios::app);
-	for (i = side_sy; i >= 0; i--)
-	{
-		for (j = 0; j < side_sx; j++)
-		{
-			myfile << Eyxr[i*side_sx + j] << "\t";
-		}
-		myfile << endl;
-	}
-	myfile << endl;
-	myfile.close();
-
 }
 
-void cvl::save2file_coe()
+/*Class ExyR*/
+EXYR::EXYR(COE c, src s)
 {
-	//fstream myfile;
-	//int i;
+	width = c.num_layer;
+	height = s.size_y + 2 * c.num_layer + 1;
 
-	//myfile.open("coe.txt", ios::app);
-	//for (i = 0; i < num_layer; i++)
-	//{
-	//	myfile << i << "\t";
-	//	myfile << "distance= " << distance_half[i] << "\t";
-	//	myfile << "kappa= " << kappa_half[i] << "\t";
-	//	myfile << "sigma= " << sigma_half[i] << "\t";
-	//	myfile << "alpha= " << alpha_half[i] << "\t";
-	//	myfile << endl;
-	//}
-	//myfile << endl;
-	//for (i = 0; i < num_layer; i++)
-	//{
-	//	myfile << i << "\t";
-	//	myfile << "distance= " << distance_full[i] << "\t";
-	//	myfile << "kappa= " << kappa_full[i] << "\t";
-	//	myfile << "sigma= " << sigma_full[i] << "\t";
-	//	myfile << "alpha= " << alpha_full[i] << "\t";
-	//	myfile << endl;
-	//}
-	//myfile.close();
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Exyr.txt", ios::out);
+	myfile.close();
+}
+
+void EXYR::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
+				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+		}
+	}
+}
+
+void EXYR::save2file()
+{
+	int i, j;
+	fstream myfile;
+
+	myfile.open("Exyr.txt", ios::app);
+	for (i = height - 1; i >= 0; i--)
+	{
+		for (j = 0; j < width; j++)
+		{
+			myfile << p[i*width + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+}
+
+/*Class EXYU*/
+EXYU::EXYU(COE c, src s)
+{
+	width = s.size_x + 1;
+	height = c.num_layer;
+
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Exyu.txt", ios::out);
+	myfile.close();
+}
+
+void EXYU::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
+				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+		}
+	}
+}
+
+void EXYU::save2file()
+{
+	int i, j;
+	fstream myfile;
+
+	myfile.open("Hyzu.txt", ios::app);
+	for (i = height - 1; i >= 0; i--)
+	{
+		for (j = 0; j < width; j++)
+		{
+			myfile << p[i*width + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+}
+
+/*Class EXYD*/
+EXYD::EXYD(COE c, src s)
+{
+	width = s.size_x + 1;
+	height = c.num_layer;
+
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Exyd.txt", ios::out);
+	myfile.close();
+}
+
+void EXYD::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
+				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+		}
+	}
+}
+
+void EXYD::save2file()
+{
+	int i, j;
+	fstream myfile;
+
+	myfile.open("Exyd.txt", ios::app);
+	for (i = height - 1; i >= 0; i--)
+	{
+		for (j = 0; j < width; j++)
+		{
+			myfile << p[i*width + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+}
+
+/*************************Eyx*******************************/
+/*Class EYXL*/
+EYXL::EYXL(COE c, src s)
+{
+	width = c.num_layer;
+	height = s.size_y + 2 * c.num_layer + 1;
+
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Eyxl.txt", ios::out);
+	myfile.close();
+}
+
+void  EYXL::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
+				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+		}
+	}
+}
+
+void EYXL::save2file()
+{
+	int i, j;
+	fstream myfile;
+
+	myfile.open("Eyxl.txt", ios::app);
+	for (i = height - 1; i >= 0; i--)
+	{
+		for (j = 0; j < width; j++)
+		{
+			myfile << p[i*width + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+}
+
+/*Class EyxR*/
+EYXR::EYXR(COE c, src s)
+{
+	width = c.num_layer;
+	height = s.size_y + 2 * c.num_layer + 1;
+
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Eyxr.txt", ios::out);
+	myfile.close();
+}
+
+void EYXR::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
+				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+		}
+	}
+}
+
+void EYXR::save2file()
+{
+	int i, j;
+	fstream myfile;
+
+	myfile.open("Eyxr.txt", ios::app);
+	for (i = height - 1; i >= 0; i--)
+	{
+		for (j = 0; j < width; j++)
+		{
+			myfile << p[i*width + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+}
+
+/*Class EYXU*/
+EYXU::EYXU(COE c, src s)
+{
+	width = s.size_x + 1;
+	height = c.num_layer;
+
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Eyxu.txt", ios::out);
+	myfile.close();
+}
+
+void EYXU::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
+				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+		}
+	}
+}
+
+void EYXU::save2file()
+{
+	int i, j;
+	fstream myfile;
+
+	myfile.open("Hyzu.txt", ios::app);
+	for (i = height - 1; i >= 0; i--)
+	{
+		for (j = 0; j < width; j++)
+		{
+			myfile << p[i*width + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+}
+
+/*Class EYXD*/
+EYXD::EYXD(COE c, src s)
+{
+	width = s.size_x + 1;
+	height = c.num_layer;
+
+	TOOLS::alloc(p, width, height);
+
+	fstream myfile;
+	myfile.open("Eyxd.txt", ios::out);
+	myfile.close();
+}
+
+void EYXD::cmp(COE c, src s, E e, H h, int time)
+{
+	int i, j;
+	int pmlbd = c.num_layer - 1;
+
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+		{
+			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
+				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+		}
+	}
+}
+
+void EYXD::save2file()
+{
+	int i, j;
+	fstream myfile;
+
+	myfile.open("Eyxd.txt", ios::app);
+	for (i = height - 1; i >= 0; i--)
+	{
+		for (j = 0; j < width; j++)
+		{
+			myfile << p[i*width + j] << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+	myfile.close();
+}
+
+cvl::cvl(int number, src s)
+{
 }

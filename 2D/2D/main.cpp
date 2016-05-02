@@ -11,7 +11,7 @@ using namespace std;
 
 void main()
 {
-	src s(10, 10, 150);
+	src s(10, 10, 10);
 	cvl cvln(3, s);
 	H hy(s, cvln);
 	E Ez(s, cvln);

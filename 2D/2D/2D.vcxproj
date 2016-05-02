@@ -80,6 +80,7 @@
     <ClInclude Include="E.h" />
     <ClInclude Include="H.h" />
     <ClInclude Include="source.h" />
+    <ClInclude Include="TOOLS.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cvl.cpp" />
@@ -87,6 +88,7 @@
     <ClCompile Include="H.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TOOLS.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

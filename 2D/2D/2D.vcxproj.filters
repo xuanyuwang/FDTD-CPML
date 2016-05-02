@@ -27,6 +27,9 @@
     <ClInclude Include="source.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TOOLS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cvl.cpp">
@@ -42,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TOOLS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
