@@ -98,6 +98,24 @@ void E::cmp(H h, cvl c, src s, int time)
 				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
 				)
 				+ coe_E_cvl*(c.Exyl[i*c.side_sx + j] - c.Eyxl[i*c.side_sx + j]);
+			//if (time == 7 && i == (ysec2o + 4) && j == 2)
+			//{
+			//	cout << "Ez(" << i << ", " << j << "): " << Ez[i*size_x + j] << endl;
+			//	//				//cout << "width: " << width << endl;
+			//	//				//cout << "xsec2o" << xsec2o << endl;
+			//	cout << "\tDebug\t"
+			//		<< "first term: " << (coe_E / c.kappa_full[pmlbd - j])*(
+			//		(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
+			//		(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
+			//		) << "\t"
+			//		<< "second term: " << coe_E_cvl*(c.Exyl[i*c.side_sx + j] - c.Eyxl[i*c.side_sx + j]) << "\t"
+			//		//					<< "Ez number: " << i*size_x + j << "\t"
+			//		//					<< c.Exyu[(i - ysec3o)*width + j - xsec2o] << "\t"
+			//		//					<< "Eyxu location: (" << i - ysec3o << ", " << j - xsec2o << ")\t"
+			//		//					<< "Exyd number: " << (i - ysec3o)*width + j - xsec2o << "\t"
+			//		//					<< c.Eyxu[(i - ysec3o)*width + j - xsec2o] << "\t"
+			//		<< endl;
+			//}
 		}
 
 		//mid center FDTD area
@@ -122,6 +140,26 @@ void E::cmp(H h, cvl c, src s, int time)
 				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
 				)
 				+ coe_E_cvl*(c.Exyr[i*c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3o]);
+			if (time == 7 && (i == (ysec2o + 4)||i==(ysec2o+6)) && j == 14)
+			{
+				cout << "Ez(" << i << ", " << j << "): " << Ez[i*size_x + j] << endl;
+				//				//cout << "width: " << width << endl;
+				//				//cout << "xsec2o" << xsec2o << endl;
+				cout << "\tDebug\t"
+					<< "first term: " << h.Hy[i*h.size_Hy_x + j] << "\t"
+					<<h.Hy[(i - 1)*h.size_Hy_x + j] << "\t"
+					<< "Hy loc: (" << i << ", " << j << ")\t(" << i - 1 << ", " << j << ")\t"
+					//<< "number: " << i*h.size_Hy_x + j << ", " << (i - 1)*h.size_Hy_x + j << "\t"
+					//<<(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])<< "\t"
+					//<< "second term: " << coe_E_cvl*(c.Exyr[i*c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3o]) << "\t"
+					//					<< "Ez number: " << i*size_x + j << "\t"
+					//					<< coe_E_cvl*(c.Exyr[i*c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3o])<<"\t"
+					//					<< c.Exyu[(i - ysec3o)*width + j - xsec2o] << "\t"
+					//					<< "Eyxu location: (" << i - ysec3o << ", " << j - xsec2o << ")\t"
+					//					<< "Exyd number: " << (i - ysec3o)*width + j - xsec2o << "\t"
+					//					<< c.Eyxu[(i - ysec3o)*width + j - xsec2o] << "\t"
+					<< endl;
+			}
 		}
 	}
 
@@ -156,20 +194,6 @@ void E::cmp(H h, cvl c, src s, int time)
 				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
 				)
 				+ coe_E_cvl*(c.Exyu[(i - ysec3o)*width + j - xsec2o] - c.Eyxu[(i - ysec3o)*width + j - xsec2o]);
-//			if (time == 7 && i == (ysec3o + 1) && j == 4)
-//			{
-//				cout << "Ez(" << i << ", " << j << "): " << Ez[i*size_x + j] << endl;
-//				//cout << "width: " << width << endl;
-//				//cout << "xsec2o" << xsec2o << endl;
-//				cout << "\tDebug\t"
-//					<< "Ez number: " << i*size_x + j << "\t"
-//					<< coe_E_cvl*(c.Exyu[(i - ysec3o)*width + j - xsec2o] - c.Eyxu[(i - ysec3o)*width + j - xsec2o]) << "\t"
-//					<< c.Exyu[(i - ysec3o)*width + j - xsec2o] << "\t"
-//					<< "Eyxu location: (" << i - ysec3o << ", " << j - xsec2o << ")\t"
-//					<< "Exyd number: " << (i - ysec3o)*width + j - xsec2o << "\t"
-//					<< c.Eyxu[(i - ysec3o)*width + j - xsec2o] << "\t"
-//					<< endl;
-//			}
 		}
 
 		//upper right CPML corner

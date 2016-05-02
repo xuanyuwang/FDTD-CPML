@@ -15,9 +15,9 @@ import time
 import data
 '''
 dz = 0.015
-space =50 
+space =16
 ez_space = space + 1
-time = 100
+time = 150
 data = np.loadtxt('Ez.txt')
 groups = np.ndarray(shape=(time, ez_space, ez_space))
 
@@ -62,6 +62,6 @@ for i in range(0,time):
 	if oldcol is not None:
 		ax.collections.remove(oldcol)
 
-	plt.pause(.001)
+	plt.pause(.1)
 
 plt.show()

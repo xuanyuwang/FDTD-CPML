@@ -11,7 +11,7 @@ using namespace std;
 
 void main()
 {
-	src s(10, 10, 50);
+	src s(10, 10, 150);
 	cvl cvln(3, s);
 	H hy(s, cvln);
 	E Ez(s, cvln);
@@ -31,11 +31,11 @@ void main()
 		Ez.cmp(hy, cvln, s, i);
 #endif
 		s.cmp(i, &Ez.Ez[Ez.num_grid / 2]);
-		if (i < 10)
+		if (i < s.size_time)
 		{
-			hy.save2file();
+			//hy.save2file();
 			Ez.save2file();
-			cvln.save2file();
+			//cvln.save2file();
 		}
 	}
 	//cvln.save2file_coe();
