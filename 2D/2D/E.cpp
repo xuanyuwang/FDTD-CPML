@@ -31,6 +31,7 @@ void E::cmp(H h, cvl c, src s, int time)
 	int xsec1o = 0, xsec1c = pmlbd;
 	int xsec2o = pmlbd + 1, xsec2c = pmlbd + s.size_x + 1;
 	int xsec3o = size_x - c.num_layer, xsec3c = size_x - 1;
+	int width = c.ud_sx + 1;
 
 	//for bottom CPML
 	for (i = ysec1o; i <= ysec1c; i++)
@@ -51,7 +52,6 @@ void E::cmp(H h, cvl c, src s, int time)
 		}
 
 		//center bottom corner, CPML
-		int width = c.ud_sx + 1;
 		for (j = xsec2o; j <= xsec2c; j++)
 		{
 			if (i == 0)
@@ -64,20 +64,6 @@ void E::cmp(H h, cvl c, src s, int time)
 				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
 				)
 				+ coe_E_cvl*(c.Exyd[i*width + j - xsec2o] - c.Eyxd[i*width + j - xsec2o]);
-			if (time == 6 && (i == ysec1c) && (j == 9))
-			{
-				cout << "Ez(" << i << ", " << j << "): " << Ez[i*size_x + j] << endl;
-				cout << "width: " << width << endl;
-				//cout << "xsec2o" << xsec2o << endl;
-				cout << "\tDebug\t"
-					<< "Ez number: " << i*size_x + j << "\t"
-					<< coe_E_cvl*(c.Exyd[i*width + j - xsec2o] - c.Eyxd[i*width + j - xsec2o]) << "\t"
-					<< c.Exyd[i*width + j - xsec2o] << "\t"
-					<< "Eyxd location: (" << i << ", " << j - xsec2o << ")\t"
-					<< "Exyd number: " << i*width + j - xsec2o << "\t"
-					<< c.Eyxd[i*width + j - xsec2o] << "\t"
-					<< endl;
-			}
 		}
 
 		//right bottom corner, CPML
@@ -169,7 +155,21 @@ void E::cmp(H h, cvl c, src s, int time)
 				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
 				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
 				)
-				+ coe_E_cvl*(c.Exyu[(i - ysec3o)*c.ud_sx + j - xsec2o] - c.Eyxu[(i - ysec3o)*c.ud_sx + j - xsec2o]);
+				+ coe_E_cvl*(c.Exyu[(i - ysec3o)*width + j - xsec2o] - c.Eyxu[(i - ysec3o)*width + j - xsec2o]);
+//			if (time == 7 && i == (ysec3o + 1) && j == 4)
+//			{
+//				cout << "Ez(" << i << ", " << j << "): " << Ez[i*size_x + j] << endl;
+//				//cout << "width: " << width << endl;
+//				//cout << "xsec2o" << xsec2o << endl;
+//				cout << "\tDebug\t"
+//					<< "Ez number: " << i*size_x + j << "\t"
+//					<< coe_E_cvl*(c.Exyu[(i - ysec3o)*width + j - xsec2o] - c.Eyxu[(i - ysec3o)*width + j - xsec2o]) << "\t"
+//					<< c.Exyu[(i - ysec3o)*width + j - xsec2o] << "\t"
+//					<< "Eyxu location: (" << i - ysec3o << ", " << j - xsec2o << ")\t"
+//					<< "Exyd number: " << (i - ysec3o)*width + j - xsec2o << "\t"
+//					<< c.Eyxu[(i - ysec3o)*width + j - xsec2o] << "\t"
+//					<< endl;
+//			}
 		}
 
 		//upper right CPML corner

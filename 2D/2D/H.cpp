@@ -78,16 +78,6 @@ void H::cmp_Hx(E Ez, cvl c, src s, int time)
 		for (j = xsec2o; j <= xsec2c; j++)
 		{
 			Hx[i * size_Hx_x + j] += -coe_H * (Ez.Ez[i*Ez.size_x + j + 1] - Ez.Ez[i*Ez.size_x + j]);
-//			if (time == 5 && (i == 8) && j == 12)
-//			{
-//				cout << "Hx(" << i << ", " << j << "): " << Hx[i * size_Hx_x + j] << endl;
-//				cout << "\tDebug\t"
-//					<< "(" << i << ", " << j + 1 << ")\t"
-//					<< Ez.Ez[i*Ez.size_x + j + 1]<<"\t"
-//					<< "(" << i << ", " << j << ")\t"
-//					<< Ez.Ez[i*Ez.size_x + j]
-//					<< endl;
-//			}
 		}
 		//mid-right CPML
 		for (j = xsec3o; j <= xsec3c; j++)
@@ -110,7 +100,18 @@ void H::cmp_Hx(E Ez, cvl c, src s, int time)
 		for (j = xsec2o; j <= xsec2c; j++)
 		{
 			Hx[i * size_Hx_x + j] += (-coe_H / c.kappa_full[i - ysec3o])*(Ez.Ez[i * Ez.size_x + j + 1] - Ez.Ez[i * Ez.size_x + j])
-				+ coe_H_cvl*(-c.Hyzu[(i - ysec3o) *c.side_sx + j - xsec2o]);
+				+ coe_H_cvl*(-c.Hyzu[(i - ysec3o) *c.ud_sx + j - xsec2o]);
+			if (time == 7 && i == (ysec3o + 1) && j == 4)
+			{
+				cout << "Hx(" << i << ", " << j << "): " << Hx[i * size_Hx_x + j] << endl;
+				cout << "\tDebug\t"
+					//<< coe_H_cvl*(-c.Hyzu[(i - ysec3o) *c.side_sx + j - xsec2o]) << "\t"
+					<< "xsec2o: " << xsec2o << "\t"
+					<< "Hyzu loc: (" << (i - ysec3o) << ", " << (j - xsec2o) << ")\t"
+					<< "Hyzu number: " << (i - ysec3o) *c.ud_sx + j - xsec2o << "\t"
+					<< c.Hyzu[(i - ysec3o) *c.ud_sx + j - xsec2o]
+					<< endl;
+			}
 		}
 		//upper-right corner area
 		for (j = xsec3o; j <= xsec3c; j++)
