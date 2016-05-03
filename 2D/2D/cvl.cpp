@@ -311,7 +311,7 @@ void cvl::cmp_cvlh(src s, E Ez, H Hy, int time)
 		{
 			//Hyzd
 			Hyzd[i*ud_sx + j] = cvl_full_coe[pmlbd - i] * Hyzd[i*ud_sx + j]
-				+ c_full[pmlbd - i] * (Ez.Ez[i*Ez.size_x + j + 1 + offset_e] - Ez.Ez[i*Ez.size_x + j + offset_e]) / s.dz;
+				+ c_full[pmlbd - i] * (Ez.Ez[i*Ez.size_x + j + 1 + num_layer] - Ez.Ez[i*Ez.size_x + j + num_layer]) / s.dz;
 
 			//Hyzu
 			Hyzu[i*ud_sx + j] = cvl_full_coe[i] * Hyzu[i*ud_sx + j]
