@@ -12,7 +12,7 @@ using namespace std;
 void main()
 {
 	src s(10, 10, 150);
-	cvl cvln(3, s);
+	cvl cvln(10, s);
 	H hy(s, cvln);
 	E Ez(s, cvln);
 

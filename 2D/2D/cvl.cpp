@@ -438,7 +438,7 @@ void cvl::cmp_cvle(src s, E Ez, H h, int time)
 				+ cvl_full_coe[pmlbd - i] * (h.Hy[i*h.size_Hy_x + j + num_layer] - h.Hy[(i - 1)*h.size_Hy_x + j + num_layer]) / s.dz;
 			//Eyxd
 			Eyxd[i*width + j] = cvl_full_coe[pmlbd - i] * Eyxd[i*width + j]
-				+ cvl_full_coe[pmlbd - i] * (h.Hy[i*h.size_Hy_x + j + +num_layer] - h.Hy[i*h.size_Hy_x + j + num_layer]) / s.dz;
+				+ cvl_full_coe[pmlbd - i] * (h.Hy[i*h.size_Hy_x + j + 1 + num_layer] - h.Hy[i*h.size_Hy_x + j + num_layer]) / s.dz;
 		}
 	}
 }
