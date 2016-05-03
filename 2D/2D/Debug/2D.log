@@ -1,18 +1,46 @@
-﻿Build started 5/2/2016 4:46:47 PM.
-     1>Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\2D\2D.vcxproj" on node 2 (ClCompile target(s)).
+﻿Build started 5/3/2016 7:40:17 PM.
+     1>Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\2D\2D.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cvl.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cvl.cpp main.cpp
          cvl.cpp
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(21): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(32): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(17): error C2512: 'HXZL' : no appropriate default constructor available
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(150): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(162): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(168): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(180): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(185): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-     1>Done Building Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\2D\2D.vcxproj" (ClCompile target(s)) -- FAILED.
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(32): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(48): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(21): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(41): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(53): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(59): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(71): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(76): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(154): warning C4101: 'i' : unreferenced local variable
+         Generating Code...
+         Compiling...
+         main.cpp
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(21): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(32): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(48): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+         Generating Code...
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt E.cpp H.cpp
+         H.cpp
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(21): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(32): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(48): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.cpp(111): warning C4101: 'i' : unreferenced local variable
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.cpp(261): warning C4101: 'i' : unreferenced local variable
+         E.cpp
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(21): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(32): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(48): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.lib" /MACHINE:X86 Debug\cvl.obj
+         Debug\main.obj
+         Debug\Source.obj
+         Debug\TOOLS.obj
+         Debug\E.obj
+         Debug\H.obj
+         2D.vcxproj -> C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.exe
+     1>Done Building Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\2D\2D.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:00.32
+Time Elapsed 00:00:03.40

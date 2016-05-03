@@ -7,25 +7,50 @@
 #include <fstream>
 #include "E.h"
 #include "cvl.h"
+#include "TOOLS.h"
 
 using namespace std;
 class E;
-class cvl;
-class H{
+class HYZL;
+class HXZL;
+class HXZR;
+class HXZU;
+class HXZD;
+class HYZR;
+class HYZU;
+class HYZD;
+class COE;
+
+class HX
+{
 public:
-	float *Hy, *Hx, coe_H, coe_H_cvl;
-	int size_Hx_y, size_Hx_x;
-	int size_Hy_y, size_Hy_x;
-	int num_grid_Hx, num_grid_Hy;
+	int width, height;
+	int num_grid;
+	float *p;
+	float coe_h, coe_h_cvl;
 	const float PI = 3.14159265f;
 	const float mu = (4.0 * PI) * 1e-7f;
 
 public:
-	H(src, cvl);
-	void checkout();
+	HX(COE, src);
+	void cmp(E, COE, src, HYZL, HYZR, HYZU, HYZD, int);
 	void save2file();
-	void cmp_Hx(E, cvl, src, int);
-	void cmp_Hy(E, cvl, src, int);
+};
+
+class HY
+{
+public:
+	int width, height;
+	int num_grid;
+	float *p;
+	float coe_h, coe_h_cvl;
+	const float PI = 3.14159265f;
+	const float mu = (4.0 * PI) * 1e-7f;
+
+public:
+	HY(COE, src);
+	void cmp(E e, COE c, src s, HXZL hxzl, HXZR hxzr, HXZU hxzu, HXZD hxzd, int time);
+	void save2file();
 };
 
 #endif

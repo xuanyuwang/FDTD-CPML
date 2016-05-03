@@ -11,8 +11,8 @@
 #include "TOOLS.h"
 
 class E;
-class H;
-class cvl;
+class HX;
+class HY;
 
 class COE
 {
@@ -58,9 +58,8 @@ public:
 	int width, height;
 public:
 	HXZL(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, E, int);
 	void save2file();
-	~HXZL();
 };
 
 class HXZR
@@ -70,9 +69,8 @@ public:
 	int width, height;
 public:
 	HXZR(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, E, int);
 	void save2file();
-	~HXZR();
 };
 
 class HXZU
@@ -82,9 +80,8 @@ public:
 	int width, height;
 public:
 	HXZU(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, E, int);
 	void save2file();
-	~HXZU();
 };
 
 class HXZD
@@ -94,9 +91,8 @@ public:
 	int width, height;
 public:
 	HXZD(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, E, int);
 	void save2file();
-	~HXZD();
 };
 
 class HYZL
@@ -106,9 +102,8 @@ public:
 	int width, height;
 public:
 	HYZL(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, E, int);
 	void save2file();
-	~HYZL();
 };
 
 class HYZR
@@ -118,9 +113,8 @@ public:
 	int width, height;
 public:
 	HYZR(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, E, int);
 	void save2file();
-	~HYZR();
 };
 
 class HYZU
@@ -130,9 +124,8 @@ public:
 	int width, height;
 public:
 	HYZU(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, E, int);
 	void save2file();
-	~HYZU();
 };
 
 class HYZD
@@ -142,9 +135,8 @@ public:
 	int width, height;
 public:
 	HYZD(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, E, int);
 	void save2file();
-	~HYZD();
 };
 
 class EXYL
@@ -154,9 +146,8 @@ public:
 	int width, height;
 public:
 	EXYL(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, HY, int);
 	void save2file();
-	~EXYL();
 };
 
 class EXYR
@@ -166,9 +157,8 @@ public:
 	int width, height;
 public:
 	EXYR(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, HY, int);
 	void save2file();
-	~EXYR();
 };
 
 class EXYU
@@ -178,9 +168,8 @@ public:
 	int width, height;
 public:
 	EXYU(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, HY, int);
 	void save2file();
-	~EXYU();
 };
 
 class EXYD
@@ -190,9 +179,8 @@ public:
 	int width, height;
 public:
 	EXYD(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, HY, int);
 	void save2file();
-	~EXYD();
 };
 
 class EYXL
@@ -202,9 +190,8 @@ public:
 	int width, height;
 public:
 	EYXL(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, HX, int);
 	void save2file();
-	~EYXL();
 };
 
 class EYXR
@@ -214,9 +201,8 @@ public:
 	int width, height;
 public:
 	EYXR(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, HX, int);
 	void save2file();
-	~EYXR();
 };
 
 class EYXU
@@ -226,9 +212,8 @@ public:
 	int width, height;
 public:
 	EYXU(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, HX, int);
 	void save2file();
-	~EYXU();
 };
 
 class EYXD
@@ -238,17 +223,8 @@ public:
 	int width, height;
 public:
 	EYXD(COE, src s);
-	void cmp(COE, src, E, H, int);
+	void cmp(COE, src, HX, int);
 	void save2file();
-	~EYXD();
-};
-
-
-class cvl
-{
-public:
-	cvl(int, src);
-	~cvl();
 };
 
 #endif

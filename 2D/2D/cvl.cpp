@@ -159,6 +159,22 @@ void COE::checkout()
 	//}
 }
 
+COE::~COE()
+{
+	//free(distance_half);
+	//free(distance_full);
+	//free(sigma_half);
+	//free(sigma_full);
+	//free(alpha_full);
+	//free(alpha_half);
+	//free(kappa_half);
+	//free(kappa_full);
+	//free(cvl_half_coe);
+	//free(cvl_full_coe);
+	//free(c_full);
+	//free(c_half);
+}
+
 /**************************** Hxz*******************************/
 /*Class HXZL*/
 HXZL::HXZL(COE c, src s)
@@ -173,7 +189,7 @@ HXZL::HXZL(COE c, src s)
 	myfile.close();
 }
 
-void HXZL::cmp(COE c, src s, E e, H h, int time)
+void HXZL::cmp(COE c, src s, E e, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -183,7 +199,8 @@ void HXZL::cmp(COE c, src s, E e, H h, int time)
 		for (j = 0; j < width; j++)
 		{
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+				+ c.c_full[pmlbd - j]
+				* (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
 		}
 	}
 }
@@ -219,7 +236,7 @@ HXZR::HXZR(COE c, src s)
 	myfile.close();
 }
 
-void HXZR::cmp(COE c, src s, E e, H h, int time)
+void HXZR::cmp(COE c, src s, E e, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -266,7 +283,7 @@ HXZU::HXZU(COE c, src s)
 	myfile.close();
 }
 
-void HXZU::cmp(COE c, src s, E e, H h, int time)
+void HXZU::cmp(COE c, src s, E e, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -314,7 +331,7 @@ HXZD::HXZD(COE c, src s)
 	myfile.close();
 }
 
-void HXZD::cmp(COE c, src s, E e, H h, int time)
+void HXZD::cmp(COE c, src s, E e, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -363,7 +380,7 @@ HYZL::HYZL(COE c, src s)
 	myfile.close();
 }
 
-void HYZL::cmp(COE c, src s, E e, H h, int time)
+void HYZL::cmp(COE c, src s, E e, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -410,7 +427,7 @@ HYZR::HYZR(COE c, src s)
 	myfile.close();
 }
 
-void HYZR::cmp(COE c, src s, E e, H h, int time)
+void HYZR::cmp(COE c, src s, E e, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -458,7 +475,7 @@ HYZU::HYZU(COE c, src s)
 	myfile.close();
 }
 
-void HYZU::cmp(COE c, src s, E e, H h, int time)
+void HYZU::cmp(COE c, src s, E e, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -506,7 +523,7 @@ HYZD::HYZD(COE c, src s)
 	myfile.close();
 }
 
-void HYZD::cmp(COE c, src s, E e, H h, int time)
+void HYZD::cmp(COE c, src s, E e, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -555,7 +572,7 @@ EXYL::EXYL(COE c, src s)
 	myfile.close();
 }
 
-void EXYL::cmp(COE c, src s, E e, H h, int time)
+void EXYL::cmp(COE c, src s, HY hy, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -570,8 +587,8 @@ void EXYL::cmp(COE c, src s, E e, H h, int time)
 				continue;
 			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (h.Hy[i*h.size_Hy_x + j]
-				- h.Hy[(i - 1)*h.size_Hy_x + j]) / s.dz;
+				+ c.c_full[pmlbd - j] * (hy.p[i*hy.width + j]
+				- hy.p[(i - 1)*hy.width + j]) / s.dz;
 		}
 	}
 }
@@ -607,7 +624,7 @@ EXYR::EXYR(COE c, src s)
 	myfile.close();
 }
 
-void EXYR::cmp(COE c, src s, E e, H h, int time)
+void EXYR::cmp(COE c, src s,HY hy, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -623,8 +640,8 @@ void EXYR::cmp(COE c, src s, E e, H h, int time)
 				continue;
 			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (h.Hy[i*h.size_Hy_x + j + offset_h]
-				- h.Hy[(i - 1)*h.size_Hy_x + j + offset_h]) / s.dz;
+				+ c.c_full[pmlbd - j] * (hy.p[i*hy.width + j + offset_h]
+				- hy.p[(i - 1)*hy.width + j + offset_h]) / s.dz;
 		}
 	}
 }
@@ -660,7 +677,7 @@ EXYU::EXYU(COE c, src s)
 	myfile.close();
 }
 
-void EXYU::cmp(COE c, src s, E e, H h, int time)
+void EXYU::cmp(COE c, src s,HY hy, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -676,8 +693,8 @@ void EXYU::cmp(COE c, src s, E e, H h, int time)
 				continue;
 			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (h.Hy[(i + offset_h)*h.size_Hy_x + j + c.num_layer]
-				- h.Hy[(i - 1 + offset_h)*h.size_Hy_x + j + c.num_layer]) / s.dz;
+				+ c.c_full[pmlbd - j] * (hy.p[(i + offset_h)*hy.width + j + c.num_layer]
+				- hy.p[(i - 1 + offset_h)*hy.width + j + c.num_layer]) / s.dz;
 		}
 	}
 }
@@ -713,7 +730,7 @@ EXYD::EXYD(COE c, src s)
 	myfile.close();
 }
 
-void EXYD::cmp(COE c, src s, E e, H h, int time)
+void EXYD::cmp(COE c, src s,HY hy, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -728,8 +745,8 @@ void EXYD::cmp(COE c, src s, E e, H h, int time)
 				continue;
 			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (h.Hy[i*h.size_Hy_x + j + c.num_layer]
-				- h.Hy[(i - 1)*h.size_Hy_x + j + c.num_layer]) / s.dz;
+				+ c.c_full[pmlbd - j] * (hy.p[i*hy.width + j + c.num_layer]
+				- hy.p[(i - 1)*hy.width + j + c.num_layer]) / s.dz;
 		}
 	}
 }
@@ -766,7 +783,7 @@ EYXL::EYXL(COE c, src s)
 	myfile.close();
 }
 
-void  EYXL::cmp(COE c, src s, E e, H h, int time)
+void  EYXL::cmp(COE c, src s,HX hx, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -781,7 +798,7 @@ void  EYXL::cmp(COE c, src s, E e, H h, int time)
 				continue;
 			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1]) / s.dz;
+				+ c.c_full[pmlbd - j] * (hx.p[i*hx.width + j] - hx.p[i*hx.width + j - 1]) / s.dz;
 		}
 	}
 }
@@ -817,7 +834,7 @@ EYXR::EYXR(COE c, src s)
 	myfile.close();
 }
 
-void EYXR::cmp(COE c, src s, E e, H h, int time)
+void EYXR::cmp(COE c, src s,HX hx, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -833,8 +850,8 @@ void EYXR::cmp(COE c, src s, E e, H h, int time)
 				continue;
 			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (h.Hx[i*h.size_Hx_x + j + offset_h]
-				- h.Hx[i*h.size_Hx_x + j - 1 + offset_h]) / s.dz;
+				+ c.c_full[pmlbd - j] * (hx.p[i*hx.width + j + offset_h]
+				- hx.p[i*hx.width + j - 1 + offset_h]) / s.dz;
 		}
 	}
 }
@@ -870,7 +887,7 @@ EYXU::EYXU(COE c, src s)
 	myfile.close();
 }
 
-void EYXU::cmp(COE c, src s, E e, H h, int time)
+void EYXU::cmp(COE c, src s,HX hx, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -886,8 +903,8 @@ void EYXU::cmp(COE c, src s, E e, H h, int time)
 				continue;
 			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (h.Hx[(i + offset_h)*h.size_Hx_x + j + c.num_layer]
-				- h.Hx[(i + offset_h)*h.size_Hx_x + j - 1 + c.num_layer]) / s.dz;
+				+ c.c_full[pmlbd - j] * (hx.p[(i + offset_h)*hx.width + j + c.num_layer]
+				- hx.p[(i + offset_h)*hx.width + j - 1 + c.num_layer]) / s.dz;
 		}
 	}
 }
@@ -923,7 +940,7 @@ EYXD::EYXD(COE c, src s)
 	myfile.close();
 }
 
-void EYXD::cmp(COE c, src s, E e, H h, int time)
+void EYXD::cmp(COE c, src s,HX hx, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
@@ -938,8 +955,8 @@ void EYXD::cmp(COE c, src s, E e, H h, int time)
 				continue;
 			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (h.Hy[i*h.size_Hy_x + j + 1 + c.num_layer]
-				- h.Hy[i*h.size_Hy_x + j + c.num_layer]) / s.dz;
+				+ c.c_full[pmlbd - j] * (hx.p[i*hx.width + j + 1 + c.num_layer]
+				- hx.p[i*hx.width + j + c.num_layer]) / s.dz;
 		}
 	}
 }
@@ -960,8 +977,4 @@ void EYXD::save2file()
 	}
 	myfile << endl;
 	myfile.close();
-}
-
-cvl::cvl(int number, src s)
-{
 }

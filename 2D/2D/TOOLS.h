@@ -7,7 +7,7 @@
 class TOOLS
 {
 public:
-	static void alloc(float* p, int x, int y);
+	static void alloc(float* &p, int x, int y);
 	TOOLS();
 	~TOOLS();
 };

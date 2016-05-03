@@ -2,7 +2,7 @@
 #define MUR
 //#define debug
 
-E::E(src s, cvl c)
+E::E(src s, COE c)
 {
 	size_x = s.size_x + 1 + 2 * c.num_layer;
 	size_y = s.size_y + 1 + 2 * c.num_layer;
@@ -19,7 +19,10 @@ E::E(src s, cvl c)
 	myfile.close();
 }
 
-void E::cmp(H h, cvl c, src s, int time)
+void E::cmp(HX hx, HY hy, COE c, src s,
+	EXYL exyl, EXYR exyr, EXYU exyu, EXYD exyd,
+	EYXL eyxl, EYXR eyxr, EYXU eyxu, EYXD eyxd,
+	int time)
 {
 	int i, j;
 	//[0,pmlbd]([0,9]), [pmlbd,pmlbd+s.size_spzce]([10, 40]), [size_Ez - 10, size_Ez - 1]([41,50])
@@ -45,10 +48,10 @@ void E::cmp(H h, cvl c, src s, int time)
 				continue;
 			}
 			Ez[i*size_x + j] += (coe_E / c.kappa_full[pmlbd - j])*(
-				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
-				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
+				(hy.p[i*hy.width + j] - hy.p[(i - 1)*hy.width + j]) -
+				(hx.p[i*hx.width + j] - hx.p[i*hx.width + j - 1])
 				)
-				+ coe_E_cvl*(c.Exyl[i*c.side_sx + j] - c.Eyxl[i*c.side_sx + j]);
+				+ coe_E_cvl*(exyl.p[i*c.side_sx + j] - eyxl.p[i*c.side_sx + j]);
 		}
 
 		//center bottom corner, CPML
@@ -60,10 +63,10 @@ void E::cmp(H h, cvl c, src s, int time)
 				continue;
 			}
 			Ez[i*size_x + j] += (coe_E / c.kappa_full[pmlbd - i])*(
-				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
-				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
+				(hy.p[i*hy.width + j] - hy.p[(i - 1)*hy.width + j]) -
+				(hx.p[i*hx.width + j] - hx.p[i*hx.width + j - 1])
 				)
-				+ coe_E_cvl*(c.Exyd[i*width + j - xsec2o] - c.Eyxd[i*width + j - xsec2o]);
+				+ coe_E_cvl*(exyd.p[i*width + j - xsec2o] - eyxd.p[i*width + j - xsec2o]);
 		}
 
 		//right bottom corner, CPML
@@ -75,10 +78,10 @@ void E::cmp(H h, cvl c, src s, int time)
 				continue;
 			}
 			Ez[i*size_x + j] += (coe_E / c.kappa_full[j - xsec3o])*(
-				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
-				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
+				(hy.p[i*hy.width + j] - hy.p[(i - 1)*hy.width + j]) -
+				(hx.p[i*hx.width + j] - hx.p[i*hx.width + j - 1])
 				)
-				+ coe_E_cvl*(c.Exyr[i *c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3o]);
+				+ coe_E_cvl*(exyr.p[i *c.side_sx + j - xsec3o] - eyxr.p[i*c.side_sx + j - xsec3o]);
 		}
 	}
 
@@ -94,36 +97,18 @@ void E::cmp(H h, cvl c, src s, int time)
 				continue;
 			}
 			Ez[i*size_x + j] += (coe_E / c.kappa_full[pmlbd - j])*(
-				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
-				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
+				(hy.p[i*hy.width + j] - hy.p[(i - 1)*hy.width + j]) -
+				(hx.p[i*hx.width + j] - hx.p[i*hx.width + j - 1])
 				)
-				+ coe_E_cvl*(c.Exyl[i*c.side_sx + j] - c.Eyxl[i*c.side_sx + j]);
-			//if (time == 7 && i == (ysec2o + 4) && j == 2)
-			//{
-			//	cout << "Ez(" << i << ", " << j << "): " << Ez[i*size_x + j] << endl;
-			//	//				//cout << "width: " << width << endl;
-			//	//				//cout << "xsec2o" << xsec2o << endl;
-			//	cout << "\tDebug\t"
-			//		<< "first term: " << (coe_E / c.kappa_full[pmlbd - j])*(
-			//		(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
-			//		(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
-			//		) << "\t"
-			//		<< "second term: " << coe_E_cvl*(c.Exyl[i*c.side_sx + j] - c.Eyxl[i*c.side_sx + j]) << "\t"
-			//		//					<< "Ez number: " << i*size_x + j << "\t"
-			//		//					<< c.Exyu[(i - ysec3o)*width + j - xsec2o] << "\t"
-			//		//					<< "Eyxu location: (" << i - ysec3o << ", " << j - xsec2o << ")\t"
-			//		//					<< "Exyd number: " << (i - ysec3o)*width + j - xsec2o << "\t"
-			//		//					<< c.Eyxu[(i - ysec3o)*width + j - xsec2o] << "\t"
-			//		<< endl;
-			//}
+				+ coe_E_cvl*(exyl.p[i*c.side_sx + j] - eyxl.p[i*c.side_sx + j]);
 		}
 
 		//mid center FDTD area
 		for (j = xsec2o; j <= xsec2c; j++)
 		{
 			Ez[i*size_x + j] += coe_E*(
-				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
-				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
+				(hy.p[i*hy.width + j] - hy.p[(i - 1)*hy.width + j]) -
+				(hx.p[i*hx.width + j] - hx.p[i*hx.width + j - 1])
 				);
 		}
 
@@ -136,30 +121,10 @@ void E::cmp(H h, cvl c, src s, int time)
 				continue;
 			}
 			Ez[i*size_x + j] += (coe_E / c.kappa_full[j - xsec3o])*(
-				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
-				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
+				(hy.p[i*hy.width + j] - hy.p[(i - 1)*hy.width + j]) -
+				(hx.p[i*hx.width + j] - hx.p[i*hx.width + j - 1])
 				)
-				+ coe_E_cvl*(c.Exyr[i*c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3o]);
-			if (time == 7 && (i == (ysec2o + 4)||i==(ysec2o+6)) && j == 14)
-			{
-				cout << "Ez(" << i << ", " << j << "): " << Ez[i*size_x + j] << endl;
-				//				//cout << "width: " << width << endl;
-				//				//cout << "xsec2o" << xsec2o << endl;
-				cout << "\tDebug\t"
-					<< "first term: " << h.Hy[i*h.size_Hy_x + j] << "\t"
-					<<h.Hy[(i - 1)*h.size_Hy_x + j] << "\t"
-					<< "Hy loc: (" << i << ", " << j << ")\t(" << i - 1 << ", " << j << ")\t"
-					//<< "number: " << i*h.size_Hy_x + j << ", " << (i - 1)*h.size_Hy_x + j << "\t"
-					//<<(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])<< "\t"
-					//<< "second term: " << coe_E_cvl*(c.Exyr[i*c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3o]) << "\t"
-					//					<< "Ez number: " << i*size_x + j << "\t"
-					//					<< coe_E_cvl*(c.Exyr[i*c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3o])<<"\t"
-					//					<< c.Exyu[(i - ysec3o)*width + j - xsec2o] << "\t"
-					//					<< "Eyxu location: (" << i - ysec3o << ", " << j - xsec2o << ")\t"
-					//					<< "Exyd number: " << (i - ysec3o)*width + j - xsec2o << "\t"
-					//					<< c.Eyxu[(i - ysec3o)*width + j - xsec2o] << "\t"
-					<< endl;
-			}
+				+ coe_E_cvl*(exyr.p[i*c.side_sx + j - xsec3o] - eyxr.p[i*c.side_sx + j - xsec3o]);
 		}
 	}
 
@@ -175,10 +140,10 @@ void E::cmp(H h, cvl c, src s, int time)
 				continue;
 			}
 			Ez[i*size_x + j] += (coe_E / c.kappa_full[pmlbd - j])*(
-				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
-				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
+				(hy.p[i*hy.width + j] - hy.p[(i - 1)*hy.width + j]) -
+				(hx.p[i*hx.width + j] - hx.p[i*hx.width + j - 1])
 				)
-				+ coe_E_cvl*(c.Exyl[i*c.side_sx + j] - c.Eyxl[i*c.side_sx + j]);
+				+ coe_E_cvl*(exyl.p[i*c.side_sx + j] - eyxl.p[i*c.side_sx + j]);
 		}
 
 		//upper mid CPML corner
@@ -190,10 +155,10 @@ void E::cmp(H h, cvl c, src s, int time)
 				continue;
 			}
 			Ez[i*size_x + j] += (coe_E / c.kappa_full[i - ysec3o])*(
-				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
-				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
+				(hy.p[i*hy.width + j] - hy.p[(i - 1)*hy.width + j]) -
+				(hx.p[i*hx.width + j] - hx.p[i*hx.width + j - 1])
 				)
-				+ coe_E_cvl*(c.Exyu[(i - ysec3o)*width + j - xsec2o] - c.Eyxu[(i - ysec3o)*width + j - xsec2o]);
+				+ coe_E_cvl*(exyu.p[(i - ysec3o)*width + j - xsec2o] - eyxu.p[(i - ysec3o)*width + j - xsec2o]);
 		}
 
 		//upper right CPML corner
@@ -205,10 +170,10 @@ void E::cmp(H h, cvl c, src s, int time)
 				continue;
 			}
 			Ez[i*size_x + j] += (coe_E / c.kappa_full[j - xsec3o])*(
-				(h.Hy[i*h.size_Hy_x + j] - h.Hy[(i - 1)*h.size_Hy_x + j]) -
-				(h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1])
+				(hy.p[i*hy.width + j] - hy.p[(i - 1)*hy.width + j]) -
+				(hx.p[i*hx.width + j] - hx.p[i*hx.width + j - 1])
 				)
-				+ coe_E_cvl*(c.Exyr[i*c.side_sx + j - xsec3o] - c.Eyxr[i*c.side_sx + j - xsec3o]);
+				+ coe_E_cvl*(exyr.p[i*c.side_sx + j - xsec3o] - eyxr.p[i*c.side_sx + j - xsec3o]);
 
 		}
 	}

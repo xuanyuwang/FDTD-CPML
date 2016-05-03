@@ -77,15 +77,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="cvl.h" />
-    <ClInclude Include="E.h" />
-    <ClInclude Include="H.h" />
+    <ClInclude Include="E.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="H.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="source.h" />
     <ClInclude Include="TOOLS.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cvl.cpp" />
-    <ClCompile Include="E.cpp" />
-    <ClCompile Include="H.cpp" />
+    <ClCompile Include="E.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="H.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="TOOLS.cpp" />
