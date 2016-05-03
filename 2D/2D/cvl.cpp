@@ -564,8 +564,14 @@ void EXYL::cmp(COE c, src s, E e, H h, int time)
 	{
 		for (j = 0; j < width; j++)
 		{
+			if (i == 0 || j == 0 || i == height - 1)
+			{
+				p[i*width + j] = 0.f;
+				continue;
+			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+				+ c.c_full[pmlbd - j] * (h.Hy[i*h.size_Hy_x + j]
+				- h.Hy[(i - 1)*h.size_Hy_x + j]) / s.dz;
 		}
 	}
 }
@@ -605,13 +611,20 @@ void EXYR::cmp(COE c, src s, E e, H h, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
+	int offset_h = c.num_layer + s.size_x + 1;
 
 	for (i = 0; i < height; i++)
 	{
 		for (j = 0; j < width; j++)
 		{
+			if (i == 0 || i == height - 1 || j == width - 1)
+			{
+				p[i*width + j] = 0.f;
+				continue;
+			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+				+ c.c_full[pmlbd - j] * (h.Hy[i*h.size_Hy_x + j + offset_h]
+				- h.Hy[(i - 1)*h.size_Hy_x + j + offset_h]) / s.dz;
 		}
 	}
 }
@@ -651,13 +664,20 @@ void EXYU::cmp(COE c, src s, E e, H h, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
+	int offset_h = c.num_layer + s.size_y + 1;
 
 	for (i = 0; i < height; i++)
 	{
 		for (j = 0; j < width; j++)
 		{
+			if (i == height - 1)
+			{
+				p[i*width + j] = 0.f;
+				continue;
+			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+				+ c.c_full[pmlbd - j] * (h.Hy[(i + offset_h)*h.size_Hy_x + j + c.num_layer]
+				- h.Hy[(i - 1 + offset_h)*h.size_Hy_x + j + c.num_layer]) / s.dz;
 		}
 	}
 }
@@ -702,8 +722,14 @@ void EXYD::cmp(COE c, src s, E e, H h, int time)
 	{
 		for (j = 0; j < width; j++)
 		{
+			if (i == 0)
+			{
+				p[i*width + j] = 0.f;
+				continue;
+			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+				+ c.c_full[pmlbd - j] * (h.Hy[i*h.size_Hy_x + j + c.num_layer]
+				- h.Hy[(i - 1)*h.size_Hy_x + j + c.num_layer]) / s.dz;
 		}
 	}
 }
@@ -749,8 +775,13 @@ void  EYXL::cmp(COE c, src s, E e, H h, int time)
 	{
 		for (j = 0; j < width; j++)
 		{
+			if (i == 0 || j == 0 || i == height - 1)
+			{
+				p[i*width + j] = 0.f;
+				continue;
+			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+				+ c.c_full[pmlbd - j] * (h.Hx[i*h.size_Hx_x + j] - h.Hx[i*h.size_Hx_x + j - 1]) / s.dz;
 		}
 	}
 }
@@ -790,13 +821,20 @@ void EYXR::cmp(COE c, src s, E e, H h, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
+	int offset_h = c.num_layer + s.size_x + 1;
 
 	for (i = 0; i < height; i++)
 	{
 		for (j = 0; j < width; j++)
 		{
+			if (i == 0 || i == height - 1 || j == width - 1)
+			{
+				p[i*width + j] = 0.f;
+				continue;
+			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+				+ c.c_full[pmlbd - j] * (h.Hx[i*h.size_Hx_x + j + offset_h]
+				- h.Hx[i*h.size_Hx_x + j - 1 + offset_h]) / s.dz;
 		}
 	}
 }
@@ -836,13 +874,20 @@ void EYXU::cmp(COE c, src s, E e, H h, int time)
 {
 	int i, j;
 	int pmlbd = c.num_layer - 1;
+	int offset_h = c.num_layer + s.size_y + 1;
 
 	for (i = 0; i < height; i++)
 	{
 		for (j = 0; j < width; j++)
 		{
+			if (i == height - 1)
+			{
+				p[i*width + j] = 0.f;
+				continue;
+			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+				+ c.c_full[pmlbd - j] * (h.Hx[(i + offset_h)*h.size_Hx_x + j + c.num_layer]
+				- h.Hx[(i + offset_h)*h.size_Hx_x + j - 1 + c.num_layer]) / s.dz;
 		}
 	}
 }
@@ -887,8 +932,14 @@ void EYXD::cmp(COE c, src s, E e, H h, int time)
 	{
 		for (j = 0; j < width; j++)
 		{
+			if (i == 0)
+			{
+				p[i*width + j] = 0.f;
+				continue;
+			}
 			p[i*width + j] = c.cvl_full_coe[pmlbd - j] * p[i*width + j]
-				+ c.c_full[pmlbd - j] * (e.Ez[(i + 1)*e.size_x + j] - e.Ez[i*e.size_x + j]) / s.dz;
+				+ c.c_full[pmlbd - j] * (h.Hy[i*h.size_Hy_x + j + 1 + c.num_layer]
+				- h.Hy[i*h.size_Hy_x + j + c.num_layer]) / s.dz;
 		}
 	}
 }
