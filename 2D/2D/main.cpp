@@ -4,6 +4,7 @@
 #include "H.h"
 #include "cvl.h"
 #include "source.h"
+#include "computation.h"
 
 #define CPML
 
@@ -11,62 +12,31 @@ using namespace std;
 
 void main()
 {
-	src s(10, 10, 10);
+	src s(10, 10, 400);
 	COE c(3, s);
-	HXZL hxzl(c, s);
-	HXZR hxzr(c, s);
-	HXZU hxzu(c, s);
-	HXZD hxzd(c, s);
-	HYZL hyzl(c, s);
-	HYZR hyzr(c, s);
-	HYZU hyzu(c, s);
-	HYZD hyzd(c, s);
-	EXYL exyl(c, s);
-	EXYR exyr(c, s);
-	EXYU exyu(c, s);
-	EXYD exyd(c, s);
-	EYXL eyxl(c, s);
-	EYXR eyxr(c, s);
-	EYXU eyxu(c, s);
-	EYXD eyxd(c, s);
-	HX hx(c, s);
-	HY hy(c, s);
-	E e(s, c);
+	H h(c, s);
+	E e(c, s);
+	HXZ hxz(c, s);
+	HYZ hyz(c, s);
+	EXY exy(c, s);
+	EYX eyx(c, s);
 
-	for (int i = 0; i < s.size_time; i++)
+	int i, j, time;
+
+	e.ez->checkout();
+	//computation
+	for (time = 0; time < s.size_time; time++)
 	{
-#ifdef CPML
-		hxzl.cmp(c, s, e, i);
-		hxzr.cmp(c, s, e, i);
-		hxzu.cmp(c, s, e, i);
-		hxzd.cmp(c, s, e, i);
-		hyzl.cmp(c, s, e, i);
-		hyzr.cmp(c, s, e, i);
-		hyzu.cmp(c, s, e, i);
-		hyzd.cmp(c, s, e, i);
-		hy.cmp(e, c, s, hxzl, hxzr, hxzu, hxzd, i);
-		hx.cmp(e, c, s, hyzl, hyzr, hyzu, hyzd, i);
-		exyl.cmp(c, s, hy, i);
-		exyr.cmp(c, s, hy, i);
-		exyu.cmp(c, s, hy, i);
-		exyd.cmp(c, s, hy, i);
-		eyxl.cmp(c, s, hx, i);
-		eyxr.cmp(c, s, hx, i);
-		eyxu.cmp(c, s, hx, i);
-		eyxd.cmp(c, s, hx, i);
-		e.cmp(hx, hy, c, s,
-			exyl, exyr, exyu, exyd,
-			eyxl, eyxr, eyxu, eyxd,
-			i);
-#endif
-		s.cmp(i, &e.Ez[e.num_grid / 2]);
-		if (i < 10)
-		{
-			hy.save2file();
-			hxzl.save2file();
-			e.save2file();
-			//cvln.save2file();
-		}
+		cmp_hy(h, e, hxz, c, s);
+		cmp_hx(h, e, hyz, c, s);
+		cmp_ez(e, h, exy, eyx, c, s, time);
+		//h.hy->save2file(h.hy->filename);
+		//h.hx->save2file(h.hx->filename);
+		s.cmp(time, &e.ez->p.at(e.ez->height / 2 * e.ez->width + e.ez->width / 2));
+		e.ez->save2file(e.ez->filename);
 	}
-	//	//cvln.save2file_coe();
+	//	for (j = 0; j < e.ez->width; j++)
+	//	{
+	//		s.cmp(i, &e.ez->p[e.ez->grid_num/2]);
+	//	}
 }

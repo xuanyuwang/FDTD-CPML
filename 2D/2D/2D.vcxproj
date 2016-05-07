@@ -76,6 +76,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="area.h" />
+    <ClInclude Include="computation.h" />
     <ClInclude Include="cvl.h" />
     <ClInclude Include="E.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -84,9 +86,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="source.h" />
-    <ClInclude Include="TOOLS.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="area.cpp" />
+    <ClCompile Include="computation.cpp" />
     <ClCompile Include="cvl.cpp" />
     <ClCompile Include="E.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -96,7 +99,6 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="TOOLS.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

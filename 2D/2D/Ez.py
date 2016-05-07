@@ -17,8 +17,8 @@ import data
 dz = 0.015
 space =16
 ez_space = space + 1
-time = 10
-data = np.loadtxt('Ez.txt')
+time = 400
+data = np.loadtxt('ez.txt')
 groups = np.ndarray(shape=(time, ez_space, ez_space))
 
 for i in range(0, time):
@@ -49,9 +49,6 @@ ax.set_zlim(-1,1)
 plot
 '''
 wframe = None
-# wframe = ax.plot_wireframe(X, Y, groups[390], rstride = 1, cstride = 1)
-# print(groups[390])
-# plt.show()
 
 for i in range(0,time):
 	oldcol = wframe
@@ -62,6 +59,6 @@ for i in range(0,time):
 	if oldcol is not None:
 		ax.collections.remove(oldcol)
 
-	plt.pause(.1)
+	plt.pause(.01)
 
 plt.show()
