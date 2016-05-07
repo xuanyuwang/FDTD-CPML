@@ -293,10 +293,10 @@ void cvl::save2file_coe()
 	for (i = 0; i < num_layer; i++)
 	{
 		myfile << i << "\t";
-		myfile << "distance= " << distance_H[i] << "\t";
-		myfile << "kappa= " << kappa_H[i] << "\t";
-		myfile << "sigma= " << sigma_H[i] << "\t";
-		myfile << "alpha= " << alpha_H[i] << "\t";
+		myfile << "distance= " << distance_E[i] << "\t";
+		myfile << "kappa= " << kappa_E[i] << "\t";
+		myfile << "sigma= " << sigma_E[i] << "\t";
+		myfile << "alpha= " << alpha_E[i] << "\t";
 		myfile << endl;
 	}
 	myfile.close();

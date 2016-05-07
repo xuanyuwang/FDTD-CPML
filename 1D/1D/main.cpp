@@ -13,8 +13,8 @@ using namespace std;
 
 void main()
 {
-	src s(30, 300);
-	cvl cvln(10, s);
+	src s(10, 200);
+	cvl cvln(3, s);
 	H hy(s, cvln);
 	E ex(s, cvln);
 
@@ -37,7 +37,7 @@ void main()
 #endif
 		s.cmp(i, &ex.Ex[ex.size_Ex / 2]);
 		hy.save2file();
-		ex.save2file();
+		ex.save2file(s,cvln);
 
 #ifdef CPML
 		cvln.save2file();

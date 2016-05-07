@@ -7,108 +7,127 @@ COE::COE(int number_layer, src s)
 	num_layer = number_layer;
 	d = number_layer*s.dz;
 	sigma_max = (m + 1) / (sqrt(eps_r) * 150 * PI * s.dz);
+	fstream myfile;
+	myfile.open(filename, ios::out);
+	myfile.close();
 }
 
 //the distance of every field points of H and E in CPML layer.
-float COE::set_distance(src source, float ycoor, float xcoor)
+float COE::set_distance(src s, float ycoor, float xcoor)
 {
 	float bench_x, bench_y;
 	//for bottom left & right corner
-	if (ycoor >= 0 && ycoor < 3.0)
+	if (ycoor >= 0.f && ycoor < num_layer)
 	{
-		if (xcoor >= 0.0 && xcoor < 3.0){
-			bench_x = 3.0f;
-			bench_y = 3.0f;
+		if (xcoor >= 0.f && xcoor < num_layer){
+			bench_x = num_layer;
+			bench_y = num_layer;
+			distance = sqrtf(
+				powf(fabsf(bench_x - xcoor), 2) + powf(fabsf(bench_y - ycoor), 2)
+				);
+			return distance*s.dz;
 		}
-		if (xcoor > 13.0f && xcoor <= 16.0f){
-			bench_x = 13.0f;
-			bench_y = 3.0f;
+		if (xcoor > (num_layer + s.size_x) && xcoor <= (2 * num_layer + s.size_x)){
+			bench_x = num_layer + s.size_x;
+			bench_y = num_layer;
+			distance = sqrtf(
+				powf(fabsf(bench_x - xcoor), 2) + powf(fabsf(bench_y - ycoor), 2)
+				);
+			return distance*s.dz;
 		}
-		distance = sqrtf(
-			powf(fabsf(bench_x - xcoor), 2) + sqrtf(powf(fabsf(bench_y - ycoor), 2))
-			);
-		return distance;
 	}
 	//for bottom and top center
-	if (xcoor >= 3 && xcoor <= 13)
+	if (xcoor >= num_layer && xcoor <= (num_layer + s.size_x))
 	{
 		//for bottom center area
-		if (ycoor >= 0.f && ycoor < 3.0f){
-			bench_y = 3.0f;
+		if (ycoor >= 0.f && ycoor < num_layer){
+			bench_y = num_layer;
+			distance = fabsf(bench_y - ycoor);
+			return distance*s.dz;
 		}
 		//for top center area
-		if (ycoor > 13.f && ycoor <= 16.f){
-			bench_y = 13.0f;
+		if (ycoor > (s.size_y + num_layer) && ycoor <= (s.size_y + 2 * num_layer)){
+			bench_y = num_layer + s.size_y;
+			distance = fabsf(bench_y - ycoor);
+			return distance*s.dz;
 		}
-		distance = fabsf(bench_y - ycoor);
-		return distance;
 	}
 	//for left and right center
-	if (ycoor >= 3.f && ycoor <= 13.f){
+	if (ycoor >= num_layer && ycoor <= (num_layer + s.size_y)){
 		//for left center area
-		if (xcoor >= 0.f && xcoor < 3.f){
-			bench_x = 3.f;
+		if (xcoor >= 0.f && xcoor < num_layer){
+			bench_x = num_layer;
+			distance = fabsf(bench_x - xcoor);
+			return distance*s.dz;
 		}
 		//for right center area
-		if (xcoor > 13.f && xcoor <= 16.f){
-			bench_x = 13.f;
+		if (xcoor > (num_layer + s.size_x) && xcoor <= (2 * num_layer + s.size_x)){
+			bench_x = num_layer + s.size_x;
+			distance = fabsf(bench_x - xcoor);
+			return distance*s.dz;
 		}
-		distance = fabsf(bench_x - xcoor);
-		return distance;
 	}
 	//for top's left and right corner
-	if (ycoor>13.f && ycoor <=16.f)
+	if (ycoor > (num_layer + s.size_y) && ycoor <= (2 * num_layer + s.size_y))
 	{
 		//left corner
-		if (xcoor>=0.f && xcoor <3.f){
-			bench_x = 3.f;
-			bench_y = 13.f;
+		if (xcoor >= 0.f && xcoor < num_layer){
+			bench_x = num_layer;
+			bench_y = num_layer + s.size_y;
+			distance = sqrtf(
+				powf(fabsf(bench_x - xcoor), 2) + powf(fabsf(bench_y - ycoor), 2)
+				);
+			return distance*s.dz;
 		}
-		if (xcoor > 13.f && xcoor<=16.f){
-			bench_y = 13.f;
-			bench_x = 13.f;
+		if (xcoor > num_layer + s.size_x && xcoor <= (2 * num_layer + s.size_x)){
+			bench_y = s.size_y + num_layer;
+			bench_x = s.size_x + num_layer;
+			distance = sqrtf(
+				powf(fabsf(bench_x - xcoor), 2) + powf(fabsf(bench_y - ycoor), 2)
+				);
+			return distance*s.dz;
 		}
-		distance = sqrtf(
-			powf(fabsf(bench_x - xcoor), 2) + sqrtf(powf(fabsf(bench_y - ycoor), 2))
-			);
-		return distance;
 	}
 	//for FDTD area
-	return 0;
+	if ((xcoor >= num_layer && xcoor <= num_layer + s.size_x)
+		&& (ycoor >= num_layer&&ycoor <= num_layer + s.size_y)){
+		return 0;
+	}
 }
 
-float COE::set_sigma(src source, float ycoor, float xcoor)
+float COE::set_sigma(src s, float ycoor, float xcoor)
 {
-	//		sigma_full[i] = sigma_max * powf((distance_full[i] / d), m);
-	return 0;
+	sigma = sigma_max*powf(set_distance(s, ycoor, xcoor) / d, m);
+	return sigma;
 }
 
-float COE::set_kappa(src source, float ycoor, float xcoor)
+float COE::set_kappa(src s, float ycoor, float xcoor)
 {
-	return 1;
-//	kappa = 1 + (kappa_max - 1)*powf(set_distance(s, ycoor, xcoor) / d, m);
-//	return kappa;
+	//kappa=1;
+	kappa = 1 + (kappa_max - 1)*powf(set_distance(s, ycoor, xcoor) / d, m);
+	return kappa;
 }
 
-float COE::set_alpha(src source, float ycoor, float xcoor)
+float COE::set_alpha(src s, float ycoor, float xcoor)
 {
-	//		alpha_full[i] = sigma_full[i] / (eps0 * kappa_full[i]);
-	return 0;
+	alpha = set_sigma(s, ycoor, xcoor) / (eps0*set_kappa(s, ycoor, xcoor));
+	return alpha;
 }
 
-float COE::set_c(src source, float ycoor, float xcoor)
+float COE::set_c(src s, float ycoor, float xcoor)
 {
-	//		c_full[i] = (1 / kappa_full[i])*(exp(-alpha_full[i] * source.dt) - 1);
-	return 0;
+	c = (1 / set_kappa(s, ycoor, xcoor))
+		*(exp(-set_alpha(s, ycoor, xcoor)*s.dt) - 1);
+	return c;
 }
 
-float COE::set_coe(src source, float ycoor, float xcoor)
+float COE::set_coe(src s, float ycoor, float xcoor)
 {
-	//		cvl_full_coe[i] = exp(-alpha_full[i] * source.dt);
-	return 0;
+	cvl_coe = exp(-set_alpha(s, ycoor, xcoor)*s.dt);
+	return cvl_coe;
 }
 
-void COE::checkout()
+void COE::checkout(src s)
 {
 	//for coefficient
 	cout << "convolution class checkout:" << endl;
@@ -120,11 +139,18 @@ void COE::checkout()
 	cout << "\td = " << d << endl;
 	cout << endl;
 
-	cout << "\tside grid number x(side_width):\t" << side_width << endl;
-	cout << "\tside grid number y(side_height):\t" << side_height << endl;
-	cout << "\tup & down grid number x(ud_width):\t" << ud_width << endl;
-	cout << "\tup & down grid number y(ud_height):\t" << ud_height << endl;
-	cout << endl;
+	int i, j;
+	fstream myfile;
+	myfile.open(filename, ios::app);
+	for (i = 16; i >= 0; i--){
+		for (j = 0; j < 17; j++){
+			myfile << set_alpha(s, i, j) << "\t";
+			//cout << "(" << i << ", " << j << "): " << set_kappa(s, i, j) << "\t";
+		}
+		myfile << endl;
+		//cout << endl;
+	}
+	myfile.close();
 	//for variables
 	//int i;
 	//cout << "c_full" << endl;
@@ -159,7 +185,7 @@ COV::~COV()
 /**************************** Convolutional Terms *******************************/
 HXZ::HXZ(COE c, src s)
 {
-	full = new area(s.size_x + 2 * c.num_layer + 1, s.size_y + 2 * c.num_layer, "hy.txt");
+	full = new area(s.size_x + 2 * c.num_layer + 1, s.size_y + 2 * c.num_layer, "hxz.txt");
 	//	left = new area(c.num_layer, s.size_y, "hxzl.txt");
 	//	right = new area(c.num_layer, s.size_y, "hxzr.txt");
 	//	top = new area(s.size_x + 1, c.num_layer, "hxzt.txt");
@@ -168,7 +194,7 @@ HXZ::HXZ(COE c, src s)
 
 HYZ::HYZ(COE c, src s)
 {
-	full = new area(s.size_x + 2 * c.num_layer, s.size_y + 2 * c.num_layer + 1, "hx.txt");
+	full = new area(s.size_x + 2 * c.num_layer, s.size_y + 2 * c.num_layer + 1, "hyz.txt");
 	//	left = new area(c.num_layer, s.size_y + 2 * c.num_layer + 1, "hyzl.txt");
 	//	right = new area(c.num_layer, s.size_y + 2 * c.num_layer + 1, "hyzr.txt");
 	//	top = new area(s.size_x, c.num_layer, "hyzt.txt");
@@ -177,7 +203,7 @@ HYZ::HYZ(COE c, src s)
 
 EXY::EXY(COE c, src s)
 {
-	full = new area(s.size_x + 2 * c.num_layer + 1, s.size_y + 2 * c.num_layer + 1, "ez.txt");
+	full = new area(s.size_x + 2 * c.num_layer + 1, s.size_y + 2 * c.num_layer + 1, "exy.txt");
 	//	left = new area(c.num_layer, s.size_y + 2 * c.num_layer + 1, "exyl.txt");
 	//	right = new area(c.num_layer, s.size_y + 2 * c.num_layer + 1, "exyr.txt");
 	//	top = new area(s.size_x + 1, c.num_layer, "exyt.txt");
@@ -186,7 +212,7 @@ EXY::EXY(COE c, src s)
 
 EYX::EYX(COE c, src s)
 {
-	full = new area(s.size_x + 2 * c.num_layer + 1, s.size_y + 2 * c.num_layer + 1, "ez.txt");
+	full = new area(s.size_x + 2 * c.num_layer + 1, s.size_y + 2 * c.num_layer + 1, "eyx.txt");
 	//	left = new area(c.num_layer, s.size_y + 2 * c.num_layer + 1, "eyxl.txt");
 	//	right = new area(c.num_layer, s.size_y + 2 * c.num_layer + 1, "eyxr.txt");
 	//	top = new area(s.size_x + 1, c.num_layer, "eyxt.txt");

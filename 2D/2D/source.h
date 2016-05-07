@@ -9,8 +9,8 @@ using namespace std;
 
 class src{
 public:
-	int num_grid, size_time;
-	int size_x, size_y;
+	float num_grid, size_time;
+	float size_x, size_y;
 	float dt, dz;
 
 	const float PI = 3.141592653589793f;

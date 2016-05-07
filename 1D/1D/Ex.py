@@ -5,8 +5,8 @@ from matplotlib import pyplot as plt
 from matplotlib import animation
 
 dz = 0.015
-space = 30 
-time = 300 
+space = 16 
+time =  200
 data = np.loadtxt('Ex.txt')
 
 fig = plt.figure()

@@ -22,7 +22,7 @@ public:
 	E(src, cvl);
 	void cmp(H Hy, cvl c, src s, int);
 	void checkout();
-	void save2file();
+	void save2file(src,cvl);
 };
 
 #endif

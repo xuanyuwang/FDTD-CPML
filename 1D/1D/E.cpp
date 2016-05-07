@@ -76,12 +76,12 @@ void E::checkout()
 	cout << endl;
 }
 
-void E::save2file()
+void E::save2file(src s, cvl c)
 {
 	fstream myfile;
 	myfile.open("Ex.txt", ios::app);
 
-	for (int i = 10; i <= 40; i++)
+	for (int i = 0; i < s.size_space+2*c.num_layer+1; i++)
 	{
 		myfile << Ex[i] << "\t";
 	}

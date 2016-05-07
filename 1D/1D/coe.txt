@@ -1,10 +1,3 @@
-0	distance= 0.0075	kappa= 1.00004	sigma= 4.42097e-006	alpha= 499523	
-1	distance= 0.0225	kappa= 1.00354	sigma= 0.000358099	alpha= 4.03202e+007	
-2	distance= 0.0375	kappa= 1.02734	sigma= 0.00276311	alpha= 3.03906e+008	
-3	distance= 0.0525	kappa= 1.10504	sigma= 0.0106148	alpha= 1.08539e+009	
-4	distance= 0.0675	kappa= 1.28704	sigma= 0.029006	alpha= 2.54654e+009	
-5	distance= 0.0825	kappa= 1.64054	sigma= 0.0647274	alpha= 4.45818e+009	
-6	distance= 0.0975	kappa= 2.24954	sigma= 0.126267	alpha= 6.3424e+009	
-7	distance= 0.1125	kappa= 3.21484	sigma= 0.223812	alpha= 7.86646e+009	
-8	distance= 0.1275	kappa= 4.65404	sigma= 0.369244	alpha= 8.96478e+009	
-9	distance= 0.1425	kappa= 6.70154	sigma= 0.576145	alpha= 9.71436e+009	
+0	distance= 0.015	kappa= 1.08642	sigma= 0.00873278	alpha= 9.08263e+008	
+1	distance= 0.03	kappa= 2.38272	sigma= 0.139725	alpha= 6.62609e+009	
+2	distance= 0.045	kappa= 8	sigma= 0.707355	alpha= 9.99089e+009	
