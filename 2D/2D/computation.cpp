@@ -129,7 +129,7 @@ void cmp_exy(H h, EXY exy, COE c, src s)
 			local->p.at(i*local->width + j) = c.set_c(s, ycoor, xcoor)*(
 				h.hy->p.at(i*h.hy->width + j) - h.hy->p.at((i - 1)*h.hy->width + j)
 				) +
-				c.set_c(s, ycoor, xcoor)*local->p.at(i*local->width + j);
+				c.set_coe(s, ycoor, xcoor)*local->p.at(i*local->width + j);
 		}
 	}
 }
