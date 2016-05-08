@@ -1,56 +1,13 @@
-﻿Build started 5/8/2016 5:02:34 PM.
+﻿Build started 5/8/2016 9:57:10 PM.
      1>Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\2D\2D.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp area.cpp computation.cpp cvl.cpp main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(25): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(17): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\main.cpp(24): warning C4101: 'i' : unreferenced local variable
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\main.cpp(24): warning C4101: 'j' : unreferenced local variable
-         cvl.cpp
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(25): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(7): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(100): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(107): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(147): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(188): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(197): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(206): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(215): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-         computation.cpp
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(25): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(17): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\computation.cpp(14): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\computation.cpp(15): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\computation.cpp(46): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\computation.cpp(67): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\computation.cpp(88): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\computation.cpp(81): warning C4101: 'kappa' : unreferenced local variable
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\computation.cpp(106): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\computation.cpp(127): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\computation.cpp(128): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\computation.cpp(149): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\computation.cpp(150): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\computation.cpp(152): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
-         area.cpp
-         Source.cpp
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\source.cpp(13): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\source.cpp(15): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\source.cpp(16): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\source.cpp(18): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         Generating Code...
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.cpp(96): warning C4715: 'COE::set_distance' : not all control paths return a value
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt E.cpp H.cpp
-         H.cpp
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(25): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(17): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.cpp(6): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.cpp(7): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-         E.cpp
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(25): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\h.h(17): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\e.cpp(7): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-         Generating Code...
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\area.h(19): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\cvl.h(15): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\main.cpp(17): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\main.cpp(18): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\obser\onedrive\documents\working\fdtd\fdtd-cpml\2d\2d\main.cpp(19): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.lib" /MACHINE:X86 Debug\area.obj
          Debug\computation.obj
@@ -59,10 +16,9 @@
          Debug\Source.obj
          Debug\E.obj
          Debug\H.obj
-         LINK : C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.exe not found or not built by the last incremental link; performing full link
          2D.vcxproj -> C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\Debug\2D.exe
      1>Done Building Project "C:\Users\obser\OneDrive\Documents\working\FDTD\FDTD-CPML\2D\2D\2D.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.05
+Time Elapsed 00:00:01.52

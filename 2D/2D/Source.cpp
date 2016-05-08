@@ -1,7 +1,7 @@
 #include "source.h"
 
 /************************************************************************/
-/* 
+/*
 Name: src::src
 arguments: int space_x, int space_y, int time
 return: NULL
@@ -29,7 +29,7 @@ void src::checkout()
 }
 
 /************************************************************************/
-/* 
+/*
 Name: src::cmp
 arguments: int current_timestep, float* src_p
 return: void
@@ -41,7 +41,7 @@ void src::cmp(int current_timestep, float* src_p)
 	float T0, vt, val_src, time;
 
 	time = current_timestep * dt;
-	
+
 	T0 = 3 * T;
 	vt = (time - T0) / T;
 

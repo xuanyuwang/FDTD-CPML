@@ -17,14 +17,14 @@ import data
 dz = 0.015
 space =16
 ez_space = space + 1
-time = 150
+time = 300
 data = np.loadtxt('ez.txt')
-#groups = np.ndarray(shape=(time, ez_space, ez_space))
-groups = np.ndarray(shape=(time, 1, ez_space))
+groups = np.ndarray(shape=(time, ez_space, ez_space))
+#groups = np.ndarray(shape=(time, 1, ez_space))
 
 for i in range(0, time):
-    #groups[i] = data[i * ez_space:(i + 1) * ez_space]
-    groups[i] = data[i * ez_space+space/2 ]
+    groups[i] = data[i * ez_space:(i + 1) * ez_space]
+    #groups[i] = data[i * ez_space+space/2 ]
 
 '''
 set plot data

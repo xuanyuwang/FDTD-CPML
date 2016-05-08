@@ -15,10 +15,13 @@ public:
 	vector<float> p;
 	vector<float>::iterator itb, ite;
 	string filename;
+	const float PI = 3.14159265f;
+	const float mu = (4.0 * PI) * 1e-7f;
+	const float epsilon = 8.85e-12f;
+
 public:
 	area(int, int, string);
 	void checkout();
 	void save2file(string);
-	//virtual void real_pos(int, int);
 	~area();
 };

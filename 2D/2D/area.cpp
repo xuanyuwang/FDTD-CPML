@@ -15,7 +15,6 @@ area::area(int w, int h, string name)
 	my.close();
 }
 
-
 area::~area()
 {
 }
@@ -32,10 +31,6 @@ void area::checkout()
 		cout << "\tthe last element of p: " << p.back() << endl;
 	}
 }
-
-//void area::real_pos(int i, int j)
-//{
-//}
 
 void area::save2file(string name)
 {

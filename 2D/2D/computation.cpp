@@ -1,157 +1,177 @@
 #include "computation.h"
 
 void cmp_ez(
-	E e, H h,
-	EXY exy, EYX eyx, COE c, src s, int time)
+	area *e, area *hy, area *hx,
+	area *exy, area *eyx, COE c, src s, int time)
 {
 	int i, j;
 	float xcoor, ycoor, kappa;
-	area *local = e.ez;
+	float eps = e->epsilon;
 
-	for (i = 0; i < e.ez->height; i++){
-		for (j = 0; j < e.ez->width; j++){
+	for (i = 0; i < e->height; i++){
+		for (j = 0; j < e->width; j++){
 			//transfer the indexes of vector of the coordinates in field
 			xcoor = j;
 			ycoor = i;
 
-			//FDTD area
 			//if the point is on the boundaries
-			if (i == 0 || i == (e.ez->height - 1)
-				|| j == 0 || j == (e.ez->width - 1)){
-				e.ez->p.at(i*e.ez->width + j) = 0.f;
+			if (i == 0 || i == (e->height - 1)
+				|| j == 0 || j == (e->width - 1)){
+				e->p.at(i*e->width + j) = 0.f;
 				continue;
 			}
 			kappa = c.set_kappa(s, ycoor, xcoor);
-			e.ez->p.at(i*e.ez->width + j) +=
-				e.coe_E*(
-				(h.hy->p.at(i*h.hy->width + j) - h.hy->p.at((i - 1)*h.hy->width + j)) / (kappa*s.dz)
-				- (h.hx->p.at(i*h.hx->width + j) - h.hx->p.at(i*h.hx->width + j - 1)) / (kappa*s.dz)
-				)
-				+ e.coe_E*(exy.full->p.at(i*exy.full->width + j) - eyx.full->p.at(i*eyx.full->width + j));
+			e->p.at(i*e->width + j) +=
+				(s.dt / (eps*kappa*s.dz))*(
+				(hy->p.at(i*hy->width + j) - hy->p.at((i - 1)*hy->width + j))
+				- (hx->p.at(i*hx->width + j) - hx->p.at(i*hx->width + j - 1))
+				) +
+				(s.dt / eps)*(exy->p.at(i*exy->width + j) - eyx->p.at(i*eyx->width + j));
+			if (time == 6){
+				if (i == 2 && j == 8){
+					cout << e->p.at(i*e->width + j) << endl;
+					cout << "part 1: " << (s.dt / (eps*kappa*s.dz))*(
+						(hy->p.at(i*hy->width + j) - hy->p.at((i - 1)*hy->width + j))
+						- (hx->p.at(i*hx->width + j) - hx->p.at(i*hx->width + j - 1))
+						) << "\t"
+						<< (s.dt / eps)<<"\t"
+						<<(exy->p.at(i*exy->width + j) - eyx->p.at(i*eyx->width + j))
+						<< endl;
+				}
+			}
 		}
 	}
 }
 
-void cmp_hx(H h, E e, HYZ hyz, COE c, src s)
+void cmp_hx(area *hx, area* e, area *hyz, COE c, src s)
 {
 	int i, j;
-	float xcoor, ycoor;
+	float xcoor, ycoor, kappa, mu = hx->mu;
 
-	for (i = 0; i < h.hx->height; i++)
+	for (i = 0; i < hx->height; i++)
 	{
-		for (j = 0; j < h.hx->width; j++)
+		for (j = 0; j < hx->width; j++)
 		{
 			//transfer the indexes of vector of the coordinates in field
 			xcoor = j + 0.5f;
 			ycoor = i;
-			h.hx->p.at(i*h.hx->width + j) +=
-				(-h.coe_h)*(
-				e.ez->p.at(i*e.ez->width + j + 1) - e.ez->p.at(i*e.ez->width + j)
-				) / (c.set_kappa(s, ycoor, xcoor)*s.dz)
-				+ h.coe_h*(-hyz.full->p.at(i*hyz.full->width + j));
+			kappa = c.set_kappa(s, ycoor, xcoor);
+			hx->p.at(i*hx->width + j) = hx->p.at(i*hx->width + j) -
+				(s.dt / (mu*kappa*s.dz))*(
+				e->p.at(i*e->width + j + 1) - e->p.at(i*e->width + j)
+				)
+				+ (s.dt / mu)*(-hyz->p.at(i*hyz->width + j));
 		}
 	}
 }
 
-void cmp_hy(H h, E e, HXZ hxz, COE c, src s)
+void cmp_hy(area *hy, area *e, area *hxz, COE c, src s)
 {
 	int i, j;
-	float xcoor, ycoor;
-	area *local;
-	local = h.hy;
-	for (i = 0; i < h.hy->height; i++)
+	float xcoor, ycoor, kappa, mu = hy->mu;
+
+	for (i = 0; i < hy->height; i++)
 	{
-		for (j = 0; j < h.hy->width; j++)
+		for (j = 0; j < hy->width; j++)
 		{
 			//transfer the indexes of vector to the coordinates in field
 			xcoor = j;
 			ycoor = i + 0.5f;
-			local->p.at(i*local->width + j) +=
-				h.coe_h*(
-				e.ez->p.at((i + 1)*e.ez->width + j) - e.ez->p.at(i*e.ez->width + j)
-				) / (c.set_kappa(s, ycoor, xcoor)*s.dz)
-				+ h.coe_h*(hxz.full->p.at(i*hxz.full->width + j));
+			kappa = c.set_kappa(s, ycoor, xcoor);
+			hy->p.at(i*hy->width + j) +=
+				(s.dt / (mu*kappa*s.dz))*(
+				e->p.at((i + 1)*e->width + j) - e->p.at(i*e->width + j)
+				)
+				+ (s.dt / mu)*(hxz->p.at(i*hxz->width + j));
 		}
 	}
 }
 
-void cmp_hxz(E e, HXZ hxz, COE c, src s)
+void cmp_hxz(area *hxz, area* e, COE c, src s)
 {
 	int i, j;
 	float xcoor, ycoor, kappa;
-	area *local;
-	local = hxz.full;
-	for (i = 0; i < local->height; i++)
+
+	for (i = 0; i < hxz->height; i++)
 	{
-		for (j = 0; j < local->height; j++)
+		for (j = 0; j < hxz->width; j++)
 		{
 			xcoor = j;
 			ycoor = i + 0.5f;
-			local->p.at(i*local->width + j) = c.set_c(s, ycoor, xcoor)*(
-				e.ez->p.at((i + 1)*e.ez->width + j) - e.ez->p.at(i*e.ez->width + j)
-				)
-				+ c.set_coe(s, ycoor, xcoor)*local->p.at(i*local->width + j);
+			kappa = c.set_kappa(s, ycoor, xcoor);
+			hxz->p.at(i*hxz->width + j) =
+				c.set_c(s, ycoor, xcoor)*(
+				e->p.at((i + 1)*e->width + j) - e->p.at(i*e->width + j)
+				) / s.dz
+				+ c.set_coe(s, ycoor, xcoor)*hxz->p.at(i*hxz->width + j);
 		}
 	}
 }
 
-void cmp_hyz(E e, HYZ hyz, COE c, src s)
+void cmp_hyz(area *hyz, area *e, COE c, src s, int time)
 {
 	int i, j;
-	float xcoor, ycoor;
-	area *local = hyz.full;
-	for (i = 0; i < local->height; i++){
-		for (j = 0; j < local->width; j++){
+	float xcoor, ycoor, kappa;
+
+	float past;
+	for (i = 0; i < hyz->height; i++){
+		for (j = 0; j < hyz->width; j++){
 			xcoor = j + 0.5f;
 			ycoor = i;
-			local->p.at(i*local->width + j) = c.set_c(s, ycoor, xcoor)*(
-				e.ez->p.at(i*e.ez->width + j + 1) - e.ez->p.at(i*e.ez->width + j)
-				) +
-				c.set_coe(s, ycoor, xcoor)*local->p.at(i*local->width + j);
+			kappa = c.set_kappa(s, ycoor, xcoor);
+			past = hyz->p.at(i*hyz->width + j);
+			hyz->p.at(i*hyz->width + j) = c.set_c(s, ycoor, xcoor)*(
+				e->p.at(i*e->width + j + 1) - e->p.at(i*e->width + j)
+				) / s.dz +
+				c.set_coe(s, ycoor, xcoor)*hyz->p.at(i*hyz->width + j);
 		}
 	}
 }
 
-void cmp_exy(H h, EXY exy, COE c, src s)
+void cmp_exy(area *exy, area *hy, COE c, src s)
 {
 	int i, j;
 	float xcoor, ycoor;
-	area *local = exy.full;
-	for (i = 0; i < local->height; i++){
-		for (j = 0; j < local->width; j++){
-			if (i == 0 || i == (local->height - 1)
-				|| j == 0 || j == (local->width - 1)){
-				local->p.at(i*local->width + j) = 0.f;
-				continue;
-			}
-			xcoor = i;
-			ycoor = j;
-			local->p.at(i*local->width + j) = c.set_c(s, ycoor, xcoor)*(
-				h.hy->p.at(i*h.hy->width + j) - h.hy->p.at((i - 1)*h.hy->width + j)
-				) +
-				c.set_coe(s, ycoor, xcoor)*local->p.at(i*local->width + j);
-		}
-	}
-}
 
-void cmp_eyx(H h, EYX eyx, COE c, src s)
-{
-	int i, j;
-	float xcoor, ycoor;
-	area *local = eyx.full;
-	for (i = 0; i < local->height; i++){
-		for (j = 0; j < local->width; j++){
-			if (i == 0 || i == (local->height - 1)
-				|| j == 0 || j == (local->width - 1)){
-				local->p.at(i*local->width + j) = 0.f;
+	for (i = 0; i < exy->height; i++){
+		for (j = 0; j < exy->width; j++){
+			if (i == 0 || i == (exy->height - 1)
+				|| j == 0 || j == (exy->width - 1)){
+				exy->p.at(i*exy->width + j) = 0.f;
 				continue;
 			}
 			xcoor = j;
 			ycoor = i;
-			local->p.at(i*local->width + j) = c.set_c(s, ycoor, xcoor)*(
-				h.hx->p.at(i*h.hx->width + j) - h.hx->p.at(i*h.hx->p.at(i*h.hx->width + j - 1))
-				) +
-				c.set_coe(s, ycoor, xcoor)*local->p.at(i*local->width + j);
+			exy->p.at(i*exy->width + j) =
+				c.set_c(s, ycoor, xcoor)*(
+				hy->p.at(i*hy->width + j) - hy->p.at((i - 1)*hy->width + j)
+				) / s.dz +
+				c.set_coe(s, ycoor, xcoor)*exy->p.at(i*exy->width + j);
+		}
+	}
+}
+
+void cmp_eyx(area *eyx, area *hx, COE c, src s, int time)
+{
+	int i, j;
+	float xcoor, ycoor;
+
+	for (i = 0; i < eyx->height; i++){
+		for (j = 0; j < eyx->width; j++){
+			if (i == 0 || i == (eyx->height - 1)
+				|| j == 0 || j == (eyx->width - 1)){
+				eyx->p.at(i*eyx->width + j) = 0.f;
+				continue;
+			}
+			xcoor = j;
+			ycoor = i;
+			if (i*eyx->width + j + 1 >= eyx->grid_num){
+				cout << i << "\t" << j << endl;
+			}
+			eyx->p.at(i*eyx->width + j) =
+				c.set_c(s, ycoor, xcoor)*
+				(hx->p.at(i*hx->width + j) - hx->p.at(i*hx->width + j - 1)) / s.dz
+				+ c.set_coe(s, ycoor, xcoor)*(eyx->p.at(i*eyx->width + j));
 		}
 	}
 }

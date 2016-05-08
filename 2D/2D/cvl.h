@@ -8,16 +8,6 @@
 #include "source.h"
 #include "area.h"
 
-class COV
-{
-public:
-	area *left = NULL, *right = NULL, *top = NULL, *btm = NULL;
-	area *full = NULL;
-public:
-	COV();
-	~COV();
-};
-
 class COE
 {
 public:
@@ -54,29 +44,4 @@ public:
 	void checkout(src);
 	~COE();
 };
-
-class HXZ : public COV
-{
-public:
-	HXZ(COE, src);
-};
-
-class HYZ :public COV
-{
-public:
-	HYZ(COE, src);
-};
-
-class EXY :public COV
-{
-public:
-	EXY(COE, src);
-};
-
-class EYX :public COV
-{
-public:
-	EYX(COE, src);
-};
-
 #endif

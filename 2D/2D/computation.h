@@ -6,16 +6,16 @@
 
 using namespace std;
 
-void cmp_ez(E, H, EXY, EYX, COE, src,int);
+void cmp_ez(area *e, area *hy, area *hx, area *exy, area *eyx, COE, src, int);
 
-void cmp_hx(H, E, HYZ, COE, src);
+void cmp_hx(area *hx, area *e, area *hyz, COE, src);
 
-void cmp_hy(H, E, HXZ, COE, src);
+void cmp_hy(area *hy, area *e, area *hxz, COE, src);
 
-void cmp_exy(H, EXY, COE, src);
+void cmp_exy(area *exy, area *hy, COE, src);
 
-void cmp_eyx( H, EYX, COE, src);
+void cmp_eyx(area *eyx, area *hx, COE, src, int);
 
-void cmp_hyz( E, HYZ, COE, src);
+void cmp_hyz(area *hyz, area *e, COE, src, int);
 
-void cmp_hxz( E, HXZ, COE, src);
+void cmp_hxz(area *hxz, area *e, COE, src);

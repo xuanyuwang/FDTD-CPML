@@ -144,77 +144,47 @@ void COE::checkout(src s)
 	myfile.open(filename, ios::app);
 	for (i = 16; i >= 0; i--){
 		for (j = 0; j < 17; j++){
-			myfile << set_alpha(s, i, j) << "\t";
-			//cout << "(" << i << ", " << j << "): " << set_kappa(s, i, j) << "\t";
+			myfile << set_distance(s, i, j) << "\t";
 		}
 		myfile << endl;
-		//cout << endl;
 	}
+	myfile << endl;
+
+	for (i = 16; i >= 0; i--){
+		for (j = 0; j < 17; j++){
+			myfile << set_kappa(s, i, j) << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+
+	for (i = 16; i >= 0; i--){
+		for (j = 0; j < 17; j++){
+			myfile << set_sigma(s, i, j) << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+
+	for (i = 16; i >= 0; i--){
+		for (j = 0; j < 17; j++){
+			myfile << set_alpha(s, i, j) << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+
+	for (i = 16; i >= 0; i--){
+		for (j = 0; j < 17; j++){
+			myfile << set_c(s, i, j) << "\t";
+		}
+		myfile << endl;
+	}
+	myfile << endl;
+
 	myfile.close();
-	//for variables
-	//int i;
-	//cout << "c_full" << endl;
-	//for (i = 0; i < num_layer; i++)
-	//{
-	//	cout << c_full[i] << endl;
-	//}
 }
 
 COE::~COE()
 {
-}
-
-
-/******************* Class COV ************************/
-COV::COV()
-{
-}
-
-COV::~COV()
-{
-	delete left;
-	left = NULL;
-	delete right;
-	right = NULL;
-	delete top;
-	top = NULL;
-	delete btm;
-	btm = NULL;
-}
-
-/**************************** Convolutional Terms *******************************/
-HXZ::HXZ(COE c, src s)
-{
-	full = new area(s.size_x + 2 * c.num_layer + 1, s.size_y + 2 * c.num_layer, "hxz.txt");
-	//	left = new area(c.num_layer, s.size_y, "hxzl.txt");
-	//	right = new area(c.num_layer, s.size_y, "hxzr.txt");
-	//	top = new area(s.size_x + 1, c.num_layer, "hxzt.txt");
-	//	btm = new area(s.size_x + 1, c.num_layer, "hxzb.txt");
-}
-
-HYZ::HYZ(COE c, src s)
-{
-	full = new area(s.size_x + 2 * c.num_layer, s.size_y + 2 * c.num_layer + 1, "hyz.txt");
-	//	left = new area(c.num_layer, s.size_y + 2 * c.num_layer + 1, "hyzl.txt");
-	//	right = new area(c.num_layer, s.size_y + 2 * c.num_layer + 1, "hyzr.txt");
-	//	top = new area(s.size_x, c.num_layer, "hyzt.txt");
-	//	btm = new area(s.size_x, c.num_layer, "hyzb.txt");
-}
-
-EXY::EXY(COE c, src s)
-{
-	full = new area(s.size_x + 2 * c.num_layer + 1, s.size_y + 2 * c.num_layer + 1, "exy.txt");
-	//	left = new area(c.num_layer, s.size_y + 2 * c.num_layer + 1, "exyl.txt");
-	//	right = new area(c.num_layer, s.size_y + 2 * c.num_layer + 1, "exyr.txt");
-	//	top = new area(s.size_x + 1, c.num_layer, "exyt.txt");
-	//	btm = new area(s.size_x + 1, c.num_layer, "exyb.txt");
-}
-
-EYX::EYX(COE c, src s)
-{
-	full = new area(s.size_x + 2 * c.num_layer + 1, s.size_y + 2 * c.num_layer + 1, "eyx.txt");
-	//	left = new area(c.num_layer, s.size_y + 2 * c.num_layer + 1, "eyxl.txt");
-	//	right = new area(c.num_layer, s.size_y + 2 * c.num_layer + 1, "eyxr.txt");
-	//	top = new area(s.size_x + 1, c.num_layer, "eyxt.txt");
-	//	btm = new area(s.size_x + 1, c.num_layer, "eyxb.txt");
 }
