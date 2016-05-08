@@ -9,16 +9,14 @@ using namespace std;
 class area
 {
 public:
-	int width;
-	int height;
+	int length;
 	int grid_num;
 	vector<float> p;
 	vector<float>::iterator itb, ite;
 	string filename;
 public:
-	area(int, int, string);
+	area(int, string);
 	void checkout();
 	void save2file(string);
-	//virtual void real_pos(int, int);
 	~area();
 };

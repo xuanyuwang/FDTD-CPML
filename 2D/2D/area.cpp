@@ -1,10 +1,9 @@
 #include "area.h"
 
-area::area(int w, int h, string name)
+area::area(int L, string name)
 {
-	width = w;
-	height = h;
-	grid_num = width*height;
+	length = L;
+	grid_num = length;
 	filename = name;
 	p.insert(p.end(), grid_num, 0);
 	itb = p.begin();
@@ -23,8 +22,7 @@ area::~area()
 void area::checkout()
 {
 	cout << filename << endl;
-	cout << "\twidth: " << width << endl;
-	cout << "\theight: " << height << endl;
+	cout << "\tlength: " << length << endl;
 	if (!p.empty())
 	{
 		cout << "\tp is not empty" << endl;
@@ -39,16 +37,11 @@ void area::checkout()
 
 void area::save2file(string name)
 {
-	int i, j;
+	int j;
 	fstream myfile;
 	myfile.open(name, ios::app);
-	for (i = height - 1; i >= 0; i--)
-	{
-		for (j = 0; j < width; j++)
-		{
-			myfile << p.at(i*width + j) << "\t";
-		}
-		myfile << endl;
+	for (j = 0; j < length; j++){
+		myfile << p[j] << "\t";
 	}
 	myfile << endl;
 	myfile.close();

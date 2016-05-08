@@ -12,7 +12,7 @@ using namespace std;
 
 class E{
 public:
-	area *ez=NULL;
+	area *ex=NULL;
 	float coe_E;
 	//float coe_mur;
 	const float epsilon = 8.85e-12f;

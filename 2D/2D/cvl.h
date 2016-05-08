@@ -8,16 +8,6 @@
 #include "source.h"
 #include "area.h"
 
-class COV
-{
-public:
-	area *left = NULL, *right = NULL, *top = NULL, *btm = NULL;
-	area *full = NULL;
-public:
-	COV();
-	~COV();
-};
-
 class COE
 {
 public:
@@ -42,41 +32,17 @@ public:
 	float c;
 
 public:
-	float set_distance(src, float ycoor, float xcoor);
-	float set_sigma(src, float ycoor, float xcoor);
-	float set_kappa(src, float ycoor, float xcoor);
-	float set_alpha(src, float ycoor, float xcoor);
-	float set_c(src, float ycoor, float xcoor);
-	float set_coe(src, float ycoor, float xcoor);
+	float set_distance(src, float xcoor);
+	float set_sigma(src, float xcoor);
+	float set_kappa(src, float xcoor);
+	float set_alpha(src, float xcoor);
+	float set_c(src, float xcoor);
+	float set_coe(src, float xcoor);
 
 public:
 	COE(int, src);
 	void checkout(src);
 	~COE();
-};
-
-class HXZ : public COV
-{
-public:
-	HXZ(COE, src);
-};
-
-class HYZ :public COV
-{
-public:
-	HYZ(COE, src);
-};
-
-class EXY :public COV
-{
-public:
-	EXY(COE, src);
-};
-
-class EYX :public COV
-{
-public:
-	EYX(COE, src);
 };
 
 #endif

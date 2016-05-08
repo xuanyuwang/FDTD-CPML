@@ -16,9 +16,9 @@ E::E(src s, cvl c)
 	myfile.open("Ex.txt", ios::out);
 	//for (int i = 0; i < size_Ex; i++)
 	//{
-		//myfile << i << "\t";
+	//myfile << i << "\t";
 	//}
-	myfile << endl;
+	//myfile << endl;
 	myfile.close();
 }
 
@@ -28,7 +28,7 @@ void E::cmp(H Hy, cvl c, src s, int time)
 	//[0,pmlbd]([0,9]), [pmlbd,pmlbd+s.size_spzce]([10, 40]), [size_Ex - 10, size_Ex - 1]([41,50])
 	int pmlbd = c.num_layer - 1;
 	int sec1l = 0, sec1r = pmlbd;
-	int sec2l = pmlbd+1, sec2r = pmlbd + s.size_space + 1;
+	int sec2l = pmlbd + 1, sec2r = pmlbd + s.size_space + 1;
 	int sec3l = size_Ex - c.num_layer, sec3r = size_Ex - 1;
 	//for left CPML
 	for (i = sec1l; i <= sec1r; i++)
@@ -81,7 +81,7 @@ void E::save2file(src s, cvl c)
 	fstream myfile;
 	myfile.open("Ex.txt", ios::app);
 
-	for (int i = 0; i < s.size_space+2*c.num_layer+1; i++)
+	for (int i = 0; i < s.size_space + 2 * c.num_layer + 1; i++)
 	{
 		myfile << Ex[i] << "\t";
 	}

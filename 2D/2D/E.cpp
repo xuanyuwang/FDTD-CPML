@@ -4,7 +4,7 @@
 
 E::E(COE c,src s)
 {
-	ez = new area(s.size_x + 2 * c.num_layer + 1, s.size_y + 2 * c.num_layer + 1, "ez.txt");
+	ex = new area(s.size_x + 2 * c.num_layer + 1, "ex.txt");
 	coe_E = s.dt / epsilon;
 	//coe_mur = (C*s.dt - s.dz) / (C*s.dt + s.dz);
 }

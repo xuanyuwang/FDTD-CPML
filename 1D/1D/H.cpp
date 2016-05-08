@@ -14,11 +14,11 @@ H::H(src s, cvl c)
 
 	fstream myfile;
 	myfile.open("Hy.txt", ios::out);
-	for (i = 0; i < size_Hy; i++)
-	{
-		myfile << i << "\t";
-	}
-	myfile << endl;
+	//	for (i = 0; i < size_Hy; i++)
+	//	{
+	//		myfile << i << "\t";
+	//	}
+	//myfile << endl;
 	myfile.close();
 }
 

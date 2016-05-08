@@ -172,7 +172,8 @@ void cvl::set_c(src source)
 	//for E
 	for (i = 0; i < num_layer; i++)
 	{
-		c_E[i] = (1 / kappa_E[i])*(exp(-alpha_E[i] * source.dt) - 1);
+		c_E[i] = (1 / kappa_E[i])
+			*(exp(-alpha_E[i] * source.dt) - 1);
 	}
 	//for H
 	for (i = 0; i < num_layer; i++)
@@ -209,7 +210,18 @@ void cvl::cmp_cvlh(src s, E Ex, H Hy, int time)
 	//Hzxl
 	for (i = 0; i < num_layer; i++)
 	{
-		Hzxl[i] = cvl_H_coe[pmlbd - i] * Hzxl[i] + c_H[pmlbd - i] * (Ex.Ex[i + 1] - Ex.Ex[i]) / s.dz;
+		float past = Hzxl[2];
+		Hzxl[i] = cvl_H_coe[pmlbd - i] * Hzxl[i]
+			+ c_H[pmlbd - i] * (Ex.Ex[i + 1] - Ex.Ex[i]) / s.dz;
+		if (time == 7){
+			if (i == 2){
+				cout << "Hzx(" << i << "): " << Hzxl[i] << endl;
+				cout << "1 part: "
+					<< cvl_H_coe[pmlbd - i] * past << "\t"
+					<< cvl_H_coe[pmlbd - i] << "\t"
+					<< past << "\t" << endl;
+			}
+		}
 	}
 	//Hzxr
 	for (i = 0; i < num_layer; i++)
@@ -297,6 +309,7 @@ void cvl::save2file_coe()
 		myfile << "kappa= " << kappa_E[i] << "\t";
 		myfile << "sigma= " << sigma_E[i] << "\t";
 		myfile << "alpha= " << alpha_E[i] << "\t";
+		myfile << "c= " << c_E[i] << "\t";
 		myfile << endl;
 	}
 	myfile.close();

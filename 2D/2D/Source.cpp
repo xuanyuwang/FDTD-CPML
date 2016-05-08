@@ -8,13 +8,12 @@ return: NULL
 Description: Set the essential coefficients of the simulation area.
 */
 /************************************************************************/
-src::src(int space_x, int space_y, int time)
+src::src(int space_x, int time)
 {
 	dz = 0.015;
 	dt = dz / (2 * C);
 	size_x = space_x;
-	size_y = space_y;
-	num_grid = size_x * size_y;
+	num_grid = size_x;
 	size_time = time;
 }
 
@@ -23,7 +22,6 @@ void src::checkout()
 	cout << "dz = " << dz << endl;
 	cout << "dt = " << dt << endl;
 	cout << "space x-size = " << size_x << endl;
-	cout << "space y-size = " << size_y << endl;
 	cout << "grid number of space = " << num_grid << endl;
 	cout << "size of time = " << size_time << endl;
 }
