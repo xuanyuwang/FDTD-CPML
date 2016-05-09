@@ -6,6 +6,20 @@
 
 using namespace std;
 
+/************************************************************************/
+/*Name: area
+ *Description: This class is the base for a 2D array.
+ *member: 
+ *	width: the width of the 2D array.
+ *	height: the height of the 2D array.
+ *	grid_num: the number of elements of p.
+ *	p: store the data of the 2D array.
+ *	filename: the name of the file store the data of the 2D array
+ *	PI, mu, epsilon: some constants.
+ *	area(int, int, string): initialize every member in this class.
+ *	checkout(): display essential info about this class.
+ *	save2file(string): save info to whose name is equal to filename.*/
+/************************************************************************/
 class area
 {
 public:

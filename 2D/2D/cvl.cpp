@@ -1,7 +1,15 @@
 #include "cvl.h"
 //#define debug
 
-/*Class COE*/
+/************************************************************************/
+/* Name: COE::COE(int number_layer, src c)
+ * Function: Initialize a instance of class COE.
+ * Description: 
+ *	num_layer: the number of CPML.
+ *	d: The thickness of CPML.
+ *	sigma_max: a coefficient to calculate sigma.
+ *	*/
+/************************************************************************/
 COE::COE(int number_layer, src s)
 {
 	num_layer = number_layer;
@@ -12,6 +20,19 @@ COE::COE(int number_layer, src s)
 	myfile.close();
 }
 
+/************************************************************************/
+/* Name: set_distance(src s, float ycoor, float xcoor.
+ * Function: return the distance of a field point to the nearest CPML boundary
+ *  which close to FDTD area.
+ *  Description: 
+ *		arguments:	src s: provide essential info to calculate.
+ *					float ycoor: the y coordinate of a point.
+ *					float xcoor: the x coordinate of a point.
+ *		bench_x, bench_y: for points in four corners, we calculate the distance
+ *					between (xcoor, ycoor) and (bench_x, bench_y).
+ *					For points not in corners, we calculate the distance between
+ *					it to a joint boundary.*/
+/************************************************************************/
 //the distance of every field points of H and E in CPML layer.
 float COE::set_distance(src s, float ycoor, float xcoor)
 {
@@ -95,12 +116,20 @@ float COE::set_distance(src s, float ycoor, float xcoor)
 	}
 }
 
+/************************************************************************/
+/* Name: set_sigma(src s, float ycoor, float xcoor).
+ * Function: Return the sigma on a specific point.*/
+/************************************************************************/
 float COE::set_sigma(src s, float ycoor, float xcoor)
 {
 	sigma = sigma_max*powf(set_distance(s, ycoor, xcoor) / d, m);
 	return sigma;
 }
 
+/************************************************************************/
+/* Name: set_kappa(src s, float ycoor, float xcoor).
+ * Function: Return the kappa on a specific point.*/
+/************************************************************************/
 float COE::set_kappa(src s, float ycoor, float xcoor)
 {
 	//kappa=1;
@@ -108,12 +137,20 @@ float COE::set_kappa(src s, float ycoor, float xcoor)
 	return kappa;
 }
 
+/************************************************************************/
+/* Name: set_alpha(src s, float ycoor, float xcoor)
+ * Function: Return the alpha on a specific point.*/
+/************************************************************************/
 float COE::set_alpha(src s, float ycoor, float xcoor)
 {
 	alpha = set_sigma(s, ycoor, xcoor) / (eps0*set_kappa(s, ycoor, xcoor));
 	return alpha;
 }
 
+/************************************************************************/
+/* Name: set_c(src s, float ycoor, float xcoor).
+ * Function: Return the c on a specific point.*/
+/************************************************************************/
 float COE::set_c(src s, float ycoor, float xcoor)
 {
 	c = (1 / set_kappa(s, ycoor, xcoor))
@@ -121,6 +158,10 @@ float COE::set_c(src s, float ycoor, float xcoor)
 	return c;
 }
 
+/************************************************************************/
+/* Name: set_coe(src s, float ycoor, float xcoor).
+ * Function: Return the value of exp(-alpha*dt).*/
+/************************************************************************/
 float COE::set_coe(src s, float ycoor, float xcoor)
 {
 	cvl_coe = exp(-set_alpha(s, ycoor, xcoor)*s.dt);

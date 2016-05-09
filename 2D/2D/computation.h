@@ -6,6 +6,12 @@
 
 using namespace std;
 
+/************************************************************************/
+/* Description:
+ *	Functions in this file is to compute parts of field.
+ *	For example, cmp_ez: Compute the Ez.*/
+/************************************************************************/
+
 void cmp_ez(area *e, area *hy, area *hx, area *exy, area *eyx, COE, src, int);
 
 void cmp_hx(area *hx, area *e, area *hyz, COE, src);

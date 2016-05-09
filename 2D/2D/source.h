@@ -7,6 +7,21 @@
 
 using namespace std;
 
+/************************************************************************/
+/* Name: src
+ * description:
+ *	Member:
+ *		num_grid: the number of Yee cells.
+ *		size_time: the number of time steps
+ *		size_x: the number of Yee cell of every row.
+ *		size_y: the number of Yee cell of every colume.
+ *		PI: constant.
+ *		dt: the length of time step.
+ *		dz: the size of ezch Yee cell.
+ *		omega: the frequency of the source.
+ *	Function: cmp(int, float*): assign the value of source of current
+ *		time for a specific eletric field point.*/
+/************************************************************************/
 class src{
 public:
 	float num_grid, size_time;

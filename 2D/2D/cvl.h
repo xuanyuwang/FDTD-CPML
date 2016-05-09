@@ -8,6 +8,10 @@
 #include "source.h"
 #include "area.h"
 
+/************************************************************************/
+/* Name: COE
+ * Description: Provide all thing need to calculate convolutional terms.*/
+/************************************************************************/
 class COE
 {
 public:

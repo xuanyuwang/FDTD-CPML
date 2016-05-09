@@ -1,5 +1,14 @@
 #include "area.h"
 
+/************************************************************************/
+/* Name: area::area
+ * Arguments: int w, int h, string name.
+ * Function: Initialize every member of this class.
+ * Description: width = w, height = h, filename = name.
+ *	the size of p is is grid_num and all elements are initialize as 0.
+ *	Create a file whose name if filename, or clean the content of such a file.
+ *	*/
+/************************************************************************/
 area::area(int w, int h, string name)
 {
 	width = w;
@@ -19,6 +28,11 @@ area::~area()
 {
 }
 
+/************************************************************************/
+/* Name: area::checkout()
+ * Function: Display the width, height, the first and the last element
+ *	of p*/
+/************************************************************************/
 void area::checkout()
 {
 	cout << filename << endl;
@@ -32,6 +46,13 @@ void area::checkout()
 	}
 }
 
+/************************************************************************/
+/* Name: area::save2file(string name).
+ * Function: Save the data of p in a file.
+ * Description: name is the name of the file to be written.
+ *	Data is written in rows. The first row is the highest row of p,
+ *	i.e. p[height][]. Data of p of every time are separated by blank line.*/
+/************************************************************************/
 void area::save2file(string name)
 {
 	int i, j;
